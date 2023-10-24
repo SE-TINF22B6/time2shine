@@ -1,6 +1,8 @@
 import { Application, Sprite, SCALE_MODES } from './pixi.mjs';
 
-const app = new Application();
+const app = new Application({
+    resizeTo: window
+});
 document.body.appendChild(app.view);
 
 // Load the bunny texture
