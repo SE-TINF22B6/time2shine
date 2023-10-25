@@ -7,8 +7,14 @@
 #### 1.2 Scope
 > This document covers our whole project, in the future however we might split it up into two sections (probably frontend and backend).
 #### 1.3 Definitions, Acronyms and Abbreviations
-> **t2s:** abbrevation for "time2shine"
-> **tbd:** to be done
+- **API:** Application Programming Interface
+- **Java:** The programming language we use in our backend
+- **Pixi.JS:** OpenGL Renderer we use for building the games in our frontend
+- **REST:** Representational State Transfer (a paradigm for API architecture)
+- **Spring Boot:** Our backend framework (RESTful API)
+- **tbd:** To be done
+- **t2s:** Abbrevation for "time2shine"
+
 #### 1.4 References
 > A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
@@ -25,7 +31,6 @@
 >
 > ![image](https://github.com/SE-TINF22B6/time2shine/assets/122756244/1d99b73e-5c79-4d2f-9660-1e3836c778d2)
 
-
 Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio) (draw.io format, not human-readable)
 
 
@@ -37,7 +42,6 @@ Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/um
 > - **Preconditions**. *A precondition of a use case is the state of the system that must be present prior to a use case being performed.*
 > - Postconditions. *A postcondition of a use case is a list of possible states the system can be in immediately after a use case has finished.*
 > - **Estimated efforts (high, medium, low)**
-
 
 #### 2.3 Name of Feature 2 / Use Case 2
 ... ...
