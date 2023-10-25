@@ -1,13 +1,14 @@
-# Project Name
+# srs2shine
 ## Software Requirements Specification
 > This template is a simplified version based on the documentation templates from IBM Rational Unified Process (RUP).
 ### 1. Introduction
 #### 1.1 Overview
-> A game hub where players can play and enjoy multiple different games of different styles.
+> A game hub where players can play and enjoy multiple different online games of different styles directly in their browsers, whitout having to install any software.
 #### 1.2 Scope
-> What is covered (not covered) in this document? Is it for your whole system or a subsystem? Does it cover both functional and nonfunctional requirements? (Will you seperate some of requirements into another document?)
+> This document covers our whole project, in the future however we might split it up into two sections (probably frontend and backend).
 #### 1.3 Definitions, Acronyms and Abbreviations
-> Definitions of all terms, acronyms, and abbreviations required to properly interpret this document.
+> **t2s:** abbrevation for "time2shine"
+> **tbd:** to be done
 #### 1.4 References
 > A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
 
@@ -21,6 +22,9 @@
 #### 2.1 Overview 
 > A brief description of the functionality of your application.  
 > Include one or more **UML use case** diagram(s) and necessary description to specify the major use cases of your application.
+
+Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio) (draw.io format, not human-readable)
+
 
 #### 2.2 Name of Feature 1 / Use Case 1
 > Specify this feature / use case by:
