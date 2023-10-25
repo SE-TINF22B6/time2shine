@@ -40,12 +40,34 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 > - Relevant **user stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
 > - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
 > - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
-> - **Preconditions:** We need a funkctioning backend that is able to hold user accounts.
+> - **Preconditions:** We need a functioning backend that is able to hold user accounts.
 > - **Postconditions:** Users can now login. When they are logged in, some kind of token is stored in the user's browser session. This means he can now access his account page and play games...
 > - **Estimated effort:** high
 
-#### 2.3 Name of Feature 2 / Use Case 2
-... ...
+#### 2.2 Playing Games
+> - Relevant **user stories**: [Issue #18](https://github.com/SE-TINF22B6/time2shine/issues/18) and [Issue #19](https://github.com/SE-TINF22B6/time2shine/issues/19)
+> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **Preconditions:** The account system has to be implemented and working.
+> - **Postconditions:** Users can now login and play games.
+> - **Estimated effort:** high
+
+#### 2.3 Highscore Tracking
+> - Relevant **user stories**: [Issue #17](https://github.com/SE-TINF22B6/time2shine/issues/17)
+> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **Preconditions:** The user account system needs to be setup. Also, players have to be able to play games, and the results have to be stored.
+> - **Postconditions:** Based on the stored game results, the leaderboards are now being calculated and published on the website.
+> - **Estimated effort:** low
+
+#### 2.3 Game Tutorials
+> - Relevant **user stories**: [Issue #21](https://github.com/SE-TINF22B6/time2shine/issues/21)
+> - **UI mockup:** There is no UI mockup yet, because this feature can't be implemented before we have everything else running.
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **Preconditions:** The whole game portal has to be running already.
+> - **Postconditions:** When a new user creates an account, he is prompted if he wants to get an introduction to our portal.
+> - **Estimated effort:** ?medium?
+
 
 ### 3. Nonfunctional requirements
 
