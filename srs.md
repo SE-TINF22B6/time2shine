@@ -33,6 +33,8 @@
 
 Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio) (draw.io format, not human-readable)
 
+> ![image](https://github.com/SE-TINF22B6/time2shine/assets/122756244/1d99b73e-5c79-4d2f-9660-1e3836c778d2)
+
 
 #### 2.2 Name of Feature 1 / Use Case 1
 > Specify this feature / use case by:
