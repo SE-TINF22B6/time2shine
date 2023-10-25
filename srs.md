@@ -22,6 +22,9 @@
 #### 2.1 Overview 
 > A brief description of the functionality of your application.  
 > Include one or more **UML use case** diagram(s) and necessary description to specify the major use cases of your application.
+>
+> ![image](https://github.com/SE-TINF22B6/time2shine/assets/122756244/1d99b73e-5c79-4d2f-9660-1e3836c778d2)
+
 
 Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio) (draw.io format, not human-readable)
 
