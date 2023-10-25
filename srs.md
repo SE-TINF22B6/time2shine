@@ -36,14 +36,13 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 ![image](https://github.com/SE-TINF22B6/time2shine/assets/59262249/462c3693-4166-48cc-b30a-ccff34b60c93)
 
 
-#### 2.2 Name of Feature 1 / Use Case 1
-> Specify this feature / use case by:
-> - Relevant **user stories (their links or labels)**
-> - **UI mockups**
-> - **UML behavior diagrams** and necessary text specification
-> - **Preconditions**. *A precondition of a use case is the state of the system that must be present prior to a use case being performed.*
-> - Postconditions. *A postcondition of a use case is a list of possible states the system can be in immediately after a use case has finished.*
-> - **Estimated efforts (high, medium, low)**
+#### 2.2 Account Management
+> - Relevant **user stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
+> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **Preconditions:** We need a funkctioning backend that is able to hold user accounts.
+> - **Postconditions:** Users can now login. When they are logged in, some kind of token is stored in the user's browser session. This means he can now access his account page and play games...
+> - **Estimated effort:** high
 
 #### 2.3 Name of Feature 2 / Use Case 2
 ... ...
