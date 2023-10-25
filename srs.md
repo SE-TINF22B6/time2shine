@@ -16,14 +16,11 @@
 - **t2s:** Abbrevation for "time2shine"
 
 #### 1.4 References
-> A complete list of all documents referenced. Each document should be identified by title, date, and publishing organization. You can also insert hyperlinks, in order to open the references conviniently.
+> Until now, there are now external documents used in our SRS
+
 
 ### 2. Functional requirements
->  This section contains all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements and testers to test that the system satisfies those requirements.  
->  This section is typically organized by feature, but alternative organization methods may also be appropriate, for example, organization by user or organization by subsystem.
-
-> [!NOTE]
-> You can insert links to your UML diagrams and user stories, or labels of user stories into this document.
+>  This section will explain the different Use Cases we want to implement. It describes the individual pre- and post-conditions and gives a brief idea of what we want to accomplish.
 
 #### 2.1 Overview 
 > A brief description of the functionality of your application.  
@@ -34,7 +31,6 @@ Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/um
 
 Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg) (draw.io format, not human-readable)
 ![image](https://github.com/SE-TINF22B6/time2shine/assets/59262249/462c3693-4166-48cc-b30a-ccff34b60c93)
-
 
 #### 2.2 Account Management
 > - Relevant **user stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
@@ -70,13 +66,21 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 
 
 ### 3. Nonfunctional requirements
+> This section shows the nonfunctional requirements which we want to provide. This includes functionalities to let the user feel as comfortable as possible while having all of his data secured.
 
-> [!IMPORTANT]  
-> It is not necessary to cover all of the following categories, but focus on what your project will implement.  
-> If some nonfunctional requirements are described as user stories in your backlog, add their **links** in this section, or any information to guide the reader find them in your backlog, such as a **label** of those relevant user stories.
 
-> Categories: Usability, Reliability, Performance, Efficiency, Integrity, Maintainability, Flexibility, Testability, Reusability, Security.  
+#### 3.1 Maintainability and Flexibility
+> Since we plan on separating our project into dedicated frontend and backend, we dont't end up with a giant, unmaintainable monolithic construct, but rather a Services-based architecture. This means that the two parts are independant from each other and can e. g. be replaced if a used framework etc. is discontinued. Also, this approach makes us flexible in terms of scaling. In theory,we should be able to easily power on multiple instances of our backend for example.
 
+#### 3.2 Security
+> We plan on using OAuth2 to secure our application, meaning that we use a current up-to-date technology that is used by most serious companies from all over the world. It makes communication between the different parts of our application secure.
+
+> [!NOTE]
+> These are only some of the nonfunctional requeirements, but there is more yet to come.
+> 
 
 ### 4. Technical constraints
-> Specify any major constraints, assumptions or dependencies, e.g., any restrictions about which type of server to use, which type of open source license must be complied, etc. 
+- **Backend:** A Spring Boot RESTful API, secured with OAuth2
+- **Database:** PostgreSQL Database
+- **Frontend:** Based on the Pixi.JS OpenGL Renderer that we will use to build our games.
+- **Deployment:** One of the free bwCloud instances offered to us by the Corporate State University Baden-Wuerttemberg
