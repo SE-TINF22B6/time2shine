@@ -20,8 +20,8 @@ function startup()
     bunny.scale.set(5);
 
     // Move the sprite to the center of the screen
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
+    bunny.x = -50;
+    bunny.y = -35;
 
     app.stage.addChild(bunny);
 
@@ -30,5 +30,11 @@ function startup()
     {
         // Rotate mr rabbit clockwise
         bunny.rotation += 0.1 * delta;
+        moveObject(bunny);
     });
+}
+
+function moveObject(obj) {
+    obj.y += 2;
+    obj.x += 5;
 }
