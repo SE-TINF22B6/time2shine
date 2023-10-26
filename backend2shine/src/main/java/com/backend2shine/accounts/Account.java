@@ -1,58 +1,45 @@
 package com.backend2shine.accounts;
 
-
 import jakarta.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name="accounts")
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "email")
     private String email;
+
+    //TODO: password authentication
 
     public Account() {
 
     }
 
-    public Account(String firstName, String lastName, String email) {
+    public Account(String username, String email) {
         super();
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
         this.email = email;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public String getUsername() {
+        return username;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
