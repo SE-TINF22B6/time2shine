@@ -6,7 +6,8 @@ const app = new Application({
 document.body.appendChild(app.view);
 
 // Load the bunny texture
-app.loader.add('bunny', 'https://pixijs.io/examples/examples/assets/bunny.png')
+app.renderer.backgroundColor = 0xff0000;
+app.loader.add('bunny', 'graphic/CardBackTemp.jpg')
     .load(startup);
 
 function startup()
@@ -16,8 +17,8 @@ function startup()
     var bunny = new Sprite(texture);
 
     // Center the sprite's anchor point
-    bunny.anchor.set(0.5);
-    bunny.scale.set(5);
+    //bunny.anchor.set(0.5);
+    bunny.scale.set(0.1);
 
     // Move the sprite to the center of the screen
     bunny.x = -50;
