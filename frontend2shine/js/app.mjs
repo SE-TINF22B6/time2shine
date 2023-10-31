@@ -1,38 +1,77 @@
-import { Application, Sprite, SCALE_MODES } from "./pixi.mjs";
+import { Application, Sprite, SCALE_MODES, Text, Container, Rectangle, Graphics, GraphicsGeometry} from './pixi.mjs';
 
 const app = new Application({
-    background: '#1099bb',
     resizeTo: window
 });
+
 document.body.appendChild(app.view);
+app.renderer.backgroundColor = 0x35654d;
 
-const cardTexture = await app.Assets.load('./CardBackTemp.jpg').load(startup);
+app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
+    .load(startup);
 
-const graphics = new PIXI.Graphics();
-
-graphics.beginFill(0xFFFF00);
-
-// set the line style to have a width of 5 and set the color to red
-graphics.lineStyle(5, 0xFF0000);
-
-// draw a rectangle
-graphics.drawRect(0, 0, 300, 200);
 function startup() {
-    //const cardImage = Sprite.from(cardTexture);
-    //cardImage.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-    var card = new Sprite(cardTexture);
+    const { texture } = app.loader.resources.cardDeck;
+    texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
+    var cardDeck = new Sprite(texture);
 
-    card.anchor.set(0.5);
-    card.scale.set(5);
-    card.x = app.renderer.height / 2;
-    card.y = app.renderer.height / 2;
-
-    app.stage.addChild(card);
-    app.stage.addChild(graphics);
-
-    //frame loop
-    app.ticker.add(function(delta)
-    {
-        card.rotation += 0.1 * delta;
+    var cardValue = 0;
+    
+    const cardValueText = new Text(cardValue, {
+        fontFamily: 'Arial',
+        fontSize: 48,
+        fill: 0x040e0f,
+        align: 'right',
+        //anchor: (1,1),
     });
+
+    //drawTable();
+
+    // Center the sprite's anchor point
+    cardDeck.anchor.set(0.5);
+    cardDeck.scale.set(0.1);
+
+    // Move the sprite to the center of the screen
+    
+    
+
+    app.stage.addChild(cardDeck);
+    app.stage.addChild(cardValueText);
+    app.stage.addChild(testText);
+
+    // Listen for animate update
+    app.ticker.add(function(delta) {
+        cardDeck.x = app.renderer.width / 2;
+        cardDeck.y = app.renderer.height / 3;
+        cardValueText.x = app.renderer.width - 100;
+        cardValueText.y = app.renderer.height - 100;
+        cardValueText.text = cardValue;
+        testText.x = app.renderer.width - 100;
+        testText.y = app.renderer.height - 100;
+    });
+}
+/*
+function gameStart() {
+
+}
+
+function drawTable() {
+    const handContainer = new Container();
+    const playerHandBorder = new Graphics();
+    playerHandBorder.drawRoundedRect(app.renderer.width / 2, app.renderer.height -100, 500, 100, 30);
+    playerHandBorder.backgroundColor = 0x040e0f;
+    handContainer.addChild(playerHandBorder);
+    app.stage.addChild(handContainer);
+}
+*/
+
+class TestDraw extends Text{
+    constructor() {
+        testText = new Text("TEST", {
+            fontFamily: 'Arial',
+            fontSize: 48,
+            fill: 0x040e0f,
+            align: 'right',
+        });
+    }
 }
