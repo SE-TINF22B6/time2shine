@@ -19,7 +19,7 @@ function startup() {
     
     const cardValueText = new Text(cardValue, {
         fontFamily: 'Arial',
-        fontSize: 48,
+        fontSize: 96,
         fill: 0x040e0f,
         align: 'right',
         //anchor: (1,1),
@@ -43,11 +43,11 @@ function startup() {
 
     // Listen for animate update
     app.ticker.add(function(delta) {
-        hand.drawRoundedRect(app.renderer.width / 2, app.renderer.height / 2, 500, 100, 30);
+        hand.draw(this);
         cardDeck.x = app.renderer.width / 2;
         cardDeck.y = app.renderer.height / 3;
-        cardValueText.x = app.renderer.width - 100;
-        cardValueText.y = app.renderer.height - 100;
+        cardValueText.x = app.renderer.width - 150;
+        cardValueText.y = app.renderer.height - 150;
         cardValueText.text = cardValue;
         
         
@@ -69,11 +69,13 @@ function drawTable() {
 */
 class PlayerBoard {
     constructor() {
-        //const handContainer = new Container();
-        const playerHandBorder = new Graphics();
-        playerHandBorder.drawRoundedRect(app.renderer.width / 2, app.renderer.height / 2, 500, 100, 30);
-        playerHandBorder.backgroundColor = 0x040e0f;
-        //handContainer.addChild(playerHandBorder);
-        return playerHandBorder;
+        var borderRect = new Graphics();
+        borderRect.lineStyle(5, 0x040e0f);
+        this.draw(borderRect);
+        return borderRect;
+    }
+
+    draw(item) {
+        item.drawRoundedRect((app.renderer.width - 1100) / 2, app.renderer.height -250, 1100, 200, 30);
     }
 }
