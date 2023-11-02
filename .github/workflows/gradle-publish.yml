@@ -60,7 +60,6 @@ jobs:
             docker-compose stop backend2shine
             docker rm backend2shine
             docker pull techn1c/backend2shine:latest
-            docker-compose up -d backend2shine
-            docker ps -a
+            docker run --name backend2shine -p 8080:8080 -d backend2shine:latest
 
 
