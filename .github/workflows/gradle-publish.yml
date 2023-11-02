@@ -38,7 +38,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
           image: techn1c/backend2shine
-          tag: latest
+          tags: latest
           registry: docker.io
           directory: backend2shine
           dockerfile: backend2shine/Dockerfile
