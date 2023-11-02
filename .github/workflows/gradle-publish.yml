@@ -29,7 +29,6 @@ jobs:
           echo "spring.datasource.password= ${{secrets.POSTGRES_PW}}" >> "backend2shine/src/main/resources/application.properties"
           cat backend2shine/src/main/resources/application.properties
 
-
       - name: Build Initial with Gradle
         working-directory: ./backend2shine
         run: ./gradlew build
@@ -37,6 +36,11 @@ jobs:
 
         
 
+  build_and_push:
+    name: Build & Push to DockerHub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -49,3 +53,4 @@ jobs:
           context: .
           push: true
           tags: techn1c/time2shine:latest
+        
