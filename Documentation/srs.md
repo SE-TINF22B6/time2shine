@@ -33,6 +33,14 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 ![image](https://github.com/SE-TINF22B6/time2shine/assets/59262249/462c3693-4166-48cc-b30a-ccff34b60c93)
 
 #### 2.2 Account Management
+### Highscore Activity Diagram
+![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Highscore_ActivityDiagram.svg)
+
+### Logout Activity Diagram
+![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Logout_ActivityDiagram.png)
+
+### Account Management Activity Diagram
+![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Accounts.png)
 > - Relevant **user stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
 > - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
 > - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
