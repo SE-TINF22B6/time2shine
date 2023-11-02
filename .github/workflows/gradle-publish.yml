@@ -28,7 +28,6 @@ jobs:
         run: |
           echo "spring.datasource.password= ${{secrets.POSTGRES_PW}}" >> "backend2shine/src/main/resources/application.properties"
           cat backend2shine/src/main/resources/application.properties
-          shell: bash
 
 
       - name: Build Initial with Gradle
