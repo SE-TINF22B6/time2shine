@@ -25,6 +25,8 @@ function startup() {
         //anchor: (1,1),
     });
 
+   const hand = new PlayerBoard();
+
     //drawTable();
 
     // Center the sprite's anchor point
@@ -37,17 +39,18 @@ function startup() {
 
     app.stage.addChild(cardDeck);
     app.stage.addChild(cardValueText);
-    app.stage.addChild(testText);
+    app.stage.addChild(hand);
 
     // Listen for animate update
     app.ticker.add(function(delta) {
+        hand.drawRoundedRect(app.renderer.width / 2, app.renderer.height / 2, 500, 100, 30);
         cardDeck.x = app.renderer.width / 2;
         cardDeck.y = app.renderer.height / 3;
         cardValueText.x = app.renderer.width - 100;
         cardValueText.y = app.renderer.height - 100;
         cardValueText.text = cardValue;
-        testText.x = app.renderer.width - 100;
-        testText.y = app.renderer.height - 100;
+        
+        
     });
 }
 /*
@@ -64,14 +67,13 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-
-class TestDraw extends Text{
+class PlayerBoard {
     constructor() {
-        testText = new Text("TEST", {
-            fontFamily: 'Arial',
-            fontSize: 48,
-            fill: 0x040e0f,
-            align: 'right',
-        });
+        //const handContainer = new Container();
+        const playerHandBorder = new Graphics();
+        playerHandBorder.drawRoundedRect(app.renderer.width / 2, app.renderer.height / 2, 500, 100, 30);
+        playerHandBorder.backgroundColor = 0x040e0f;
+        //handContainer.addChild(playerHandBorder);
+        return playerHandBorder;
     }
 }
