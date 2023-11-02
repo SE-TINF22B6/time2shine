@@ -26,9 +26,5 @@ jobs:
 
 
       - name: Build Initial with Gradle
-        working-directory: ./initial
-        run: ./gradlew build
-
-      - name: Build Complete with Gradle
-        working-directory: ./complete
+        working-directory: ./backend2shine
         run: ./gradlew build
