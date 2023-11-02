@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Initial with Gradle
         working-directory: ./backend2shine
-        run: ./gradlew build
+        run: ./gradlew bootBuildImage #otherwise ./gradlew build
 
 
 
