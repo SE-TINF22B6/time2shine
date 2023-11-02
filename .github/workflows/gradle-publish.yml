@@ -1,4 +1,4 @@
-name: Latest Backend Build
+name: Backend Build & Deployment
 
 on:
   push:
