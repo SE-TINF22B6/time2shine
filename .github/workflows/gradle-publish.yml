@@ -34,6 +34,17 @@ jobs:
         run: ./gradlew build
 
 
+
+      - name: run docker push
+        run: |
+          @docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+          @docker push $BUILD_TAG
+          @docker push $LATEST_TAG          
+        env: 
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}  
+
+
         
 
 #  build_and_push:
