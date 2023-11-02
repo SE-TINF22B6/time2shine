@@ -28,9 +28,9 @@ jobs:
         run: |
           echo "spring.datasource.password= $DEV_PROP_FILE" >> backend2shine/src/main/resources/application.properties
           cat src/main/resources/application.properties
-      shell: bash
-      env:
-        DEV_PROP_FILE: ${{secrets.POSTGRES_PW}}
+          shell: bash
+          env:
+            DEV_PROP_FILE: ${{secrets.POSTGRES_PW}}
 
 
       - name: Build Initial with Gradle
