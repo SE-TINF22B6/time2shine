@@ -1,4 +1,4 @@
-FROM openjdk:17-jre-alpine
+FROM openjdk:17.0.2-slim-buster
 
 EXPOSE 8080
 
