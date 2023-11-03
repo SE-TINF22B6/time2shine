@@ -14,19 +14,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        working-directory: ./frontend2shine
+        run: docker build . --file Dockerfile --tag f2s:latest
 
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          image: techn1c/frontend2shine
-          tags: latest
-          registry: docker.io
-          directory: frontend2shine
-          dockerfile: frontend2shine/Dockerfile
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#      - name: Build and Push Docker Image
+#        uses: mr-smithers-excellent/docker-build-push@v6
+#        with:
+#          image: techn1c/frontend2shine
+#          tags: latest
+#          registry: docker.io
+#          directory: frontend2shine
+#          dockerfile: frontend2shine/Dockerfile
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   deploy_to_droplet:
     runs-on: ubuntu-latest
