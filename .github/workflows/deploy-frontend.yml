@@ -1,4 +1,4 @@
-name: Frontend & Deployment
+name: Frontend Deployment
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             docker login
-            docker stop backend2shine
-            docker remove backend2shine
-            docker pull techn1c/backend2shine:latest
-            docker run --name backend2shine -p 8080:8080 -d techn1c/backend2shine:latest
+            docker stop frontend2shine
+            docker remove frontend2shine
+            docker pull techn1c/frontend2shine:latest
+            docker run --name frontend2shine -p 80:80 -d techn1c/frontend2shine:latest
