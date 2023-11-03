@@ -1,0 +1,47 @@
+name: Frontend Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Main Branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Build and Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: techn1c/frontend2shine
+          tags: latest
+          registry: docker.io
+          directory: frontend2shine
+          dockerfile: frontend2shine/Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  deploy_to_droplet:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Deploy to Digital Ocean Droplet
+    steps:
+      - name: Connect with SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker login
+            docker stop frontend2shine
+            docker remove frontend2shine
+            docker pull techn1c/frontend2shine:latest
+            docker run --name frontend2shine -p 8080:8080 -d techn1c/frontend2shine:latest
