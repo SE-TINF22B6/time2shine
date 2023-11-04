@@ -1,3 +1,2 @@
 # Apply override to specific file (Pixi.JS library)
-frontend2shine/js/pixi.mjs -linguist-vendored
-frontend2shine/pixi.mjs.map -linguist-vendored
+*.mjs linguist-vendored
