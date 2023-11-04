@@ -5,13 +5,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class AccountController {
 
     @Autowired
     private AccountService service;
+
+    // Get the solution:
+    @GetMapping("")
+    public int getSolution() {
+        return 42;
+    }
 
     // Get all accounts:
     @GetMapping("/accounts")
@@ -19,11 +26,10 @@ public class AccountController {
         return this.service.findAll();
     }
 
-    // Get an account by its Id:
+    // Get an account by its UUID:
     @GetMapping("/account/{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable long accountId) {
-        Account account = service.findById(accountId);
-        return ResponseEntity.ok(account);
+    public ResponseEntity<Account> getAccountById(@PathVariable long id) {
+        return service.findByUuid(id);
     }
 
 
@@ -33,6 +39,5 @@ public class AccountController {
         Account account = new Account(username, email);
         return this.service.save(account);
     }
-
 
 }

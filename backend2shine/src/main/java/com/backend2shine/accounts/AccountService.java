@@ -1,9 +1,11 @@
 package com.backend2shine.accounts;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AccountService {
@@ -14,8 +16,14 @@ public class AccountService {
         return this.repository.findAll();
     }
 
-    public Account findById(long id) {
-        return this.repository.findById(id).orElseThrow(() -> new RessourceNoteFoundException("Account not found with id: " + id));
+    public ResponseEntity<Account> findByUuid(long id) {
+        Account account = (this.repository.findById(id).orElse(null));
+
+        if (account == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(account);
+        }
     }
 
     public Account save(Account account) {

@@ -8,8 +8,8 @@ import java.util.UUID;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(name = "username")
     private String username;
@@ -29,7 +29,7 @@ public class Account {
         this.email = email;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
