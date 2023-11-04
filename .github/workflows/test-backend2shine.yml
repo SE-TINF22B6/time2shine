@@ -1,4 +1,4 @@
-name: backend2shine JUnit Tests
+name: Backend JUnit Tests
 
 on:
   push:
@@ -29,6 +29,6 @@ jobs:
           echo "spring.datasource.password= ${{secrets.POSTGRES_PW}}" >> "backend2shine/src/main/resources/application.properties"
           cat backend2shine/src/main/resources/application.properties
 
-      - name: Build Initial with Gradle
+      - name: Execute Gradle Testing
         working-directory: ./backend2shine
         run: ./gradlew test
