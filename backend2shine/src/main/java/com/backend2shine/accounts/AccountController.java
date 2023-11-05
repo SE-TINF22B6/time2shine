@@ -31,7 +31,6 @@ public class AccountController {
         return service.findByUuid(id);
     }
 
-
     // Create a new account:
     @PostMapping("/account")
     public Account createAccount(@RequestParam String username, @RequestParam String email) {

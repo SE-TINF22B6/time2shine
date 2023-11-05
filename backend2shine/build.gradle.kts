@@ -25,6 +25,8 @@ dependencies {
 	// Testing
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core")
+//	testImplementation("org.apache.httpcomponents:httpclient")
+//	testImplementation("org.hamcrest:hamcrest")
 }
 
 tasks.withType<Test> {
