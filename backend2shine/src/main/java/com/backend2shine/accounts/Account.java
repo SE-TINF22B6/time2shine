@@ -48,4 +48,8 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String toString() {
+        return this.username + "has registered with the email address " + this.email; 
+    }
 }
