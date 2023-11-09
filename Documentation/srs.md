@@ -88,7 +88,7 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 > 
 
 ### 4. Technical constraints
-- **Backend:** A Spring Boot RESTful API, secured with OAuth2
+- **Backend:** A RESTful API build with Spring Boot in Kotlin
 - **Database:** PostgreSQL Database
-- **Frontend:** Based on the Pixi.JS OpenGL Renderer that we will use to build our games.
-- **Deployment:** One of the free bwCloud instances offered to us by the Corporate State University Baden-Wuerttemberg
+- **Frontend:** Based on the Pixi.JS OpenGL Renderer that we will use to build our games
+- **Deployment:** As students, we can each get a 200 $ credit at Digital Ocean, a web hosting provider. We will spend them on running a Debian 12 instance there. We chose Digital Ocean over bwCloud due to the way better performance (we can choose from different server configurations there). We chose a VPS with 2 AMD EPYC cores and 4 GB of memory which will be sufficient for our use, but still a lot more performant than the offered bwCloud instance. On this server, we will run our Backend, the database and our frontend, each of them being a dedicated Docker Container.
