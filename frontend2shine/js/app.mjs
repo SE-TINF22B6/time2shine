@@ -127,7 +127,7 @@ class GameRoom {
 
 class Game {
     constructor() {
-        this.name = "";
+        this.name = " ";
         this.set_of_rules = [];
     }
 
