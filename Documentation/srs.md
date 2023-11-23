@@ -76,11 +76,12 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 ### 3. Nonfunctional requirements
 > This section shows the nonfunctional requirements which we want to provide. This includes functionalities to let the user feel as comfortable as possible while having all of his data secured.
 
+#### 3.1 [Utility Tree](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Quality_Attribute_Scenarios.md)
 
-#### 3.1 Maintainability and Flexibility
+#### 3.2 Maintainability and Flexibility
 > Since we plan on separating our project into dedicated frontend and backend, we dont't end up with a giant, unmaintainable monolithic construct, but rather a Services-based architecture. This means that the two parts are independant from each other and can e. g. be replaced if a used framework etc. is discontinued. Also, this approach makes us flexible in terms of scaling. In theory,we should be able to easily power on multiple instances of our backend for example.
 
-#### 3.2 Security
+#### 3.3 Security
 > We plan on using OAuth2 to secure our application, meaning that we use a current up-to-date technology that is used by most serious companies from all over the world. It makes communication between the different parts of our application secure.
 
 > [!NOTE]
