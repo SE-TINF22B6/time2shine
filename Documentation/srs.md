@@ -78,11 +78,20 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 
 #### 3.1 [Utility Tree](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Quality_Attribute_Scenarios.md)
 
-#### 3.2 Maintainability and Flexibility
+#### 3.2 Maintainability and Modifiability
 > Since we plan on separating our project into dedicated frontend and backend, we dont't end up with a giant, unmaintainable monolithic construct, but rather a Services-based architecture. This means that the two parts are independant from each other and can e. g. be replaced if a used framework etc. is discontinued. Also, this approach makes us flexible in terms of scaling. In theory,we should be able to easily power on multiple instances of our backend for example.
 
-#### 3.3 Security
-> We plan on using OAuth2 to secure our application, meaning that we use a current up-to-date technology that is used by most serious companies from all over the world. It makes communication between the different parts of our application secure.
+#### 3.3 Performance
+> Players want the game platform to work fast and responsive, everything else would be a bad experience. Therefore, our whole system (Application, Backend, Database) has to be designed in a performant yet secure way to make sure to meet the users requirements.
+
+#### 3.4 Availability
+> Our application should be always reachable so that users can play whenever they like.
+
+#### 3.5 Security
+> We plan on using OAuth2 to secure our application, meaning that we use a current up-to-date technology that is used by most serious companies from all over the world. It makes communication between the different parts of our application secure. Also, scanning for cheaters is an important thing for keeping the user experience good.
+
+#### 3.6 Testability
+> The code we write has to be testable in order to meet our quality requirements. 
 
 > [!NOTE]
 > These are only some of the nonfunctional requeirements, but there is more yet to come.
