@@ -93,9 +93,6 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 #### 3.6 Testability
 > The code we write has to be testable in order to meet our quality requirements. 
 
-> [!NOTE]
-> These are only some of the nonfunctional requeirements, but there is more yet to come.
-> 
 
 ### 4. Technical constraints
 - **Backend:** A RESTful API build with Spring Boot in Kotlin
