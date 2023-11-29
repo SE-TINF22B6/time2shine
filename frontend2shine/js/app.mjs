@@ -43,7 +43,6 @@ function startup() {
 
     // Listen for animate update
     app.ticker.add(function(delta) {
-        hand.draw(this);
         cardDeck.x = app.renderer.width / 2;
         cardDeck.y = app.renderer.height / 3;
         cardValueText.x = app.renderer.width - 150;
@@ -67,19 +66,29 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
+function draw(item, width) {
+    item.drawRoundedRect((app.renderer.width - 1100) / 2, app.renderer.height -250, 1100, 200, 30);
+}
+
+
 class PlayerBoard {
+    borderRect;
     constructor() {
-        var borderRect = new Graphics();
-        borderRect.lineStyle(5, 0x040e0f);
-        this.draw(borderRect);
-        return borderRect;
+        this.borderRect = new Graphics();
+        this.borderRect.lineStyle(5, 0x040e0f);
+        draw(this.borderRect);
+        return this.borderRect;
     }
 
+
+    /*
     draw(item) {
         item.drawRoundedRect((app.renderer.width - 1100) / 2, app.renderer.height -250, 1100, 200, 30);
     }
+     */
 }
 
+/*
 class Account {
     constructor(username, email) {
         this.username = username;
@@ -140,3 +149,4 @@ class BlackJack extends Game {
     }
 
 }
+ */
