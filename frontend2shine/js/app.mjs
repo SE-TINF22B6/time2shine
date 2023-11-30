@@ -12,7 +12,6 @@ app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .load(startup);
 
-
 function startup() {
     /*
     const { texture } = app.loader.resources.cardDeck;
@@ -21,10 +20,14 @@ function startup() {
      */
 
     var cardDeck = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
+    cardDeck.sprite.interactive = true;
+    cardDeck.sprite.cursor = 'pointer';
+
+
 
     var cardValue = 0;
 
-    var playerCards = [];
+    var playerCards = new Array();
     
     const cardValueText = new Text(cardValue, {
         fontFamily: 'Arial',
@@ -49,14 +52,19 @@ function startup() {
     //cardDeck.scale.set(0.1);
 
     // Move the sprite to the center of the screen
+    //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
+    cardDeck.sprite.on('pointerdown', function() {playerCards.push(new Card(100, 100)); app.stage.addChild(playerCards[2]); console.log(playerCards.length)}); // mouse-only
+    cardDeck.sprite.eventMode = 'static';
+
     drawCard(hand, playerCards);
     drawCard(hand, playerCards);
 
     for (let i = 0; i < playerCards.length; i++) {
-        app.stage.addChild(playerCards[i].obj);
+        app.stage.addChild(playerCards[i].sprite);
     }
 
-    app.stage.addChild(cardDeck.obj);
+    //app.stage.addChild(playerCards[0].bunny);
+    app.stage.addChild(cardDeck.sprite);
     app.stage.addChild(cardValueText);
     app.stage.addChild(hand.obj);
 
@@ -88,7 +96,6 @@ function drawCard(handBorder, playerHand) {
     playerHand.push(new Card(handBorder.x + 130 * playerHand.length, handBorder.y));
 }
 
-
 class PlayerBoard {
     obj;
 
@@ -114,6 +121,7 @@ class Card {
     obj;
 
     constructor(x, y) {
+        this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
         this.width = 130;
         this.height = 200;
         this.radius = 30;
@@ -127,7 +135,12 @@ class Card {
     }
 
     draw() {
-        this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
+        this.sprite.x = this.x;
+        this.sprite.y = this.y;
+        this.sprite.width = this.width;
+        this.sprite.height = this.height;
+
+        //this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
     }
 
     getWidth() {
