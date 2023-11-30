@@ -6,6 +6,7 @@ const app = new Application({
 
 document.body.appendChild(app.view);
 app.renderer.backgroundColor = 0x35654d;
+app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .load(startup);
