@@ -16,6 +16,8 @@ function startup() {
     var cardDeck = new Sprite(texture);
 
     var cardValue = 0;
+
+    var playerCards = [];
     
     const cardValueText = new Text(cardValue, {
         fontFamily: 'Arial',
@@ -25,7 +27,13 @@ function startup() {
         //anchor: (1,1),
     });
 
-   const hand = new PlayerBoard();
+   const hand = new PlayerBoard(
+       (app.renderer.width - 1100) / 2,
+       app.renderer.height -250,
+       1100,
+       200,
+       30
+   );
 
     //drawTable();
 
@@ -34,8 +42,11 @@ function startup() {
     cardDeck.scale.set(0.1);
 
     // Move the sprite to the center of the screen
-    
-    
+    drawCard(playerCards);
+
+    for (let i = 0; i < playerCards.length; i++) {
+        app.stage.addChild(playerCards[i]);
+    }
 
     app.stage.addChild(cardDeck);
     app.stage.addChild(cardValueText);
@@ -66,28 +77,52 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-function draw(item, width) {
-    item.drawRoundedRect((app.renderer.width - 1100) / 2, app.renderer.height -250, 1100, 200, 30);
+function draw(item, x, y, width, height, radius) {
+    item.drawRoundedRect(x, y, width, height, radius);
+}
+
+function drawCard(playerHand) {
+    playerHand.push(new PlayerBoard(
+        (app.renderer.width - 1100) / 2,
+        app.renderer.height -250,
+        130,
+        200,
+        30
+    ));
 }
 
 
 class PlayerBoard {
     borderRect;
-    constructor() {
+
+    constructor(x, y, width, height, radius) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.radius = radius;
         this.borderRect = new Graphics();
         this.borderRect.lineStyle(5, 0x040e0f);
+        draw(this.borderRect, this.x, this.y, this.width, this.height, this.radius);
+        return this.borderRect;
+    }
+}
+
+class Card {
+    borderRect;
+
+    constructor(x, y, width, height, radius) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.radius = radius;
+        this.borderRect = new Graphics();
+        this.borderRect.lineStyle(3, 0x040e0f);
         draw(this.borderRect);
         return this.borderRect;
     }
-
-
-    /*
-    draw(item) {
-        item.drawRoundedRect((app.renderer.width - 1100) / 2, app.renderer.height -250, 1100, 200, 30);
-    }
-     */
 }
-
 /*
 class Account {
     constructor(username, email) {
