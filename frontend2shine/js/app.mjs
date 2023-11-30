@@ -8,13 +8,19 @@ document.body.appendChild(app.view);
 app.renderer.backgroundColor = 0x35654d;
 app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 
+
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .load(startup);
 
+
 function startup() {
+    /*
     const { texture } = app.loader.resources.cardDeck;
     texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-    var cardDeck = new Sprite(texture);
+
+     */
+
+    var cardDeck = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
 
     var cardValue = 0;
 
@@ -39,25 +45,23 @@ function startup() {
     //drawTable();
 
     // Center the sprite's anchor point
-    cardDeck.anchor.set(0.5);
-    cardDeck.scale.set(0.1);
+    //cardDeck.anchor.set(0.5);
+    //cardDeck.scale.set(0.1);
 
     // Move the sprite to the center of the screen
     drawCard(hand, playerCards);
     drawCard(hand, playerCards);
 
     for (let i = 0; i < playerCards.length; i++) {
-        app.stage.addChild(playerCards[i].borderRect);
+        app.stage.addChild(playerCards[i].obj);
     }
 
-    app.stage.addChild(cardDeck);
+    app.stage.addChild(cardDeck.obj);
     app.stage.addChild(cardValueText);
-    app.stage.addChild(hand.borderRect);
+    app.stage.addChild(hand.obj);
 
     // Listen for animate update
     app.ticker.add(function(delta) {
-        cardDeck.x = app.renderer.width / 2;
-        cardDeck.y = app.renderer.height / 3;
         cardValueText.x = app.renderer.width - 150;
         cardValueText.y = app.renderer.height - 150;
         cardValueText.text = cardValue;
@@ -79,17 +83,14 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-function draw(item, x, y, width, height, radius) {
-    item.drawRoundedRect(x, y, width, height, radius);
-}
 
 function drawCard(handBorder, playerHand) {
-    playerHand.push(new Card(handBorder, playerHand));
+    playerHand.push(new Card(handBorder.x + 130 * playerHand.length, handBorder.y));
 }
 
 
 class PlayerBoard {
-    borderRect;
+    obj;
 
     constructor(x, y, width, height, radius) {
         this.x = x;
@@ -97,35 +98,40 @@ class PlayerBoard {
         this.width = width;
         this.height = height;
         this.radius = radius;
-        this.borderRect = new Graphics();
-        this.borderRect.lineStyle(5, 0x040e0f);
+        this.obj = new Graphics();
+        this.obj.lineStyle(5, 0x040e0f);
         this.draw()
         //draw(this.borderRect, this.x, this.y, this.width, this.height, this.radius);
         return this;
     }
 
     draw() {
-        this.borderRect.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
+        this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
     }
 }
 
 class Card {
-    borderRect;
+    obj;
 
-    constructor(handBorder, playerCards) {
+    constructor(x, y) {
         this.width = 130;
         this.height = 200;
         this.radius = 30;
-        this.x = handBorder.x + this.width * (playerCards.length);
-        this.y = handBorder.y;
-        this.borderRect = new Graphics();
-        this.borderRect.lineStyle(3, 0x040e0f);
+        this.x = x;
+        this.y = y;
+        //this.sprite = PIXI.Sprite.from('graphic/CardBackTemp.jpg');
+        this.obj = new Graphics();
+        this.obj.lineStyle(3, 0x040e0f);
         this.draw();
         return this;
     }
 
     draw() {
-        this.borderRect.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
+        this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
+    }
+
+    getWidth() {
+        return this.width;
     }
 }
 /*
