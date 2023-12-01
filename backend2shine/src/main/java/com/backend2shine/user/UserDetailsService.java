@@ -1,6 +1,7 @@
 package com.backend2shine.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserOld user = repository.findByUsername(username);
+        User user = repository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -25,12 +26,18 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     }
 
-    public List<UserOld> findAll() {
+    public List<User> findAll() {
         return repository.findAll();
     }
 
-    public UserDetails createUser(UserOld user) {
-        return repository.save(user);
+    public ResponseEntity createUser(User user) {
+//        if (repository.findByUsername(user.getUsername()) != null) {
+//            return ResponseEntity.status(409).build();
+//        } else {
+            return ResponseEntity.ok(repository.save(user));
+//        }
+
+
     }
 
 }
