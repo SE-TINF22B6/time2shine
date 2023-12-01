@@ -12,6 +12,8 @@ app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .load(startup);
 
+var cardValue = 0;
+
 function startup() {
     /*
     const { texture } = app.loader.resources.cardDeck;
@@ -23,13 +25,9 @@ function startup() {
     cardDeck.sprite.interactive = true;
     cardDeck.sprite.cursor = 'pointer';
 
-
-
-    var cardValue = 0;
-
     var playerCards = new Array();
     
-    const cardValueText = new Text(cardValue, {
+    var cardValueText = new Text(cardValue, {
         fontFamily: 'Arial',
         fontSize: 96,
         fill: 0x040e0f,
@@ -53,11 +51,8 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck.sprite.on('pointerdown', function() {drawCard(hand, playerCards); app.stage.addChild(playerCards[playerCards.length-1].sprite);}); // mouse-only
+    cardDeck.sprite.on('pointerdown', function() {drawCard(hand, playerCards, cardValue); app.stage.addChild(playerCards[playerCards.length-1].sprite);}); // mouse-only
     cardDeck.sprite.eventMode = 'static';
-
-    drawCard(hand, playerCards);
-    drawCard(hand, playerCards);
 
     for (let i = 0; i < playerCards.length; i++) {
         app.stage.addChild(playerCards[i].sprite);
@@ -92,9 +87,10 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-
 function drawCard(handBorder, playerHand) {
+
     playerHand.push(new Card(handBorder.x + 130 * playerHand.length, handBorder.y));
+    cardValue += playerHand[playerHand.length-1].value;
 }
 
 class PlayerBoard {
@@ -119,7 +115,6 @@ class PlayerBoard {
 }
 
 class Card {
-    obj;
 
     constructor(x, y) {
         this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
@@ -128,9 +123,7 @@ class Card {
         this.radius = 30;
         this.x = x;
         this.y = y;
-        //this.sprite = PIXI.Sprite.from('graphic/CardBackTemp.jpg');
-        this.obj = new Graphics();
-        this.obj.lineStyle(3, 0x040e0f);
+        this.value = 5;
         this.draw();
         return this;
     }
