@@ -7,16 +7,14 @@ import jakarta.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long account_id;
 
-    @Column(name = "username")
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(name = "email")
     private String email;
-
-    //TODO: password authentication
 
     public Account() {
 
