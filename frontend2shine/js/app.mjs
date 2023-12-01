@@ -20,10 +20,16 @@ function startup() {
     texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
      */
-
-    var cardDeck = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
-    cardDeck.sprite.interactive = true;
-    cardDeck.sprite.cursor = 'pointer';
+    var cardDeck = new Array();
+    for (let i = 0; i < 10; i++) {
+        cardDeck[i] = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
+        cardDeck[i].sprite.interactive = true;
+        cardDeck[i].sprite.cursor = 'pointer';
+        cardDeck[i].sprite.eventMode = 'static';
+    }
+    //var cardDecks = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
+    //cardDeck.sprite.interactive = true;
+    //cardDeck.sprite.cursor = 'pointer';
 
     var playerCards = new Array();
     
@@ -51,16 +57,19 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck.sprite.on('pointerdown', function() {drawCard(hand, playerCards, cardValue); app.stage.addChild(playerCards[playerCards.length-1].sprite);}); // mouse-only
-    cardDeck.sprite.eventMode = 'static';
+    //cardDeck[cardDeck.length].sprite.on('pointerdown', function() {drawCard(hand, playerCards, cardValue); app.stage.addChild(playerCards[playerCards.length-1].sprite);}); // mouse-only
+    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop();}); // mouse-only
+
 
     for (let i = 0; i < playerCards.length; i++) {
         app.stage.addChild(playerCards[i].sprite);
+    }
 
+    for (let i = 0; i < 10; i++) {
+        app.stage.addChild(cardDeck[i].sprite);
     }
 
     //app.stage.addChild(playerCards[0].bunny);
-    app.stage.addChild(cardDeck.sprite);
     app.stage.addChild(cardValueText);
     app.stage.addChild(hand.obj);
 
