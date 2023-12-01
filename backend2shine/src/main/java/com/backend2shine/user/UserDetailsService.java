@@ -31,13 +31,17 @@ public class UserDetailsService implements org.springframework.security.core.use
     }
 
     public ResponseEntity createUser(User user) {
-//        if (repository.findByUsername(user.getUsername()) != null) {
-//            return ResponseEntity.status(409).build();
-//        } else {
+        if (repository.findByEmail(user.getEmail()) != null || repository.findByUsername(user.getUsername()) != null
+        ) {
+            return ResponseEntity.status(409).build();
+        } {
             return ResponseEntity.ok(repository.save(user));
-//        }
+        }
 
 
+
+
+//            return ResponseEntity.status(409).build();
     }
 
 }

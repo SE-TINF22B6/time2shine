@@ -36,10 +36,11 @@ public class UserController {
 
 //     Create a new account:
     @PostMapping("/user")
-    public ResponseEntity<User> createUser(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<User> createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
         User user = new User();
         user.setId(service.findAll().size());
         user.setUsername(username);
+        user.setEmail(email);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
 
         return this.service.createUser(user);
