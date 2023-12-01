@@ -53,7 +53,7 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck.sprite.on('pointerdown', function() {playerCards.push(new Card(100, 100)); app.stage.addChild(playerCards[2]); console.log(playerCards.length)}); // mouse-only
+    cardDeck.sprite.on('pointerdown', function() {drawCard(hand, playerCards); app.stage.addChild(playerCards[playerCards.length-1].sprite);}); // mouse-only
     cardDeck.sprite.eventMode = 'static';
 
     drawCard(hand, playerCards);
@@ -61,6 +61,7 @@ function startup() {
 
     for (let i = 0; i < playerCards.length; i++) {
         app.stage.addChild(playerCards[i].sprite);
+
     }
 
     //app.stage.addChild(playerCards[0].bunny);
