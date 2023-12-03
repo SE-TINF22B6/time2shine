@@ -41,15 +41,15 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 
 ### Account Management Activity Diagram
 ![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Accounts.png)
-> - Relevant **user stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
+> - Relevant **account stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
 > - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
 > - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
-> - **Preconditions:** We need a functioning backend that is able to hold user accounts.
-> - **Postconditions:** Users can now login. When they are logged in, some kind of token is stored in the user's browser session. This means he can now access his account page and play games...
+> - **Preconditions:** We need a functioning backend that is able to hold account accounts.
+> - **Postconditions:** Users can now login. When they are logged in, some kind of token is stored in the account's browser session. This means he can now access his account page and play games...
 > - **Estimated effort:** high
 
 #### 2.2 Playing Games
-> - Relevant **user stories**: [Issue #18](https://github.com/SE-TINF22B6/time2shine/issues/18) and [Issue #19](https://github.com/SE-TINF22B6/time2shine/issues/19)
+> - Relevant **account stories**: [Issue #18](https://github.com/SE-TINF22B6/time2shine/issues/18) and [Issue #19](https://github.com/SE-TINF22B6/time2shine/issues/19)
 > - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
 > - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
 > - **Preconditions:** The account system has to be implemented and working.
@@ -57,24 +57,24 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 > - **Estimated effort:** high
 
 #### 2.3 Highscore Tracking
-> - Relevant **user stories**: [Issue #17](https://github.com/SE-TINF22B6/time2shine/issues/17)
+> - Relevant **account stories**: [Issue #17](https://github.com/SE-TINF22B6/time2shine/issues/17)
 > - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
 > - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
-> - **Preconditions:** The user account system needs to be setup. Also, players have to be able to play games, and the results have to be stored.
+> - **Preconditions:** The account account system needs to be setup. Also, players have to be able to play games, and the results have to be stored.
 > - **Postconditions:** Based on the stored game results, the leaderboards are now being calculated and published on the website.
 > - **Estimated effort:** low
 
 #### 2.3 Game Tutorials
-> - Relevant **user stories**: [Issue #21](https://github.com/SE-TINF22B6/time2shine/issues/21)
+> - Relevant **account stories**: [Issue #21](https://github.com/SE-TINF22B6/time2shine/issues/21)
 > - **UI mockup:** There is no UI mockup yet, because this feature can't be implemented before we have everything else running.
 > - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
 > - **Preconditions:** The whole game portal has to be running already.
-> - **Postconditions:** When a new user creates an account, he is prompted if he wants to get an introduction to our portal.
+> - **Postconditions:** When a new account creates an account, he is prompted if he wants to get an introduction to our portal.
 > - **Estimated effort:** ?medium?
 
 
 ### 3. Nonfunctional requirements
-> This section shows the nonfunctional requirements which we want to provide. This includes functionalities to let the user feel as comfortable as possible while having all of his data secured.
+> This section shows the nonfunctional requirements which we want to provide. This includes functionalities to let the account feel as comfortable as possible while having all of his data secured.
 
 #### 3.1 [Utility Tree](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Quality_Attribute_Scenarios.md)
 
@@ -88,7 +88,7 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 > Our application should be always reachable so that users can play whenever they like.
 
 #### 3.5 Security
-> We plan on using OAuth2 to secure our application, meaning that we use a current up-to-date technology that is used by most serious companies from all over the world. It makes communication between the different parts of our application secure. Also, scanning for cheaters is an important thing for keeping the user experience good.
+> We plan on using OAuth2 to secure our application, meaning that we use a current up-to-date technology that is used by most serious companies from all over the world. It makes communication between the different parts of our application secure. Also, scanning for cheaters is an important thing for keeping the account experience good.
 
 #### 3.6 Testability
 > The code we write has to be testable in order to meet our quality requirements. 

@@ -1,10 +1,8 @@
-package com.backend2shine.user;
+package com.backend2shine.account;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UserTest {
+class AccountTest {
 
     @Test
     void getId() {

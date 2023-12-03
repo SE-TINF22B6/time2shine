@@ -1,4 +1,4 @@
-package com.backend2shine.user;
+package com.backend2shine.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("")
-public class UserController {
+public class AccountController {
 
     @Autowired
     private UserDetailsService service;
@@ -23,27 +23,27 @@ public class UserController {
     }
 
 //     Get all accounts:
-    @GetMapping("/users")
-    public List<User> getAllAccounts() {
+    @GetMapping("/accounts")
+    public List<Account> getAllAccounts() {
         return this.service.findAll();
     }
 
     // Get an account by its UUID:
-    @GetMapping("/user/{username}")
+    @GetMapping("/account/{username}")
     public ResponseEntity<UserDetails> getAccountById(@PathVariable String username) {
         return ResponseEntity.ok(service.loadUserByUsername(username));
     }
 
 //     Create a new account:
-    @PostMapping("/user")
-    public ResponseEntity<User> createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
-        User user = new User();
-        user.setId(service.findAll().size());
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(new BCryptPasswordEncoder().encode(password));
+    @PostMapping("/account")
+    public ResponseEntity<Account> createAccount(@RequestParam String username, @RequestParam String email, @RequestParam String password) {
+        Account account = new Account();
+        account.setAccount_id(service.findAll().size());
+        account.setUsername(username);
+        account.setEmail(email);
+        account.setPassword(new BCryptPasswordEncoder().encode(password));
 
-        return this.service.createUser(user);
+        return this.service.createAccount(account);
 
 
 

@@ -1,4 +1,4 @@
-package com.backend2shine.user;
+package com.backend2shine.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,30 +12,30 @@ import java.util.List;
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     @Autowired
-    private UserRepository repository;
+    private AccountRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = repository.findByUsername(username);
-        if (user == null) {
+        Account account = repository.findByUsername(username);
+        if (account == null) {
             throw new UsernameNotFoundException(username);
         }
 
-        return user;
+        return account;
 
     }
 
-    public List<User> findAll() {
+    public List<Account> findAll() {
         return repository.findAll();
     }
 
-    public ResponseEntity createUser(User user) {
-        if (repository.findByEmail(user.getEmail()) != null || repository.findByUsername(user.getUsername()) != null
+    public ResponseEntity createAccount(Account account) {
+        if (repository.findByEmail(account.getEmail()) != null || repository.findByUsername(account.getUsername()) != null
         ) {
             return ResponseEntity.status(409).build();
         } {
-            return ResponseEntity.ok(repository.save(user));
+            return ResponseEntity.ok(repository.save(account));
         }
 
 

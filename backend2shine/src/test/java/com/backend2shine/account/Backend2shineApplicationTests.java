@@ -1,4 +1,4 @@
-package com.backend2shine.user;
+package com.backend2shine.account;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

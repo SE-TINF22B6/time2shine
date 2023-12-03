@@ -1,4 +1,4 @@
-package com.backend2shine.user;
+package com.backend2shine.account;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "user_table")
-public class User implements UserDetails {
+@Table(name = "accounts")
+public class Account implements UserDetails {
 
     /**
      *
@@ -22,26 +22,28 @@ public class User implements UserDetails {
      */
 
     @Id
-    private Integer id;
+    private Integer account_id;
+
+    private String email;
 
     private String username;
 
-    private String email;
+    private int[] friends;
 
     private String password;
 
     /**
      * @return the id
      */
-    public Integer getId() {
-        return id;
+    public Integer getAccount_id() {
+        return account_id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAccount_id(Integer id) {
+        this.account_id = id;
     }
 
     /**
@@ -80,6 +82,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public int[] getFriends() {
+        return friends;
+    }
+
+    public void setFriends(int[] friends) {
+        this.friends = friends;
+    }
+
     @Override
     public Set<GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
@@ -114,7 +124,7 @@ public class User implements UserDetails {
      */
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+        return "User [id=" + account_id + ", username=" + username + ", password=" + password + "]";
     }
 
 }
