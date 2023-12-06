@@ -1,4 +1,6 @@
 import { Application, Sprite, SCALE_MODES, Text, Container, Rectangle, Graphics, GraphicsGeometry} from './pixi.mjs';
+import { Card } from './Card.mjs';
+import { PlayerBoard } from './PlayerBoard.mjs';
 
 const app = new Application({
     resizeTo: window
@@ -144,54 +146,8 @@ function drawCardAnimation(playerCard, hand) {
     }
 }
 
-class PlayerBoard {
-    obj;
 
-    constructor(x, y, width, height, radius) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.radius = radius;
-        this.obj = new Graphics();
-        this.obj.lineStyle(5, 0x040e0f);
-        this.draw()
-        //draw(this.borderRect, this.x, this.y, this.width, this.height, this.radius);
-        return this;
-    }
 
-    draw() {
-        this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
-    }
-}
-
-class Card {
-
-    constructor(x, y) {
-        this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
-        this.width = 130;
-        this.height = 200;
-        this.radius = 30;
-        this.x = x;
-        this.y = y;
-        this.value = Math.floor(Math.random() * 11) + 2;
-        this.draw();
-        return this;
-    }
-
-    draw() {
-        this.sprite.x = this.x;
-        this.sprite.y = this.y;
-        this.sprite.width = this.width;
-        this.sprite.height = this.height;
-
-        //this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
-    }
-
-    getWidth() {
-        return this.width;
-    }
-}
 /*
 class Account {
     constructor(username, email) {
@@ -220,13 +176,6 @@ class BlackJackPlayer extends Player {
 class HighscoreTable {
     constructor() {
         this.highest_score = [];
-    }
-}
-
-class Card {
-    constructor(value, symbol) {
-        this.value = value;
-        this.symbol = symbol;
     }
 }
 
