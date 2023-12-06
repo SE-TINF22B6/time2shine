@@ -14,6 +14,14 @@ app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
 
 var cardValue = 0;
 
+var cardValueText = new Text(cardValue, {
+    fontFamily: 'Arial',
+    fontSize: 96,
+    fill: 0x040e0f,
+    align: 'right',
+    //anchor: (1,1),
+});
+
 function startup() {
     /*
     const { texture } = app.loader.resources.cardDeck;
@@ -32,14 +40,6 @@ function startup() {
     //cardDeck.sprite.cursor = 'pointer';
 
     var playerCards = new Array();
-    
-    var cardValueText = new Text(cardValue, {
-        fontFamily: 'Arial',
-        fontSize: 96,
-        fill: 0x040e0f,
-        align: 'right',
-        //anchor: (1,1),
-    });
 
    const hand = new PlayerBoard(
        (app.renderer.width - 1100) / 2,
@@ -57,9 +57,12 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    //cardDeck[cardDeck.length].sprite.on('pointerdown', function() {drawCard(hand, playerCards, cardValue); app.stage.addChild(playerCards[playerCards.length-1].sprite);}); // mouse-only
-    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop();}); // mouse-only
+    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand, cardValue);}); // mouse-only
+    //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
+    //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, cardDeck); app.stage.addChild(playerCards[playerCards.length-1].sprite); console.log(playerCards.length);}); // mouse-only
 
+    drawCard(playerCards, hand, cardValue);
+    drawCard(playerCards, hand, cardValue);
 
     for (let i = 0; i < playerCards.length; i++) {
         app.stage.addChild(playerCards[i].sprite);
@@ -75,6 +78,12 @@ function startup() {
 
     // Listen for animate update
     app.ticker.add(function(delta) {
+        /*
+        for (let i = 0; i < playerCards.length; i++) {
+            drawCardAnimation(playerCards[i], hand);
+            console.log(playerCards[i].sprite.x);
+        }
+        */
         cardValueText.x = app.renderer.width - 150;
         cardValueText.y = app.renderer.height - 150;
         cardValueText.text = cardValue;
@@ -96,10 +105,43 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-function drawCard(handBorder, playerHand) {
+function drawCard(playerHand, hand) {
+    console.log(cardValue);
+    if (playerHand.length < 8 && cardValue <= 21) {
+        playerHand.push(new Card(hand.x + 30, hand.y));
+        playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
+        app.stage.addChild(playerHand[playerHand.length-1].sprite)
+        cardValue += playerHand[playerHand.length-1].value;
+    }
+    console.log(playerHand[playerHand.length-1].value);
+    if (cardValue > 21) {
+        for (let i = 0; i < playerHand.length; i++) {
+            if (playerHand[i].value == 11) {
+                playerHand[i].value = 1;
+                cardValue -= 10;
+                break;
+            }
+        }
+    }
+    /*
+    if (cardValue > 21) {
+        cardValueText = new Text(cardValue, {
+            fontFamily: 'Arial',
+            fontSize: 96,
+            fill: 0xff0000,
+            align: 'right',
+            //anchor: (1,1),
+        });
+    }
+    */
+    console.log(cardValue);
+}
 
-    playerHand.push(new Card(handBorder.x + 130 * playerHand.length, handBorder.y));
-    cardValue += playerHand[playerHand.length-1].value;
+function drawCardAnimation(playerCard, hand) {
+    while (playerCard.sprite.x != hand.x && playerCard.sprite.y != hand.y) {
+        playerCard.sprite.x -= 1;
+        playerCard.sprite.y -= 1;
+    }
 }
 
 class PlayerBoard {
@@ -132,7 +174,7 @@ class Card {
         this.radius = 30;
         this.x = x;
         this.y = y;
-        this.value = 5;
+        this.value = Math.floor(Math.random() * 11) + 2;
         this.draw();
         return this;
     }
