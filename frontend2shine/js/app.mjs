@@ -108,14 +108,14 @@ function drawTable() {
 }
 */
 function drawCard(playerHand, hand) {
-    console.log(cardValue);
+    console.log("Punktzahl auf der Hand: " + cardValue);
     if (playerHand.length < 8 && cardValue <= 21) {
         playerHand.push(new Card(hand.x + 30, hand.y));
         playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
         app.stage.addChild(playerHand[playerHand.length-1].sprite)
         cardValue += playerHand[playerHand.length-1].value;
     }
-    console.log(playerHand[playerHand.length-1].value);
+    console.log("Gezogene Karte: " + playerHand[playerHand.length-1].value);
     if (cardValue > 21) {
         for (let i = 0; i < playerHand.length; i++) {
             if (playerHand[i].value == 11) {
@@ -136,7 +136,7 @@ function drawCard(playerHand, hand) {
         });
     }
     */
-    console.log(cardValue);
+    console.log("Neuer Punktestand: " + cardValue);
 }
 
 function drawCardAnimation(playerCard, hand) {

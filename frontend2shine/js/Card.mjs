@@ -9,7 +9,7 @@ class Card {
         this.radius = 30;
         this.x = x;
         this.y = y;
-        this.value = Math.floor(Math.random() * 11) + 2;
+        this.value = Math.floor(Math.random() * 10) + 2;
         this.draw();
         return this;
     }
