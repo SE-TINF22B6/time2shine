@@ -9,7 +9,6 @@ This is the GitHub Repository for our Software-Engineering project. We aim to bu
  - Spring Boot (Java, built with Gradle)
  - PostgreSQL database
  - Debian 12 instance for deployment (Digital Ocean) with Docker containers
- - Keycloak
 
 **Our Frontend Tech-Stack:**
  - Pixi.JS OpenGL Renderer
