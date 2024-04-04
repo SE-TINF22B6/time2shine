@@ -12,8 +12,7 @@ export default function Banner() {
           <div className="bg-slate-800 text-slate-50 text-sm p-3 md:rounded shadow-lg flex justify-between">
             <div className="text-slate-500 inline-flex">
               <a
-                className="font-medium hover:underline text-slate-50"
-                href="https://github.com/cruip/open-react-template"
+                className="font-medium text-slate-50"
                 target="_blank"
                 rel="noreferrer"
               >
