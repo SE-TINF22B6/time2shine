@@ -3,7 +3,6 @@ import Image from 'next/image'
 import MobileMenu from './mobile-menu'
 
 import Logo from '@/public/images/logo.png'
-import TestimonialImage03 from "@/public/images/testimonial-03.jpg";
 
 export default function Header() {
   return (
@@ -15,7 +14,6 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="block" aria-label="Cruip">
               <Image className="rounded-full" src={Logo} width={150} height={100} alt="time2shine Logo" />
-
             </Link>
           </div>
 
@@ -25,7 +23,7 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link
-                  href="/signin"
+                  href="/login"
                   className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
                 >
                   Sign in

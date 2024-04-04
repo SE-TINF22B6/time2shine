@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Reset Password - Open PRO',
-  description: 'Page description',
+  title: 'Reset Password - time2shine',
+  description: 'Online Gaming Platform',
 }
 
 import Link from 'next/link'
@@ -23,7 +23,7 @@ export default function ResetPassword() {
               <div className="flex flex-wrap -mx-3 mb-4">
                 <div className="w-full px-3">
                   <label className="block text-gray-300 text-sm font-medium mb-1" htmlFor="email">Email</label>
-                  <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="you@yourcompany.com" required />
+                  <input id="email" type="email" className="form-input w-full text-gray-300" placeholder="davis@1und1.de" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mt-6">
@@ -33,7 +33,7 @@ export default function ResetPassword() {
               </div>
             </form>
             <div className="text-gray-400 text-center mt-6">
-              <Link href="/signin" className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">Cancel</Link>
+              <Link href="/login" className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">Cancel</Link>
             </div>
           </div>
 

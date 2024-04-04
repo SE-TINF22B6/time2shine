@@ -1,11 +1,11 @@
 export const metadata = {
   title: 'Sign In - Open PRO',
-  description: 'Page description',
+  description: 'Online Gaming Platform',
 }
 
 import Link from 'next/link'
 
-export default function SignIn() {
+export default function Login() {
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
