@@ -1,2 +1,15 @@
-FROM httpd:2.4
-COPY ./ /usr/local/apache2/htdocs/
+#Stage 1
+FROM node:21-alpine as builder
+WORKDIR /app
+COPY package*.json .
+COPY yarn*.lock .
+RUN yarn install
+COPY . .
+RUN yarn build
+
+#Stage 2
+FROM nginx:1.25.4
+WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
+COPY --from=builder /app/build .
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
