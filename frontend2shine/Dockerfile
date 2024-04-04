@@ -1,15 +1,9 @@
 #Stage 1
 FROM node:21-alpine as builder
-WORKDIR /app
-COPY package*.json .
-COPY yarn*.lock .
-RUN yarn install
-COPY . .
-RUN yarn build
-
-#Stage 2
-FROM nginx:1.25.4
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /app/build .
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY ./ .
+EXPOSE 80
+CMD [ "npm", "start dev"]
