@@ -19,13 +19,33 @@ export default function Header() {
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">
+
+            <ul className="flex grow justify-end flex-wrap items-center">
+              <li>
+                <Link href="/"
+                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/games"
+                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Games
+                </Link>
+              </li>
+              <li>
+                <Link href="/stats"
+                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Stats
+                </Link>
+              </li>
+            </ul>
+
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
-                <Link
-                  href="/login"
-                  className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                >
+                <Link href="/login"
+                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Sign in
                 </Link>
               </li>
