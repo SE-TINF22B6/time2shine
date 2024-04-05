@@ -22,7 +22,7 @@ export default function Games() {
             </div>
           </div>
 
-          <iframe src="http://localhost:63342/time2shine/engine2shine/index.html?"></iframe>
+          <iframe src="http://t2s.maiwald.cc:8080/"></iframe>
 
           bla fasel blubber
 
