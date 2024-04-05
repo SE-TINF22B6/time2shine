@@ -13,12 +13,12 @@ export default function SignUp() {
 
           {/* Page header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h1 className="h1">Welcome. We exist to make entrepreneurship easier.</h1>
+            <h1 className="h1">Level up your game right now.</h1>
           </div>
 
           {/* Form */}
           <div className="max-w-sm mx-auto">
-            <form>
+            {/*<form>
               <div className="flex flex-wrap -mx-3">
                 <div className="w-full px-3">
                   <button className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center">
@@ -35,7 +35,7 @@ export default function SignUp() {
               <div className="border-t border-gray-700 border-dotted grow mr-3" aria-hidden="true"></div>
               <div className="text-gray-400">Or, register with your email</div>
               <div className="border-t border-gray-700 border-dotted grow ml-3" aria-hidden="true"></div>
-            </div>
+            </div>*/}
             <form>
               <div className="flex flex-wrap -mx-3 mb-4">
                 <div className="w-full px-3">
@@ -56,7 +56,7 @@ export default function SignUp() {
                 </div>
               </div>
               <div className="text-sm text-gray-500 text-center">
-                I hereby agree to send all of my data to time2shine.
+                I hereby agree to send my soul and all of my data to time2shine.
               </div>
               <div className="flex flex-wrap -mx-3 mt-6">
                 <div className="w-full px-3">
