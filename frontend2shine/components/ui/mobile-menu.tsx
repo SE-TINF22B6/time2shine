@@ -82,7 +82,7 @@ export default function MobileMenu() {
             </Link>
           </li>
           <li>
-            <Link href="/signin"
+            <Link href="/login"
                   className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
                   onClick={() => setMobileNavOpen(false)}>
               Sign in
