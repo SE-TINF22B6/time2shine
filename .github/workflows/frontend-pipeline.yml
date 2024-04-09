@@ -17,6 +17,14 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      - name: Adding secret
+        run: |
+          touch frontend2shine/.env
+          echo GITHUB_ID= ${{secrets.GH_ID}}" >> "frontend2shine/.env"
+          cat frontend2shine/.env
+          echo GITHUB_SECRET= ${{secrets.GH_SECRET}}" >> "frontend2shine/.env"
+          cat frontend2shine/.env
+
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
