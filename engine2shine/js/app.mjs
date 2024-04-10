@@ -24,6 +24,10 @@ var cardValueText = new Text(cardValue, {
     //anchor: (1,1),
 });
 
+const newGameButton = new PlayerBoard(0,0,100,50,30);
+
+newGameButton.obj.on('pointerdown', function() {console.log(42);});
+
 function startup() {
     /*
     const { texture } = app.loader.resources.cardDeck;
@@ -59,7 +63,7 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand, cardValue);}); // mouse-only
+    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, cardDeck); app.stage.addChild(playerCards[playerCards.length-1].sprite); console.log(playerCards.length);}); // mouse-only
 
@@ -75,6 +79,7 @@ function startup() {
     }
 
     //app.stage.addChild(playerCards[0].bunny);
+    app.stage.addChild(newGameButton.obj)
     app.stage.addChild(cardValueText);
     app.stage.addChild(hand.obj);
 
@@ -109,22 +114,25 @@ function drawTable() {
 */
 function drawCard(playerHand, hand) {
     console.log("Punktzahl auf der Hand: " + cardValue);
-    if (playerHand.length < 8 && cardValue <= 21) {
-        playerHand.push(new Card(hand.x + 30, hand.y));
-        playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
+    if (playerHand.length < 8 && cardValue < 21) {
+        //playerHand.push(new Card(hand.x + 30, hand.y));
+        playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3));
+        //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
+        drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
         app.stage.addChild(playerHand[playerHand.length-1].sprite)
         cardValue += playerHand[playerHand.length-1].value;
-    }
-    console.log("Gezogene Karte: " + playerHand[playerHand.length-1].value);
-    if (cardValue > 21) {
-        for (let i = 0; i < playerHand.length; i++) {
-            if (playerHand[i].value == 11) {
-                playerHand[i].value = 1;
-                cardValue -= 10;
-                break;
+        console.log("Gezogene Karte: " + playerHand[playerHand.length-1].value);
+        if (cardValue > 21) {
+            for (let i = 0; i < playerHand.length; i++) {
+                if (playerHand[i].value == 11) {
+                    playerHand[i].value = 1;
+                    cardValue -= 10;
+                    break;
+                }
             }
-        }
+        } 
     }
+    
     /*
     if (cardValue > 21) {
         cardValueText = new Text(cardValue, {
@@ -139,10 +147,13 @@ function drawCard(playerHand, hand) {
     console.log("Neuer Punktestand: " + cardValue);
 }
 
-function drawCardAnimation(playerCard, hand) {
-    while (playerCard.sprite.x != hand.x && playerCard.sprite.y != hand.y) {
-        playerCard.sprite.x -= 1;
-        playerCard.sprite.y -= 1;
+async function drawCardAnimation(playerCard, hand, length) {
+    while (playerCard.sprite.x != hand.x+30+playerCard.sprite.width*length || playerCard.sprite.y != hand.y) {
+        console.log(playerCard.sprite.x);
+        console.log(hand.x);
+        await new Promise(r => setTimeout(r, 5));
+        playerCard.sprite.x -= (playerCard.sprite.x-(hand.x+30+playerCard.sprite.width*length))/10;
+        playerCard.sprite.y -= (playerCard.sprite.y-hand.y)/10;
     }
 }
 
