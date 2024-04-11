@@ -26,10 +26,10 @@
 > A brief description of the functionality of your application.  
 > Include one or more **UML use case** diagram(s) and necessary description to specify the major use cases of your application.
 
-Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio) (draw.io format, not human-readable)
+Link to our [UML diagram](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/uml.drawio) (draw.io format, not human-readable)
 ![image](https://github.com/SE-TINF22B6/time2shine/assets/122756244/1d99b73e-5c79-4d2f-9660-1e3836c778d2)
 
-Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg) (draw.io format, not human-readable)
+Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/UITemplate.svg) (draw.io format, not human-readable)
 ![image](https://github.com/SE-TINF22B6/time2shine/assets/59262249/462c3693-4166-48cc-b30a-ccff34b60c93)
 
 #### 2.2 Account Management
@@ -40,26 +40,26 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 ![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Logout_ActivityDiagram.png)
 
 ### Account Management Activity Diagram
-![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Accounts.png)
+![image](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/Accounts_Activity-diagram.png)
 > - Relevant **account stories**: [Issue #20](https://github.com/SE-TINF22B6/time2shine/issues/20)
-> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
-> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/UITemplate.svg))
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/uml.drawio)
 > - **Preconditions:** We need a functioning backend that is able to hold account accounts.
 > - **Postconditions:** Users can now login. When they are logged in, some kind of token is stored in the account's browser session. This means he can now access his account page and play games...
 > - **Estimated effort:** high
 
 #### 2.2 Playing Games
 > - Relevant **account stories**: [Issue #18](https://github.com/SE-TINF22B6/time2shine/issues/18) and [Issue #19](https://github.com/SE-TINF22B6/time2shine/issues/19)
-> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
-> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/UITemplate.svg))
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/uml.drawio)
 > - **Preconditions:** The account system has to be implemented and working.
 > - **Postconditions:** Users can now login and play games.
 > - **Estimated effort:** high
 
 #### 2.3 Highscore Tracking
 > - Relevant **account stories**: [Issue #17](https://github.com/SE-TINF22B6/time2shine/issues/17)
-> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/UITemplate.svg))
-> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **UI mockup:** Should look like the account view in the picture (see [our UI Mockup](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/UITemplate.svg))
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/uml.drawio)
 > - **Preconditions:** The account account system needs to be setup. Also, players have to be able to play games, and the results have to be stored.
 > - **Postconditions:** Based on the stored game results, the leaderboards are now being calculated and published on the website.
 > - **Estimated effort:** low
@@ -67,7 +67,7 @@ Link to our [UI-Template](https://github.com/SE-TINF22B6/time2shine/blob/main/UI
 #### 2.3 Game Tutorials
 > - Relevant **account stories**: [Issue #21](https://github.com/SE-TINF22B6/time2shine/issues/21)
 > - **UI mockup:** There is no UI mockup yet, because this feature can't be implemented before we have everything else running.
-> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/uml.drawio)
+> - **UML behavior diagram:** see further up the page or [here](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/uml.drawio)
 > - **Preconditions:** The whole game portal has to be running already.
 > - **Postconditions:** When a new account creates an account, he is prompted if he wants to get an introduction to our portal.
 > - **Estimated effort:** ?medium?
