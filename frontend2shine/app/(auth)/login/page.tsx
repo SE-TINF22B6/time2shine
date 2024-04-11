@@ -4,19 +4,42 @@ export const metadata = {
 }
 
 import Link from 'next/link'
+import { LoginForm } from '@/components/login'
 
-export default function Login() {
+export default function LoginPage() {
+  return (
+      <>
+        <section className="bg-ct-blue-600 min-h-screen pt-20">
+
+          {/*Page header*/}
+          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+              <h1 className="h1">Great to have you back.</h1>
+          </div>
+
+          <div className="container mx-auto px-6 py-12 h-full flex justify-center items-center">
+            <div className="md:w-8/12 lg:w-5/12 bg-white px-8 py-10">
+              <LoginForm />
+            </div>
+          </div>
+        </section>
+      </>
+  );
+}
+
+
+
+/*export default function Login() {
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
 
-          {/* Page header */}
+          {/!* Page header *!/}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h1 className="h1">Great to have you back.</h1>
           </div>
 
-          {/* Form */}
+          {/!* Form *!/}
           <div className="max-w-sm mx-auto">
             <form>
               <div className="flex flex-wrap -mx-3">
@@ -75,4 +98,4 @@ export default function Login() {
       </div>
     </section>
   )
-}
+}*/
