@@ -2,7 +2,8 @@
 
 import { signIn } from "next-auth/react"; // Import the signIn function from NextAuth for authentication.
 import { useSearchParams, useRouter } from "next/navigation"; // Import Next.js navigation utilities.
-import { ChangeEvent, useState } from "react"; // Import React hooks for managing component state.
+import { ChangeEvent, useState } from "react";
+import Link from "next/link"; // Import React hooks for managing component state.
 
 export const LoginForm = () => {
     const router = useRouter(); // Initialize the Next.js router.
@@ -51,88 +52,89 @@ export const LoginForm = () => {
         setFormValues({ ...formValues, [name]: value }); // Update the form input values.
     };
 
-    // Define a CSS class for form inputs.
-    const input_style =
-        "form-control block w-full px-4 py-5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
 
     return (
-        <form onSubmit={onSubmit}>
-            {error && (
-                <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
-            )}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="pt-32 pb-12 md:pt-40 md:pb-20">
 
-            {/* Email input field */}
-            <div className="mb-6">
-                <input
-                    required
-                    type="email"
-                    name="email"
-                    value={formValues.email}
-                    onChange={handleChange}
-                    placeholder="Email address"
-                    className={`${input_style}`}
-                />
+                {/* Page header */}
+                <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+                    <h1 className="h1">Great to have you back.</h1>
+                </div>
+
+                {/* Form */}
+                <div className="max-w-sm mx-auto">
+                    <form onSubmit={onSubmit}>
+                        {error && (
+                            <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
+                        )}
+                        {/* Sign In with GitHub button */}
+                        <a
+                            className="btn px-0 text-white bg-red-600 hover:bg-red-700 w-full relative flex items-center"
+                            style={{backgroundColor: "#000000"}}
+                            onClick={() => signIn("github", {callbackUrl})}
+                            role="button"
+                        >
+                            <img
+                                className="pr-2"
+                                src="/images/github-logo.svg"
+                                alt=""
+                                style={{height: "2.2rem"}}
+                            />
+                            Continue with GitHub
+                        </a>
+                    </form>
+
+                    <div className="flex items-center my-6">
+                        <div className="border-t border-gray-700 border-dotted grow mr-3" aria-hidden="true"></div>
+                        <div className="text-gray-400">Or, sign in with your email</div>
+                        <div className="border-t border-gray-700 border-dotted grow ml-3" aria-hidden="true"></div>
+                    </div>
+
+                    <form>
+                        <div className="flex flex-wrap -mx-3 mb-4">
+                            <div className="w-full px-3">
+                                <label className="block text-gray-300 text-sm font-medium mb-1"
+                                       htmlFor="email">Email</label>
+                                <input value={formValues.email} onChange={handleChange} id="email" type="email"
+                                       className="form-input w-full text-gray-300" placeholder="davis@1und1.de"
+                                       required/>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap -mx-3 mb-4">
+                            <div className="w-full px-3">
+                                <label className="block text-gray-300 text-sm font-medium mb-1"
+                                       htmlFor="password">Password</label>
+                                <input value={formValues.password} onChange={handleChange} id="password" type="password"
+                                       className="form-input w-full text-gray-300" placeholder="Password" required/>
+                            </div>
+                        </div>
+                        {/*<div className="flex flex-wrap -mx-3 mb-4">*/}
+                        {/*    <div className="w-full px-3">*/}
+                        {/*        <div className="flex justify-between">*/}
+                        {/*            <label className="flex items-center">*/}
+                        {/*                <input type="checkbox" className="form-checkbox"/>*/}
+                        {/*                <span className="text-gray-400 ml-2">Keep me signed in</span>*/}
+                        {/*            </label>*/}
+                        {/*            <Link href="/reset-password"*/}
+                        {/*                  className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">Forgot*/}
+                        {/*                Password?</Link>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        <div className="flex flex-wrap -mx-3 mt-6">
+                            <div className="w-full px-3">
+                                <button className="btn text-white bg-purple-600 hover:bg-purple-700 w-full">Sign in
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div className="text-gray-400 text-center mt-6">
+                        Don’t you have an account? <Link href="/signup" className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out">Sign up</Link>
+                    </div>
+                </div>
+
             </div>
-
-            {/* Password input field */}
-            <div className="mb-6">
-                <input
-                    required
-                    type="password"
-                    name="password"
-                    value={formValues.password}
-                    onChange={handleChange}
-                    placeholder="Password"
-                    className={`${input_style}`}
-                />
-            </div>
-
-            {/* Sign In button */}
-            <button
-                type="submit"
-                style={{ backgroundColor: `${loading ? "#ccc" : "#3446eb"}` }}
-                className="inline-block px-7 py-4 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                disabled={loading}
-            >
-                {loading ? "loading..." : "Sign In"}
-            </button>
-
-            {/* OR divider */}
-            <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-                <p className="text-center font-semibold mx-4 mb-0">OR</p>
-            </div>
-
-            {/* Sign In with Google button */}
-            <a
-                className="px-7 py-2 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                style={{ backgroundColor: "#ffffff", color: "gray" }}
-                onClick={() => signIn("google", { callbackUrl })}
-                role="button"
-            >
-                <img
-                    className="pr-2"
-                    src="/images/google.svg"
-                    alt=""
-                    style={{ height: "2rem" }}
-                />
-                Continue with Google
-            </a>
-
-            {/* Sign In with GitHub button */}
-            <a
-                className="px-7 py-2 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center"
-                style={{ backgroundColor: "#000000" }}
-                onClick={() => signIn("github", { callbackUrl })}
-                role="button"
-            >
-                <img
-                    className="pr-2"
-                    src="/images/github.png"
-                    alt=""
-                    style={{ height: "2.2rem" }}
-                />
-                Continue with GitHub
-            </a>
-        </form>
+        </div>
     );
 };
