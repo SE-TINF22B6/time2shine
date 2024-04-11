@@ -1,8 +1,9 @@
 import type { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
-import PostgresAdapter from "@auth/pg-adapter"
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient();
 
 if (
     !process.env.GITHUB_ID ||
@@ -14,7 +15,7 @@ if (
 
 // Define authentication options using NextAuthOptions interface
 export const authOptions: NextAuthOptions = {
-    // adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prisma),
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID as string,
@@ -29,7 +30,7 @@ export const authOptions: NextAuthOptions = {
         // newUser: '/' // New users will be directed here on first sign in (leave the property out if not of interest)
     },
     session: {
-        strategy: "jwt"
+        strategy: "database"
     },
 
     secret: process.env.NEXTAUTH_SECRET as string,

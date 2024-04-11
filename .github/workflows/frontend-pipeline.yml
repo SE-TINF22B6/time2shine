@@ -32,6 +32,9 @@ jobs:
           
           echo 'GITHUB_SECRET= "${{secrets.GH_SECRET}}"' >> "frontend2shine/.env"
           cat frontend2shine/.env
+          
+          echo 'DATABASE_URL="postgresql://postgres:${{secrets.POSTGRES_PW}}@161.35.217.19:5432/users?schema=public"' >> "frontend2shine/.env"
+          cat frontend2shine/.env
 
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
