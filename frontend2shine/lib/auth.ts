@@ -1,7 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
+import PostgresAdapter from "@auth/pg-adapter"
 
 if (
     !process.env.GITHUB_ID ||
@@ -13,7 +14,7 @@ if (
 
 // Define authentication options using NextAuthOptions interface
 export const authOptions: NextAuthOptions = {
-    // Configure one or more authentication providers
+    // adapter: PrismaAdapter(prisma),
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID as string,

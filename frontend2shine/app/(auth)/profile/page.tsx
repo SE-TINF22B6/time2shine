@@ -1,3 +1,8 @@
+export const metadata = {
+    title: 'My Profile - time2shine',
+    description: 'Online Gaming Platform',
+}
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
