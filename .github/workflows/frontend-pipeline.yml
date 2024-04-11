@@ -19,10 +19,15 @@ jobs:
 
       - name: Adding secret
         run: |
-          echo 'NEXTAUTH_URL="https://t2s.maiwald.cc"' >> "frontend2shine/.env"
-          echo 'NEXTAUTH_SECRET= "${{secrets.NEXTAUTH_SECRET}}"' >> "frontend2shine/.env"
-          echo 'GITHUB_ID= "${{secrets.GH_ID}}"' >> "frontend2shine/.env"
-          echo 'GITHUB_SECRET= "${{secrets.GH_SECRET}}"' >> "frontend2shine/.env"
+          touch frontend2shine/.env
+          echo "NEXTAUTH_URL="https://t2s.maiwald.cc" >> "frontend2shine/.env"
+          cat frontend2shine/.env
+          echo "NEXTAUTH_SECRET= ${{secrets.NEXTAUTH_SECRET}}" >> "frontend2shine/.env"
+          cat frontend2shine/.env
+          echo "GITHUB_ID= ${{secrets.GH_ID}}" >> "frontend2shine/.env"
+          cat frontend2shine/.env
+          echo "GITHUB_SECRET= ${{secrets.GH_SECRET}}" >> "frontend2shine/.env"
+          cat frontend2shine/.env
 
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
