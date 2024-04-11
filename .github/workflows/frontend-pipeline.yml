@@ -19,6 +19,11 @@ jobs:
 
       - name: Adding secret
         run: |
+          touch frontend2shine/.env
+          
+          echo 'NEXTAUTH_URL= https://t2s.maiwald.cc' >> "frontend2shine/.env"
+          cat frontend2shine/.env
+          
           echo 'NEXTAUTH_SECRET= "${{secrets.NEXTAUTH_SECRET}}"' >> "frontend2shine/.env"
           cat frontend2shine/.env
           
