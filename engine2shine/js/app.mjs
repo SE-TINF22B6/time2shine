@@ -16,6 +16,24 @@ app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
 
 var cardValue = 0;
 
+//var newGameButton = new Rectangle(0, 0, 100, 100, 5);
+
+var buttonContainer = new Graphics()
+    .beginFill(0xCCCCCC)
+    .lineStyle(5, 0xCCCCCC)
+    .drawRoundedRect((app.renderer.width) / 2, 0, 100, 100, 5);
+
+
+//buttonContainer.on('pointerdown', function() {console.log(42);});
+
+var newGameButtonText = new Text("Start new Game!", {
+    fontFamily: 'Arial',
+    fontSize: 32,
+    fill: 0x040e0f,
+    align: 'right',
+    //anchor: (1,1),
+});
+
 var cardValueText = new Text(cardValue, {
     fontFamily: 'Arial',
     fontSize: 96,
@@ -23,10 +41,6 @@ var cardValueText = new Text(cardValue, {
     align: 'right',
     //anchor: (1,1),
 });
-
-const newGameButton = new PlayerBoard(0,0,100,50,30);
-
-newGameButton.obj.on('pointerdown', function() {console.log(42);});
 
 function startup() {
     /*
@@ -67,9 +81,6 @@ function startup() {
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, cardDeck); app.stage.addChild(playerCards[playerCards.length-1].sprite); console.log(playerCards.length);}); // mouse-only
 
-    drawCard(playerCards, hand, cardValue);
-    drawCard(playerCards, hand, cardValue);
-
     for (let i = 0; i < playerCards.length; i++) {
         app.stage.addChild(playerCards[i].sprite);
     }
@@ -79,11 +90,13 @@ function startup() {
     }
 
     //app.stage.addChild(playerCards[0].bunny);
-    app.stage.addChild(newGameButton.obj)
+    app.stage.addChild(buttonContainer);
     app.stage.addChild(cardValueText);
     app.stage.addChild(hand.obj);
 
     // Listen for animate update
+
+    gameStart(playerCards, hand, cardValue);
     app.ticker.add(function(delta) {
         /*
         for (let i = 0; i < playerCards.length; i++) {
@@ -91,6 +104,7 @@ function startup() {
             console.log(playerCards[i].sprite.x);
         }
         */
+
         cardValueText.x = app.renderer.width - 150;
         cardValueText.y = app.renderer.height - 150;
         cardValueText.text = cardValue;
@@ -112,7 +126,7 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-function drawCard(playerHand, hand) {
+async function drawCard(playerHand, hand) {
     console.log("Punktzahl auf der Hand: " + cardValue);
     if (playerHand.length < 8 && cardValue < 21) {
         //playerHand.push(new Card(hand.x + 30, hand.y));
@@ -149,15 +163,19 @@ function drawCard(playerHand, hand) {
 
 async function drawCardAnimation(playerCard, hand, length) {
     while (playerCard.sprite.x != hand.x+30+playerCard.sprite.width*length || playerCard.sprite.y != hand.y) {
-        console.log(playerCard.sprite.x);
-        console.log(hand.x);
         await new Promise(r => setTimeout(r, 5));
         playerCard.sprite.x -= (playerCard.sprite.x-(hand.x+30+playerCard.sprite.width*length))/10;
         playerCard.sprite.y -= (playerCard.sprite.y-hand.y)/10;
     }
 }
 
+async function gameStart(playerCards, hand, cardValue) {
+    await new Promise(r => setTimeout(r, 500));
+    drawCard(playerCards, hand, cardValue);
+    await new Promise(r => setTimeout(r, 500));
+    drawCard(playerCards, hand, cardValue);
 
+}
 
 /*
 class Account {
