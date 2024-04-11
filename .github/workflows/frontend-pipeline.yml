@@ -19,13 +19,13 @@ jobs:
 
       - name: Adding secret
         run: |
-          echo "NEXTAUTH_SECRET= ${{secrets.NEXTAUTH_SECRET}}" >> "frontend2shine/.env"
+          echo 'NEXTAUTH_SECRET= "${{secrets.NEXTAUTH_SECRET}}"' >> "frontend2shine/.env"
           cat frontend2shine/.env
           
-          echo "GITHUB_ID= ${{secrets.GH_ID}}" >> "frontend2shine/.env"
+          echo 'GITHUB_ID= "${{secrets.GH_ID}}"' >> "frontend2shine/.env"
           cat frontend2shine/.env
           
-          echo "GITHUB_SECRET= ${{secrets.GH_SECRET}}" >> "frontend2shine/.env"
+          echo 'GITHUB_SECRET= "${{secrets.GH_SECRET}}"' >> "frontend2shine/.env"
           cat frontend2shine/.env
 
       - name: Build and Push Docker Image
