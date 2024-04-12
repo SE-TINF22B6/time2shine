@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
         // newUser: '/' // New users will be directed here on first sign in (leave the property out if not of interest)
     },
     session: {
-        strategy: "jwt"
+        strategy: "database"
     },
 
     secret: process.env.NEXTAUTH_SECRET as string,
