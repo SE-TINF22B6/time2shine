@@ -64,3 +64,5 @@ jobs:
             docker remove frontend2shine
             docker pull techn1c/frontend2shine:latest
             docker run --name frontend2shine -p 80:3000 -d techn1c/frontend2shine:latest
+            docker stop frontend2shine
+            docker start frontend2shine
