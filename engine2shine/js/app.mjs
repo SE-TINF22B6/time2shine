@@ -48,7 +48,9 @@ function startup() {
     texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
      */
+    cardValue = 0;
     var cardDeck = new Array();
+    console.log("Deck: " + cardDeck.length);
     for (let i = 0; i < 10; i++) {
         cardDeck[i] = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
         cardDeck[i].sprite.interactive = true;
@@ -60,6 +62,8 @@ function startup() {
     //cardDeck.sprite.cursor = 'pointer';
 
     var playerCards = new Array();
+    
+    console.log("Hand: " + playerCards.length);
 
    const hand = new PlayerBoard(
        (app.renderer.width - 1100) / 2,
@@ -77,7 +81,8 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand);}); // mouse-only
+    //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand);}); // mouse-only
+    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {newGame(playerCards, cardDeck);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, cardDeck); app.stage.addChild(playerCards[playerCards.length-1].sprite); console.log(playerCards.length);}); // mouse-only
 
@@ -175,6 +180,17 @@ async function gameStart(playerCards, hand, cardValue) {
     await new Promise(r => setTimeout(r, 500));
     drawCard(playerCards, hand, cardValue);
 
+}
+
+function newGame(cards, deck) {
+    for (let i = 0; i < cards.length; i++) {
+        app.stage.removeChild(cards[i].sprite);
+    }
+
+    for (let i = 0; i < 10; i++) {
+        app.stage.removeChild(deck[i].sprite);
+    }
+    startup();
 }
 
 /*
