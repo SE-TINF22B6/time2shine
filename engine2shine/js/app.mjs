@@ -1,6 +1,7 @@
 import { Application, Sprite, SCALE_MODES, Text, Container, Rectangle, Graphics, GraphicsGeometry} from './pixi.mjs';
 import { Card } from './Card.mjs';
 import { PlayerBoard } from './PlayerBoard.mjs';
+import { Button } from './Button.mjs';
 
 const app = new Application({
     resizeTo: window
@@ -10,29 +11,11 @@ document.body.appendChild(app.view);
 app.renderer.backgroundColor = 0x35654d;
 app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 
-
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
+    .add('button', 'graphic/button.png')
     .load(startup);
 
 var cardValue = 0;
-
-//var newGameButton = new Rectangle(0, 0, 100, 100, 5);
-
-var buttonContainer = new Graphics()
-    .beginFill(0xCCCCCC)
-    .lineStyle(5, 0xCCCCCC)
-    .drawRoundedRect((app.renderer.width) / 2, 0, 100, 100, 5);
-
-
-//buttonContainer.on('pointerdown', function() {console.log(42);});
-
-var newGameButtonText = new Text("Start new Game!", {
-    fontFamily: 'Arial',
-    fontSize: 32,
-    fill: 0x040e0f,
-    align: 'right',
-    //anchor: (1,1),
-});
 
 var cardValueText = new Text(cardValue, {
     fontFamily: 'Arial',
@@ -73,6 +56,12 @@ function startup() {
        30
    );
 
+   const button = new Button(0, 0);
+   button.sprite.interactive = true;
+   button.sprite.cursor = 'pointer';
+   button.sprite.eventMode = 'static';
+   button.sprite.on('pointerdown', function() {newGame(playerCards, cardDeck);});
+
     //drawTable();
 
     // Center the sprite's anchor point
@@ -81,8 +70,7 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand);}); // mouse-only
-    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {newGame(playerCards, cardDeck);}); // mouse-only
+    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, cardDeck); app.stage.addChild(playerCards[playerCards.length-1].sprite); console.log(playerCards.length);}); // mouse-only
 
@@ -95,7 +83,7 @@ function startup() {
     }
 
     //app.stage.addChild(playerCards[0].bunny);
-    app.stage.addChild(buttonContainer);
+    app.stage.addChild(button.sprite);
     app.stage.addChild(cardValueText);
     app.stage.addChild(hand.obj);
 
