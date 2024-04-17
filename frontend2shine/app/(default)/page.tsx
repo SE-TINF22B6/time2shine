@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'time2shine',
+  title: 'Home - time2shine',
   description: 'Online Gaming Platform',
 }
 

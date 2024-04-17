@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     pages: {
-        signIn: '/login',
+        signIn: '/',
         signOut: '/',
         error: '/', // Error code passed in query string as ?error=
         verifyRequest: '', // (used for check email message)
