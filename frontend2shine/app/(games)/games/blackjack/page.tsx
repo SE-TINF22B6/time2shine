@@ -24,7 +24,20 @@ export default function Games() {
 
 
 
-          bla fasel blubber
+          <p>Hallo Test für BJ Regeln: </p>
+         <p>1. Schlage die Hand des Dealers, ohne die 21 Punkte zu überschreiten. Wenn du direkt 21 Punkte erhältst, hast du Blackjack.</p>
+         <p>2. Spielaufbau: Es können dem Dealer insgesamt sechs Spieler gegenüber. Diese Spieler spielen einzeln gegen den Dealer</p>
+         <p>3. Spielablauf:</p>
+           <p>Du erhältst zu Beginn zwei Karten.</p>
+           <p>Durch das Ziehen von weiteren Karten versuchst du, möglichst nahe an 21 Punkte zu kommen.</p>
+           <p>Wenn du näher an der 21 bist als der Dealer, gewinnst du die Runde.</p>
+            <p>Überschreitest du die 21, verlierst du die Runde.</p>
+           <p>5. Weitere Optionen</p>
+           <p>Stand: Du behältst deine aktuellen Karten.</p>
+           <p>Hit: Du ziehst eine weitere Karte.</p>
+            <p> Split: Wenn du zwei gleichwertige Karten hast, kannst du sie aufteilen und mit zwei Händen spielen.</p>
+            <p>Double: Du verdoppelst deinen Einsatz und erhältst nur eine weitere Karte.</p>
+
 
         </div>
       </div>
