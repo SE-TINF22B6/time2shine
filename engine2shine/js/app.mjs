@@ -56,7 +56,7 @@ function startup() {
        30
    );
 
-   const button = new Button(0, 0);
+   const button = new Button(10, (app.renderer.height - 200));
    button.sprite.interactive = true;
    button.sprite.cursor = 'pointer';
    button.sprite.eventMode = 'static';
