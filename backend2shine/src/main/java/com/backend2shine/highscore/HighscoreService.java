@@ -12,15 +12,15 @@ public class HighscoreService {
 
     //Methods for finding highscores
     public List<Highscore> findByGame(String game) {
-        return this.repo.findTop10ByGame(game);
+        return this.repo.findTop10ByGameOrderByScoreDesc(game);
     }
 
     public List<Highscore> findByUsername(String username) {
-        return this.repo.findTop10ByUsername(username);
+        return this.repo.findTop10ByUsernameOrderByScoreDesc(username);
     }
 
     public List<Highscore> findByUsernameAndGame(String username, String game) {
-        return this.repo.findTop10ByUsernameAndGame(username, game);
+        return this.repo.findTop10ByUsernameAndGameOrderByScoreDesc(username, game);
     }
 
 
