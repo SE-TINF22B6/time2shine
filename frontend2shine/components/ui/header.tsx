@@ -5,9 +5,11 @@ import Image from 'next/image'
 import MobileMenu from './mobile-menu'
 import { GithubLogin } from '@/components/github-login'
 import Logo from '@/public/images/logo.png'
+import {SessionProvider} from "next-auth/react";
 
 export default function Header() {
   return (
+      <SessionProvider>
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
@@ -79,5 +81,6 @@ export default function Header() {
         </div>
       </div>
     </header>
+      </SessionProvider>
   )
 }

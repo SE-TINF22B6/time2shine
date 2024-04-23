@@ -1,8 +1,9 @@
 "use client"; // Indicates that this module is client-side code.
 
-import { signIn } from "next-auth/react"; // Import the signIn function from NextAuth for authentication.
+import { signIn, useSession } from "next-auth/react"; // Import the signIn function from NextAuth for authentication.
 import { useSearchParams, useRouter } from "next/navigation"; // Import Next.js navigation utilities.
 import { ChangeEvent, useState } from "react";
+import { getServerSession } from "next-auth";
 
 export const GithubLogin = () => {
     const router = useRouter(); // Initialize the Next.js router.
@@ -10,6 +11,10 @@ export const GithubLogin = () => {
     const [error, setError] = useState(""); // State for handling errors during authentication.
     const searchParams = useSearchParams(); // Get query parameters from the URL.
     const callbackUrl = searchParams.get("callbackUrl") || "/profile"; // Define a callback URL or use a default one.
+    const { data: session, status: loadingStatus } = useSession(); // Get the current user session.
+
+    // Button text based on user session
+    const buttonText = session ? "My Profile" : "Sign in with GitHub";
 
     return (
         <div>
@@ -28,7 +33,7 @@ export const GithubLogin = () => {
                     alt=""
                     style={{height: "2.2rem"}}
                 />
-                Sign in with GitHub
+                {buttonText} {/* Use the buttonText variable here */}
             </a>
         </div>
     );
