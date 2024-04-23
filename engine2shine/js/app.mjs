@@ -15,6 +15,8 @@ app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .add('button', 'graphic/button.png')
     .load(startup);
 
+var isBtnLoading = false;
+var isEndTurn = false;
 var cardValue = 0;
 var kiCardValue = 0;
 
@@ -26,6 +28,8 @@ function startup() {
     texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
      */
+    isBtnLoading = false;
+    isEndTurn = false
     cardValue = 0;
     kiCardValue = 0;
 
@@ -79,11 +83,19 @@ var kiCardValueText = new Text(kiCardValue, {
     30
 );
 
-   const button = new Button(10, (app.renderer.height - 200));
-   button.sprite.interactive = true;
-   button.sprite.cursor = 'pointer';
-   button.sprite.eventMode = 'static';
-   button.sprite.on('pointerdown', function() {newGame(playerCards, kiCards, cardDeck);});
+    const button = new Button(10, (app.renderer.height - 200));
+    button.sprite.interactive = true;
+    button.sprite.cursor = 'pointer';
+    button.sprite.eventMode = 'static';
+    button.sprite.on('pointerdown', function() {
+        if(!isBtnLoading) {
+            if(isEndTurn) {
+                newGame(playerCards, kiCards, cardDeck);
+            } else {
+                endTurn(kiCards, kiHand, true);
+            }
+        }
+    });
 
     //drawTable();
 
@@ -94,9 +106,9 @@ var kiCardValueText = new Text(kiCardValue, {
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
     cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {
-        if(cardValue < 21) {
+        if(cardValue < 21 && !isEndTurn) {
             drawCard(playerCards, hand, false);
-        if(kiCardValue < 18) {
+        if(kiCardValue < 19) {
             drawCard(kiCards, kiHand, true);
         }
         }
@@ -140,8 +152,12 @@ var kiCardValueText = new Text(kiCardValue, {
         cardValueText.text = cardValue;
 
         kiCardValueText.x = app.renderer.width - 150;
-        kiCardValueText.y = 50;
-        kiCardValueText.text = kiCardValue;
+        kiCardValueText.y = 150;
+        if(isEndTurn) {
+            kiCardValueText.text = kiCardValue;
+        } else {
+            kiCardValueText.text = "?";
+        }
         
         
         
@@ -241,13 +257,33 @@ async function drawCardAnimation(playerCard, hand, length) {
 }
 
 async function gameStart(playerCards, hand, isKi) {
-    await new Promise(r => setTimeout(r, 500));
     drawCard(playerCards, hand, isKi);
     await new Promise(r => setTimeout(r, 500));
     drawCard(playerCards, hand, isKi);
+    await new Promise(r => setTimeout(r, 500));
+}
+
+async function endTurn(playerCards, hand, isKi) {
+    isBtnLoading = true;
+    while(kiCardValue < 19) {
+        drawCard(playerCards, hand, isKi);
+        await new Promise(r => setTimeout(r, 500));
+    }
+    isEndTurn = true;
+    if((cardValue <=21 && kiCardValue < cardValue) || (cardValue <=21 && kiCardValue > 21)) {
+        console.log("You WIN!");
+    } else {
+        if((cardValue == kiCardValue) || (cardValue > 21 && kiCardValue > 21)) {
+            console.log("It's a DRAW!");
+        } else {
+            console.log("You LOOSE!");
+        }
+    }
+    isBtnLoading = false;
 }
 
 function newGame(cards, kiCards, deck) {
+    isBtnLoading = true
     for (let i = 0; i < cards.length; i++) {
         app.stage.removeChild(cards[i].sprite);
     }
