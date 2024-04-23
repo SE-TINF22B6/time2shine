@@ -4,18 +4,14 @@ export const metadata = {
     description: 'Online Gaming Platform', // Page description
 }
 
-// Importing necessary modules
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 // Asynchronous function for the Profile page
 export default async function Profile() {
-    // Get the session from the server
-    const session = await getServerSession(authOptions);
-    // Get the user from the session
-    const user = session?.user;
+    const session = await getServerSession(authOptions); // Get the session from the server
+    const user = session?.user; // Get the user from the session
 
-    // Return the JSX for the page
     return (
         <>
             <section className="bg-ct-blue-600  min-h-screen pt-20">
@@ -26,7 +22,7 @@ export default async function Profile() {
                         </p>
                         {/* If the user is not loaded yet, show a loading message */}
                         {!user ? (
-                            <p>Loading...</p>
+                            <p>Cannot fetch user data</p>
                         ) : (
                             // If the user is loaded, show their profile information
                             <div className="flex items-center gap-8">
