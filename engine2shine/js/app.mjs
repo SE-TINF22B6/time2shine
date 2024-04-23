@@ -16,6 +16,18 @@ app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .load(startup);
 
 var cardValue = 0;
+var kiCardValue = 0;
+
+
+
+function startup() {
+    /*
+    const { texture } = app.loader.resources.cardDeck;
+    texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
+
+     */
+    cardValue = 0;
+    kiCardValue = 0;
 
 var cardValueText = new Text(cardValue, {
     fontFamily: 'Arial',
@@ -25,17 +37,18 @@ var cardValueText = new Text(cardValue, {
     //anchor: (1,1),
 });
 
-function startup() {
-    /*
-    const { texture } = app.loader.resources.cardDeck;
-    texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
+var kiCardValueText = new Text(kiCardValue, {
+    fontFamily: 'Arial',
+    fontSize: 96,
+    fill: 0x040e0f,
+    align: 'right',
+    //anchor: (1,1),
+});
 
-     */
-    cardValue = 0;
     var cardDeck = new Array();
     console.log("Deck: " + cardDeck.length);
     for (let i = 0; i < 10; i++) {
-        cardDeck[i] = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
+        cardDeck[i] = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 2);
         cardDeck[i].sprite.interactive = true;
         cardDeck[i].sprite.cursor = 'pointer';
         cardDeck[i].sprite.eventMode = 'static';
@@ -45,6 +58,8 @@ function startup() {
     //cardDeck.sprite.cursor = 'pointer';
 
     var playerCards = new Array();
+
+    var kiCards = new Array();
     
     console.log("Hand: " + playerCards.length);
 
@@ -56,11 +71,19 @@ function startup() {
        30
    );
 
+   const kiHand = new PlayerBoard(
+    (app.renderer.width - 1100) / 2,
+    50,
+    1100,
+    200,
+    30
+);
+
    const button = new Button(10, (app.renderer.height - 200));
    button.sprite.interactive = true;
    button.sprite.cursor = 'pointer';
    button.sprite.eventMode = 'static';
-   button.sprite.on('pointerdown', function() {newGame(playerCards, cardDeck);});
+   button.sprite.on('pointerdown', function() {newGame(playerCards, kiCards, cardDeck);});
 
     //drawTable();
 
@@ -70,12 +93,23 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, hand);}); // mouse-only
+    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {
+        if(cardValue < 21) {
+            drawCard(playerCards, hand, false);
+        if(kiCardValue < 18) {
+            drawCard(kiCards, kiHand, true);
+        }
+        }
+    }); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {drawCard(playerCards, cardDeck); app.stage.addChild(playerCards[playerCards.length-1].sprite); console.log(playerCards.length);}); // mouse-only
 
     for (let i = 0; i < playerCards.length; i++) {
         app.stage.addChild(playerCards[i].sprite);
+    }
+
+    for (let i = 0; i < kiCards.length; i++) {
+        app.stage.addChild(kiCards[i].sprite);
     }
 
     for (let i = 0; i < 10; i++) {
@@ -85,11 +119,14 @@ function startup() {
     //app.stage.addChild(playerCards[0].bunny);
     app.stage.addChild(button.sprite);
     app.stage.addChild(cardValueText);
+    app.stage.addChild(kiCardValueText);
     app.stage.addChild(hand.obj);
+    app.stage.addChild(kiHand.obj);
 
     // Listen for animate update
-
-    gameStart(playerCards, hand, cardValue);
+    gameStart(playerCards, hand, false);
+    gameStart(kiCards, kiHand, true);
+    
     app.ticker.add(function(delta) {
         /*
         for (let i = 0; i < playerCards.length; i++) {
@@ -101,6 +138,11 @@ function startup() {
         cardValueText.x = app.renderer.width - 150;
         cardValueText.y = app.renderer.height - 150;
         cardValueText.text = cardValue;
+
+        kiCardValueText.x = app.renderer.width - 150;
+        kiCardValueText.y = 50;
+        kiCardValueText.text = kiCardValue;
+        
         
         
     });
@@ -119,39 +161,75 @@ function drawTable() {
     app.stage.addChild(handContainer);
 }
 */
-async function drawCard(playerHand, hand) {
-    console.log("Punktzahl auf der Hand: " + cardValue);
-    if (playerHand.length < 8 && cardValue < 21) {
-        //playerHand.push(new Card(hand.x + 30, hand.y));
-        playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3));
-        //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
-        drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
-        app.stage.addChild(playerHand[playerHand.length-1].sprite)
-        cardValue += playerHand[playerHand.length-1].value;
-        console.log("Gezogene Karte: " + playerHand[playerHand.length-1].value);
-        if (cardValue > 21) {
-            for (let i = 0; i < playerHand.length; i++) {
-                if (playerHand[i].value == 11) {
-                    playerHand[i].value = 1;
-                    cardValue -= 10;
-                    break;
+async function drawCard(playerHand, hand, isKi) {
+    console.log(isKi);
+    if(isKi) {
+        console.log("Punktzahl auf der Hand KI: " + kiCardValue);
+        if (playerHand.length < 8 && kiCardValue < 21) {
+            //playerHand.push(new Card(hand.x + 30, hand.y));
+            playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3));
+            //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
+            drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
+            app.stage.addChild(playerHand[playerHand.length-1].sprite)
+            kiCardValue += playerHand[playerHand.length-1].value;
+            console.log("Gezogene Karte KI: " + playerHand[playerHand.length-1].value);
+            if (kiCardValue > 21) {
+                for (let i = 0; i < playerHand.length; i++) {
+                    if (playerHand[i].value == 11) {
+                        playerHand[i].value = 1;
+                        kiCardValue -= 10;
+                        break;
+                    }
                 }
-            }
-        } 
+            } 
+        }
+        
+        /*
+        if (cardValue > 21) {
+            cardValueText = new Text(cardValue, {
+                fontFamily: 'Arial',
+                fontSize: 96,
+                fill: 0xff0000,
+                align: 'right',
+                //anchor: (1,1),
+            });
+        }
+        */
+        console.log("Neuer Punktestand KI: " + kiCardValue);
+    } else {
+        console.log("Punktzahl auf der Hand: " + cardValue);
+        if (playerHand.length < 8 && cardValue < 21) {
+            //playerHand.push(new Card(hand.x + 30, hand.y));
+            playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3));
+            //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
+            drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
+            app.stage.addChild(playerHand[playerHand.length-1].sprite)
+            cardValue += playerHand[playerHand.length-1].value;
+            console.log("Gezogene Karte: " + playerHand[playerHand.length-1].value);
+            if (cardValue > 21) {
+                for (let i = 0; i < playerHand.length; i++) {
+                    if (playerHand[i].value == 11) {
+                        playerHand[i].value = 1;
+                        cardValue -= 10;
+                        break;
+                    }
+                }
+            } 
+        }
+        
+        /*
+        if (cardValue > 21) {
+            cardValueText = new Text(cardValue, {
+                fontFamily: 'Arial',
+                fontSize: 96,
+                fill: 0xff0000,
+                align: 'right',
+                //anchor: (1,1),
+            });
+        }
+        */
+        console.log("Neuer Punktestand: " + cardValue);
     }
-    
-    /*
-    if (cardValue > 21) {
-        cardValueText = new Text(cardValue, {
-            fontFamily: 'Arial',
-            fontSize: 96,
-            fill: 0xff0000,
-            align: 'right',
-            //anchor: (1,1),
-        });
-    }
-    */
-    console.log("Neuer Punktestand: " + cardValue);
 }
 
 async function drawCardAnimation(playerCard, hand, length) {
@@ -162,17 +240,20 @@ async function drawCardAnimation(playerCard, hand, length) {
     }
 }
 
-async function gameStart(playerCards, hand, cardValue) {
+async function gameStart(playerCards, hand, isKi) {
     await new Promise(r => setTimeout(r, 500));
-    drawCard(playerCards, hand, cardValue);
+    drawCard(playerCards, hand, isKi);
     await new Promise(r => setTimeout(r, 500));
-    drawCard(playerCards, hand, cardValue);
-
+    drawCard(playerCards, hand, isKi);
 }
 
-function newGame(cards, deck) {
+function newGame(cards, kiCards, deck) {
     for (let i = 0; i < cards.length; i++) {
         app.stage.removeChild(cards[i].sprite);
+    }
+
+    for (let i = 0; i < kiCards.length; i++) {
+        app.stage.removeChild(kiCards[i].sprite);
     }
 
     for (let i = 0; i < 10; i++) {
