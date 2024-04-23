@@ -1,10 +1,10 @@
-package com.backend2shine.highscore;
+package com.backend2shine.scores;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "highscores")
-public class Highscore {
+public class Score {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -19,14 +19,14 @@ public class Highscore {
 
     private int score;
 
-    public Highscore(String username, String email, String game, int score) {
+    public Score(String username, String email, String game, int score) {
         this.username = username;
         this.email = email;
         this.game = game;
         this.score = score;
     }
 
-    public Highscore() {
+    public Score() {
 
     }
 
@@ -51,8 +51,8 @@ public class Highscore {
     }
 
 
-    public void setId(Integer highscore_id) {
-        this.id = highscore_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setUsername(String username) {

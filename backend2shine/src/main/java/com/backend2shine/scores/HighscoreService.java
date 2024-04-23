@@ -1,4 +1,4 @@
-package com.backend2shine.highscore;
+package com.backend2shine.scores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,21 +11,21 @@ public class HighscoreService {
     private HighscoreRepository repo;
 
     //Methods for finding highscores
-    public List<Highscore> findByGame(String game) {
+    public List<Score> findByGame(String game) {
         return this.repo.findTop10ByGameOrderByScoreDesc(game);
     }
 
-    public List<Highscore> findByUsername(String username) {
+    public List<Score> findByUsername(String username) {
         return this.repo.findTop10ByUsernameOrderByScoreDesc(username);
     }
 
-    public List<Highscore> findByUsernameAndGame(String username, String game) {
+    public List<Score> findByUsernameAndGame(String username, String game) {
         return this.repo.findTop10ByUsernameAndGameOrderByScoreDesc(username, game);
     }
 
 
     // Method for saving a new highscore
-    public Highscore saveNewHighscore(Highscore highscore) {
-        return this.repo.save(highscore);
+    public Score saveNewHighscore(Score score) {
+        return this.repo.save(score);
     }
 }
