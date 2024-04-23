@@ -4,8 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import MobileMenu from './mobile-menu'
 import { GithubLogin } from '@/components/github-login'
+import { NavProfileEntry } from "@/components/nav-profile-entry";
 import Logo from '@/public/images/logo.png'
-import {SessionProvider} from "next-auth/react";
+import {SessionProvider, useSession} from "next-auth/react";
 
 export default function Header() {
   return (
@@ -43,40 +44,22 @@ export default function Header() {
                   Stats
                 </Link>
               </li>
+              <li className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                    <NavProfileEntry/>
+              </li>
             </ul>
 
             <ul className="flex grow justify-end flex-wrap items-center">
 
               <li>
-                <GithubLogin />
-
-
-
-                {/*Logik zum Anzeigen von Sign in oder Sign out
-                {status === 'authenticated' ? (
-                    <Link href="/login"
-                          className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                      Sign out
-                    </Link>
-                ) : (
-                    <Link href="/login"
-                          className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                      Sign in
-                    </Link>
-                )}*/}
+                <GithubLogin/>
 
               </li>
-
-              {/*<li>
-                <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
-                  Sign up
-                </Link>
-              </li>*/}
 
             </ul>
           </nav>
 
-          <MobileMenu />
+          <MobileMenu/>
 
         </div>
       </div>
