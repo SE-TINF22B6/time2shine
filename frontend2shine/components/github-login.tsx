@@ -31,7 +31,7 @@ export const GithubLogin = () => {
                         className="pr-2"
                         src="/images/github-logo.svg"
                         alt=""
-                        style={{height: "2.2rem"}}
+                        style={{height: "1.8rem"}}
                     /> : ""}
                     {buttonText}
                 </a>
