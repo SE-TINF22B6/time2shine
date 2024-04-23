@@ -14,6 +14,7 @@ export const GithubLogin = () => {
 
     // Button text based on user session
     const buttonText = session ? "Sign out" : "Sign in with GitHub";
+    const isLoggedIn = session
 
 
     return (<div>
@@ -24,19 +25,15 @@ export const GithubLogin = () => {
                     className="font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
                     style={{backgroundColor: ""}}
                     onClick={() => session ? signOut() : signIn("github", {callbackUrl})}
-
-
-
                     role="button"
                 >
-                    <img
+                    {!isLoggedIn ? <img
                         className="pr-2"
                         src="/images/github-logo.svg"
                         alt=""
                         style={{height: "2.2rem"}}
-                    />
+                    /> : ""}
                     {buttonText}
-
                 </a>
             </div>
         </div>);
