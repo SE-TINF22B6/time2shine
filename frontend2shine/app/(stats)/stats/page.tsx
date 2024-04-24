@@ -28,6 +28,7 @@ export default function Stats() {
           <title>Stats - time2shine</title>
           <meta name="description" content="Online Gaming Platform" />
         </Helmet>
+
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
 
@@ -48,7 +49,7 @@ export default function Stats() {
                   className={`mr-4 font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 items-center transition duration-150 ease-in-out ${game === 'poker' ? 'border-2 border-white' : ''}`}
                   onClick={() => changeGame('poker')}
               >
-                Game2
+                Poker
               </button>
             </div>
 
