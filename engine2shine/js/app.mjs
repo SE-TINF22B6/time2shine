@@ -20,14 +20,18 @@ var isEndTurn = false;
 var cardValue = 0;
 var kiCardValue = 0;
 
+var playingCardsDeck =[];           //array for card stack
+
 
 
 function startup() {
     /*
     const { texture } = app.loader.resources.cardDeck;
     texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-
      */
+
+
+
     isBtnLoading = false;
     isEndTurn = false
     cardValue = 0;
@@ -296,6 +300,34 @@ function newGame(cards, kiCards, deck) {
         app.stage.removeChild(deck[i].sprite);
     }
     startup();
+}
+
+/*   fill the card-deck   */
+function fillCardDeck(){
+    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+        .then((response) => response.json())
+        .then((json) => {
+            const deckId = json.deck_id;
+            var remainingCards = json.remaining;
+            console.log(deckId);
+
+            function drawCard() {
+                fetch("https://www.deckofcardsapi.com/api/deck/" + deckId + "/draw/?count=1")
+                    .then((response) => response.json())
+                    .then((json) => {
+                        var randomCard = json.cards[0];
+                        playingCardsDeck.push(randomCard);
+                        console.log(randomCard + "\n" + remainingCards);
+                        remainingCards--; // Decrement remaining cards
+                        if (remainingCards > 0) {
+                            drawCard();
+                        } else {
+                            console.log("All cards drawn:"/*, playingCardsDeck*/);
+                        }
+                    });
+            }
+            drawCard();
+        })
 }
 
 /*
