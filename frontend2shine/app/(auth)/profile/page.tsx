@@ -54,7 +54,7 @@ export default async function Profile() {
                                     <p className="mb-3">Name: {user.name}</p>
                                     <p className="mb-3">Email: {user.email}</p>
                                     {/* New code to display highscores */}
-                                    <p className="mb-3">Highscores:</p>
+                                    <p className="mb-3">Your Highscores:</p>
                                     {Object.entries(highscores).map(([game, score]) => (
                                         <p key={game}>{game}: {score}</p>
                                     ))}
