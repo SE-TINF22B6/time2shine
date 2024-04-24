@@ -7,7 +7,7 @@
 import React, { useEffect, useState } from 'react';
 
 type DataItem = {
-  player: string;
+  username: string;
   score: number;
 };
 
@@ -45,7 +45,7 @@ export default function Stats() {
                       {data.map((item, index) => (
                           <tr key={index} className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
                             <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
-                            <td className="whitespace-nowrap px-6 py-4">{item.player}</td>
+                            <td className="whitespace-nowrap px-6 py-4">{item.username}</td>
                             <td className="whitespace-nowrap px-6 py-4">{item.score}</td>
                           </tr>
                       ))}
