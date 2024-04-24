@@ -1,10 +1,7 @@
 'use client';
-// export const metadata = {
-//   title: 'Black Jack stats - time2shine',
-//   description: 'Online Gaming Platform',
-// }
 
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 type DataItem = {
   username: string;
@@ -22,6 +19,10 @@ export default function Stats() {
 
   return (
       <section className="relative">
+        <Helmet>
+          <title>Stats - time2shine</title>
+          <meta name="description" content="Online Gaming Platform" />
+        </Helmet>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
 
