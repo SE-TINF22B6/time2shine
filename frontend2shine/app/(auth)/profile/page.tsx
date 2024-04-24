@@ -1,4 +1,6 @@
 // Metadata for the page
+import {UserHighscores} from "@/components/user-highscores";
+
 export const metadata = {
     title: 'My Profile - time2shine', // Page title
     description: 'Online Gaming Platform', // Page description
@@ -36,6 +38,7 @@ export default async function Profile() {
                                 <div className="mt-8">
                                     <p className="mb-3">Name: {user.name}</p>
                                     <p className="mb-3">Email: {user.email}</p>
+                                    {user.name && <UserHighscores username={user.name} />}
                                 </div>
                             </div>
                         )}
