@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "https://t2s.maiwald.cc")
 @RequestMapping("/highscores")
 public class HighscoreController {
 
