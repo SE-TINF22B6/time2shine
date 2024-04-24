@@ -10,12 +10,17 @@ type DataItem = {
 
 export default function Stats() {
   const [data, setData] = useState<DataItem[]>([]);
+  const [game, setGame] = useState('blackjack'); // default game
+
+  const changeGame = (newGame: string) => {
+    setGame(newGame);
+  };
 
   useEffect(() => {
-    fetch('https://api.maiwald.cc/highscores/games/blackjack')
+    fetch(`https://api.maiwald.cc/highscores/games/${game}`)
         .then(response => response.json())
         .then(data => setData(data));
-  }, []);
+  }, [game]); // dependency on game state
 
   return (
       <section className="relative">
@@ -25,6 +30,13 @@ export default function Stats() {
         </Helmet>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+
+            {/* Game selection */}
+            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+              <button onClick={() => changeGame('blackjack')}>Blackjack</button>
+              <button onClick={() => changeGame('poker')}>Poker</button>
+              {/* Add more buttons for additional games */}
+            </div>
 
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
