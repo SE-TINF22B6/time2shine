@@ -12,7 +12,8 @@ This is the GitHub Repository for our Software-Engineering project. We aim to bu
  - Debian 12 instance for deployment (Digital Ocean) with Docker containers
 
 **Our Frontend Tech-Stack:**
- - Pixi.JS OpenGL Renderer
+ - React with Next.JS, TailwindCSS and NextAuth for OAuth Sign in
+ - Pixi.JS OpenGL Renderer for the game engine
  - Debian 12 with Apache2 Web Server
 
 ---
