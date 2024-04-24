@@ -1,13 +1,10 @@
 // Metadata for the page
 import {UserHighscores} from "@/components/user-highscores";
 
-export const metadata = {
-    title: 'My Profile - time2shine', // Page title
-    description: 'Online Gaming Platform', // Page description
-}
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import {Helmet} from "react-helmet";
+import React from "react";
 
 // Asynchronous function for the Profile page
 export default async function Profile() {
@@ -17,6 +14,11 @@ export default async function Profile() {
     return (
         <>
             <section className="bg-ct-blue-600  min-h-screen pt-20">
+                <Helmet>
+                    <title>My Profile - time2shine</title>
+                    <meta name="description" content="Online Gaming Platform" />
+                </Helmet>
+
                 <div className="max-w-4xl mx-auto bg-ct-dark-100 rounded-md h-[20rem] flex justify-center items-center">
                     <div>
                         <p className="mb-3 text-5xl text-center font-semibold">
