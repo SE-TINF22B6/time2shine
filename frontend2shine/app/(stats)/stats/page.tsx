@@ -31,17 +31,27 @@ export default function Stats() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
 
-            {/* Game selection */}
-            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <button onClick={() => changeGame('blackjack')}>Blackjack</button>
-              <button onClick={() => changeGame('poker')}>Poker</button>
-              {/* Add more buttons for additional games */}
-            </div>
-
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <h1 className="h1">BlackJack statistics.</h1>
+              <h1 className="h1">time2shine leaderboards.</h1>
             </div>
+
+            {/* Game selection */}
+            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+              <button
+                  className={`mr-4 font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 items-center transition duration-150 ease-in-out ${game === 'blackjack' ? 'border-2 border-white' : ''}`}
+                  onClick={() => changeGame('blackjack')}
+              >
+                Blackjack
+              </button>
+              <button
+                  className={`mr-4 font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 items-center transition duration-150 ease-in-out ${game === 'poker' ? 'border-2 border-white' : ''}`}
+                  onClick={() => changeGame('poker')}
+              >
+                Game2
+              </button>
+            </div>
+
             <div className="flex flex-col">
               <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
