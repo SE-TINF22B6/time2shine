@@ -16,7 +16,7 @@ export default function Banner() {
                 target="_blank"
                 rel="noreferrer"
               >
-                🍪 I like cookies :D
+                🍪 This website only uses neccessary cookies, No spying or ads <3
               </a>{' '}
 
             </div>
