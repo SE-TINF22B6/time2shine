@@ -3,7 +3,7 @@ export const metadata = {
   description: 'Online Gaming Platform',
 }
 
-export default function Games() {
+export default function BlackjackPage() {
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
