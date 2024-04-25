@@ -22,6 +22,10 @@
 - Optional Code-On-Demand: Offers the capability to download and execute small scripts or applets directly from the interface, augmenting client functionality without necessitating extensive updates.
 #### 1.3 Definitions, Acronyms and Abbreviations
 > Definitions of all terms, acronyms, and abbreviations required to properly interpret this document.
+- API: Application Programming Interface
+- URI: Uniform Resource Identifier
+- HTTP: Hypertext Transfer Protocol
+- REST: Representational State Transfer
 #### 1.4 References
 > A complete list of all documents referenced -- hyperlinks to those documents.
 
