@@ -6,6 +6,11 @@
 ### 1. Introduction
 #### 1.1 Overview
 > What are the selling points of your architecture design?
+- Scalability: Easily handle increasing traffic and growth.
+- Flexibility: Support various client types and platforms.
+- Decoupling: Separate client and server for easier maintenance.
+- Statelessness: Simplify server logic and improve reliability.
+- Security: Ensure data confidentiality and integrity with standard mechanisms like HTTPS and OAuth.
 #### 1.2 Constraints
 > Any technical or organizational constraints, conventions (Tips: https://docs.arc42.org/section-2/)
 #### 1.3 Definitions, Acronyms and Abbreviations
