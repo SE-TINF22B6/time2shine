@@ -25,7 +25,7 @@ export const RoehrigClickerComponent = () => {
         const params = new URLSearchParams({
             username: session.user.name || '',
             email: session.user.email || '',
-            gameType: 'roehrig-clicker',
+            game: 'roehrig-clicker',
             score: score.toString(),
         });
 
