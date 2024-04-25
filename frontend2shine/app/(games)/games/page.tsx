@@ -25,7 +25,7 @@ export default function Games() {
           <div className="max-w-sm mx-auto grid gap-8 lg:grid-cols-3 lg:gap-6 items-start lg:max-w-none">
 
             {/* BlackJack */}
-            <div className="flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up">
+            <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up">
               <Image className="rounded-2xl mb-5" src={BlackJackImage} width={300} alt="BlackJack Game" />
               <blockquote className="text-lg text-gray-400 grow text-center">Blackjack is a thrill-a-minute duel against the dealer, where you weave a magic hand of cards to conquer 21 and strike gold!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
@@ -37,7 +37,7 @@ export default function Games() {
             </div>
 
             {/* Röhrig Clicker */}
-            <div className="flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up" data-aos-delay="200">
+            <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up" data-aos-delay="200">
               <Image className="rounded-2xl mb-5" src={ClickerGameImage} width={300} alt="Roehrig Clicker" />
               <blockquote className="text-lg text-gray-400 grow text-center">In "Röhrig Clicker," become Professor Röhrig's overworked assistant, frantically grading exams one click at a time!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
@@ -49,7 +49,7 @@ export default function Games() {
             </div>
 
             {/* Upcoming game */}
-            <div className="flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up" data-aos-delay="400">
+            <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up" data-aos-delay="400">
               <Image className="rounded-2xl mb-5" src={SnakeGame} width={300} alt="Snake Game" />
               <blockquote className="text-lg text-gray-400 grow text-center">Stay tuned for this upcoming game!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">

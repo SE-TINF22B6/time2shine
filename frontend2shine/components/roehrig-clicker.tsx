@@ -3,11 +3,11 @@
 import {useSession} from "next-auth/react";
 import {useState} from "react";
 import RoehrigImage from '@/public/images/roehrig.png'
-import TestimonialImage02 from "@/public/images/testimonial-02.jpg";
 import Image from "next/image";
 
 export const RoehrigClickerComponent = () => {
     const [error, setError] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
     const {data: session, status: loadingStatus} = useSession();
 
     const [score, setScore] = useState(0);
@@ -19,11 +19,13 @@ export const RoehrigClickerComponent = () => {
     const submitScore = async () => {
         if (!session || !session.user) {
             setError('You are not logged in!');
+            setIsSuccess(false);
             return;
         }
 
         if (score === 0) {
             setError('You cannot submit a score of 0!');
+            setIsSuccess(false);
             return;
         }
 
@@ -40,15 +42,21 @@ export const RoehrigClickerComponent = () => {
 
         if (!response.ok) {
             setError('Failed to submit score');
+            setIsSuccess(false);
         } else {
             setError('Score submitted successfully!');
+            setIsSuccess(true);
             setScore(0); // reset score after successful submission
         }
     };
 
     return (
         <div className="flex flex-col items-center justify-center">
-            {error && (<p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>)}
+            {error && (
+                <p className={`text-center py-4 mb-6 rounded ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
+                    {error}
+                </p>
+            )}
 
             <div>
                 <a href="#" onClick={incrementScore}>
