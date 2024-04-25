@@ -22,6 +22,11 @@ export const RoehrigClickerComponent = () => {
             return;
         }
 
+        if (score === 0) {
+            setError('You cannot submit a score of 0!');
+            return;
+        }
+
         const params = new URLSearchParams({
             username: session.user.name || '',
             email: session.user.email || '',
@@ -35,6 +40,9 @@ export const RoehrigClickerComponent = () => {
 
         if (!response.ok) {
             setError('Failed to submit score');
+        } else {
+            setError('Score submitted successfully!');
+            setScore(0); // reset score after successful submission
         }
     };
 
