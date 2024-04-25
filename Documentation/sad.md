@@ -34,10 +34,12 @@
 > Revise your architecture tactics from Semester 3.
 
 ### 3. Architecture design
-> This section specifies the architecture design in various views.
-> Minimum requirement:
-> - sequence diagram on a component level and necessary description
-> - component diagrams and/or package diagrams, and necessary description
+Component diagram:
+![t2s component diagram](https://github.com/SE-TINF22B6/time2shine/assets/59262249/b54967e7-6ce5-41a3-bb93-26987185035c)
+
+Sequence diagram:
+![image](https://github.com/SE-TINF22B6/time2shine/assets/59262249/dc10b9c6-fe63-4551-bfe4-810700310b79)
+
 
 #### 3.1 Overview 
 > A summary of the architecture design -- highlights.  
