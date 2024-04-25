@@ -20,8 +20,8 @@ export default function Features() {
                 <path className="stroke-current text-purple-100" d="M30 39.313l-4.18 2.197L27 34.628l-5-4.874 6.91-1.004L32 22.49l3.09 6.26L42 29.754l-3 2.924" strokeLinecap="square" strokeWidth="2" fill="none" fillRule="evenodd" />
                 <path className="stroke-current text-purple-300" d="M43 42h-9M43 37h-9" strokeLinecap="square" strokeWidth="2" />
               </svg>
-              <h4 className="h4 mb-2">GitHubLogin</h4>
-              <p className="text-lg text-gray-400 text-center">Easy login with Github. You don't need another password and account.</p>
+              <h4 className="h4 mb-2">Infrastructure</h4>
+              <p className="text-lg text-gray-400 text-center">Discover the power of our game database, which impresses with lightning-fast loading times and a huge selection of statistics and player profiles! Join a community that relies on data to revolutionize the gaming experience and make every move a master move.</p>
             </div>
 
             {/* 2nd item */}
@@ -45,7 +45,7 @@ export default function Features() {
                   <circle className="stroke-current text-purple-100" cx="11" cy="11" r="11" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Highscore</h4>
+              <h4 className="h4 mb-2">Leaderboards</h4>
               <p className="text-lg text-gray-400 text-center">Put your skills to the test and climb to the top of our high score list - where every point counts and legends are born! Show that you are the best by setting new records that will go down in the annals of our gaming history.
 
                 </p>
@@ -60,9 +60,8 @@ export default function Features() {
                   <circle className="stroke-current text-purple-300" cx="13" cy="9" r="3" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">Infrastructure</h4>
-              <p className="text-lg text-gray-400 text-center">Discover the power of our game database, which impresses with lightning-fast loading times and a huge selection of statistics and player profiles! Join a community that relies on data to revolutionize the gaming experience and make every move a master move.
-                </p>
+              <h4 className="h4 mb-2">GitHub Login</h4>
+              <p className="text-lg text-gray-400 text-center">Easy Sign in with GitHub, no password needed.</p>
             </div>
 
             {/* 5th item */}
@@ -90,7 +89,7 @@ export default function Features() {
                 </g>
               </svg>
               <h4 className="h4 mb-2">Upcoming Innovations</h4>
-              <p className="text-lg text-gray-400 text-center">These games are constantly being improved. </p>
+              <p className="text-lg text-gray-400 text-center">Our games are constantly being improved. </p>
             </div>
 
           </div>
