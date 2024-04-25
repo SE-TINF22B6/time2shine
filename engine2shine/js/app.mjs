@@ -37,21 +37,29 @@ function startup() {
     cardValue = 0;
     kiCardValue = 0;
 
-var cardValueText = new Text(cardValue, {
-    fontFamily: 'Arial',
-    fontSize: 96,
-    fill: 0x040e0f,
-    align: 'right',
-    //anchor: (1,1),
-});
+    var cardValueText = new Text(cardValue, {
+        fontFamily: 'Arial',
+        fontSize: 96,
+        fill: 0x040e0f,
+        align: 'right',
+        //anchor: (1,1),
+    });
 
-var kiCardValueText = new Text(kiCardValue, {
-    fontFamily: 'Arial',
-    fontSize: 96,
-    fill: 0x040e0f,
-    align: 'right',
-    //anchor: (1,1),
-});
+    var kiCardValueText = new Text(kiCardValue, {
+        fontFamily: 'Arial',
+        fontSize: 96,
+        fill: 0x040e0f,
+        align: 'right',
+        //anchor: (1,1),
+    });
+
+    var usernameText = new Text(username, {
+        fontFamily: 'Arial',
+        fontSize: 32,
+        fill: 0x040e0f,
+        align: 'center',
+        //anchor: (1,1),
+    });
 
     var cardDeck = new Array();
     console.log("Deck: " + cardDeck.length);
@@ -136,14 +144,13 @@ var kiCardValueText = new Text(kiCardValue, {
     app.stage.addChild(button.sprite);
     app.stage.addChild(cardValueText);
     app.stage.addChild(kiCardValueText);
+    app.stage.addChild(usernameText);
     app.stage.addChild(hand.obj);
     app.stage.addChild(kiHand.obj);
 
     // Listen for animate update
     gameStart(playerCards, hand, false);
     gameStart(kiCards, kiHand, true);
-
-    console.log(username);
     
     app.ticker.add(function(delta) {
         /*
@@ -155,6 +162,8 @@ var kiCardValueText = new Text(kiCardValue, {
 
         cardValueText.x = app.renderer.width - 150;
         cardValueText.y = app.renderer.height - 150;
+        usernameText.x = 450;
+        usernameText.y = app.renderer.height - 290  ;
         cardValueText.text = cardValue;
 
         kiCardValueText.x = app.renderer.width - 150;
