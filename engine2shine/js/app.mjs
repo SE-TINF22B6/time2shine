@@ -10,6 +10,7 @@ const app = new Application({
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const email = urlParams.get('email');
+const game = 'blackjack';
 
 document.body.appendChild(app.view);
 app.renderer.backgroundColor = 0x35654d;
@@ -287,6 +288,18 @@ async function endTurn(playerCards, hand, isKi) {
     isEndTurn = true;
     if((cardValue <=21 && kiCardValue < cardValue) || (cardValue <=21 && kiCardValue > 21)) {
         console.log("You WIN!");
+        /*
+        await fetch(`https://api.maiwald.cc/highscores?${params.toString()}`, {
+            method: 'POST',
+        })
+            .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        */
+
     } else {
         if((cardValue == kiCardValue) || (cardValue > 21 && kiCardValue > 21)) {
             console.log("It's a DRAW!");
