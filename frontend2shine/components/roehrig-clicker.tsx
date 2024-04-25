@@ -53,7 +53,7 @@ export const RoehrigClickerComponent = () => {
     return (
         <div className="flex flex-col items-center justify-center">
             {error && (
-                <p className={`text-center py-4 mb-6 rounded ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
+                <p className={`btn text-white text-center py-3 mb-6 rounded ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
                     {error}
                 </p>
             )}
@@ -65,7 +65,7 @@ export const RoehrigClickerComponent = () => {
             </div>
             <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Score: {score}</p>
             <div>
-                <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
                    href="#" onClick={submitScore}>Submit Score</a>
             </div>
         </div>
