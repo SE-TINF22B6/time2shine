@@ -7,6 +7,10 @@ const app = new Application({
     resizeTo: window
 });
 
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
+const email = urlParams.get('email');
+
 document.body.appendChild(app.view);
 app.renderer.backgroundColor = 0x35654d;
 app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
@@ -138,6 +142,8 @@ var kiCardValueText = new Text(kiCardValue, {
     // Listen for animate update
     gameStart(playerCards, hand, false);
     gameStart(kiCards, kiHand, true);
+
+    console.log(username);
     
     app.ticker.add(function(delta) {
         /*
