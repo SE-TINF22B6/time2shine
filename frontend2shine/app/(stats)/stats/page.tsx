@@ -45,10 +45,10 @@ export default function Stats() {
                 Blackjack
               </button>
               <button
-                  className={`mr-4 font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 items-center transition duration-150 ease-in-out ${game === 'poker' ? 'border-2 border-white' : ''}`}
-                  onClick={() => changeGame('poker')}
+                  className={`mr-4 font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 items-center transition duration-150 ease-in-out ${game === 'roehrig-clicker' ? 'border-2 border-white' : ''}`}
+                  onClick={() => changeGame('roehrig-clicker')}
               >
-                Game2
+                Röhrig-Clicker
               </button>
             </div>
 

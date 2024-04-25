@@ -3,7 +3,7 @@ export const metadata = {
   description: 'Online Gaming Platform',
 }
 
-export default function Games() {
+export default function BlackjackPage() {
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -17,7 +17,7 @@ export default function Games() {
                       and upcoming games.</p>
                   <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
                       <div data-aos="fade-up" data-aos-delay="400">
-                          <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                          <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
                              href="/blackjack">Play Black Jack</a>
                       </div>
                   </div>
