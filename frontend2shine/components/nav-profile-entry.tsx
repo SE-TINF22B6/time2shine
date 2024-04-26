@@ -11,7 +11,7 @@ export const NavProfileEntry = () => {
 
 
     return (
-        <li className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+        <li className="font-medium text-lg text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
             <Link href="/profile">
                 {buttonText}
             </Link>

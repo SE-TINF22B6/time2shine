@@ -22,7 +22,7 @@ export const GithubLogin = () => {
 
             <div>
                 <a
-                    className="font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                    className="font-medium text-lg text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
                     style={{backgroundColor: ""}}
                     onClick={() => session ? signOut() : signIn("github", {callbackUrl})}
                     role="button"

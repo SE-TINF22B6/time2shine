@@ -18,7 +18,7 @@ export default function Header() {
           <div className="shrink-0 mr-4">
             {/* Logo */}
             <Link href="/" className="block" aria-label="Cruip">
-              <Image className="rounded-full" src={Logo} width={150} height={100} alt="time2shine Logo" />
+              <Image className="rounded-full" src={Logo} width={200} alt="time2shine Logo" />
             </Link>
           </div>
 
@@ -28,19 +28,19 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link href="/"
-                      className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                      className="font-medium text-lg text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Home
                 </Link>
               </li>
               <li>
                 <Link href="/games"
-                      className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                      className="font-medium text-lg text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Games
                 </Link>
               </li>
               <li>
                 <Link href="/stats"
-                      className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                      className="font-medium text-lg text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Stats
                 </Link>
               </li>
