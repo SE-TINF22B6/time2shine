@@ -80,13 +80,21 @@ function startup() {
     }
 
     for (let j = 0; j < snakes.length; j++) {
-        for (let i = 0; i < snakes[0].length; i++) {
+        for (let i = 0; i < snakes[j].length; i++) {
             app.stage.addChild(snakes[j][i].sprite);
         }
     }
     
     app.ticker.add(function(delta) {
+        
+        for (let j = 0; j < snakes.length; j++) {
+            for (let i = 0; i < snakes[j].length; i++) {
+                snakes[j][i].draw();
+            }
+        }
+        
         if (tick) {
+            console.log(snakes[0][2].xpos)
             tick = false;
             move(snakes[0], wasdDirection);
             move(snakes[1], ijklDirection);
@@ -107,31 +115,32 @@ async function move(entity, direction) {
         }
         
         if (entity[i].direction == "right") {
-            entity[i].sprite.xpos += 1;
-            if (entity[i].sprite.xpos >= gridSize) {
-                entity[i].sprite.xpos = 0;
+            entity[i].xpos += 1;
+            if (entity[i].xpos >= gridSize) {
+                entity[i].xpos = 0;
             }
         }
         if (entity[i].direction == "left") {
-            entity[i].sprite.xpos -= 1;
-            if (entity[i].sprite.xpos < 0) {
-                entity[i].sprite.xpos = gridSize-1;
+            entity[i].xpos -= 1;
+            if (entity[i].xpos < 0) {
+                entity[i].xpos = gridSize-1;
             }
         }
         if (entity[i].direction == "down") {
-            entity[i].sprite.ypos += 1;
-            if (entity[i].sprite.ypos >= gridSize) {
-                entity[i].sprite.ypos = 0;
+            entity[i].ypos += 1;
+            if (entity[i].ypos >= gridSize) {
+                entity[i].ypos = 0;
             }
         }
         if (entity[i].direction == "up") {
-            entity[i].sprite.ypos -= 1;
-            if (entity[i].sprite.ypos < 0) {
-                entity[i].sprite.ypos = gridSize-1;
+            entity[i].ypos -= 1;
+            if (entity[i].ypos < 0) {
+                entity[i].ypos = gridSize-1;
             }
         }
+        entity[i].tile = fullBoard[entity[i].ypos][entity[i].xpos];
     }
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 500));
 
     tick = true;
 }

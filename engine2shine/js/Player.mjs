@@ -15,18 +15,18 @@ class Player {
     }
 
     draw() {
-        this.sprite.x = tile.x;
-        this.sprite.y = tile.y;
-        this.sprite.width = width;
-        this.sprite.height = height;
+        this.sprite.x = this.tile.x;
+        this.sprite.y = this.tile.y;
+        this.sprite.width = this.width;
+        this.sprite.height = this.height;
 
         //this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
     }
 }
 
 class PlayerBody extends Player {
-    constructor(x, y, width, height) {
-        super(x, y, width, height)
+    constructor(x, y, width, height, tile) {
+        super(x, y, width, height, tile)
         this.sprite = Sprite.from('graphic/button.png');
         this.draw();
         return this;
@@ -34,8 +34,8 @@ class PlayerBody extends Player {
 }
 
 class PlayerHead extends Player {
-    constructor(x, y, width, height) {
-        super(x, y, width, height)
+    constructor(x, y, width, height, tile) {
+        super(x, y, width, height, tile)
         this.sprite = Sprite.from('graphic/button.png');
         this.draw();
         return this;
