@@ -12,7 +12,8 @@ const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
 
-var direction = "right";
+var wasdDirection = "right";
+var ijklDirection = "right";
 var tick = true;
 const gridSize = 15;
 const screenSize = app.renderer.height - 20;
@@ -22,16 +23,29 @@ document.body.appendChild(app.view);
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'd') {
-        direction = "right";
+        wasdDirection = "right";
     }
     if (event.key === 'a') {
-        direction = "left";
+        wasdDirection = "left";
     }
     if (event.key === 's') {
-        direction = "down";
+        wasdDirection = "down";
     }
     if (event.key === 'w') {
-        direction = "up";
+        wasdDirection = "up";
+    }
+
+    if (event.key === 'l') {
+        ijklDirection = "right";
+    }
+    if (event.key === 'j') {
+        ijklDirection = "left";
+    }
+    if (event.key === 'k') {
+        ijklDirection = "down";
+    }
+    if (event.key === 'i') {
+        ijklDirection = "up";
     }
 });
 
@@ -51,9 +65,10 @@ for (let j = 0; j < gridSize; j++) {
     }
 }
 
-var player = new PlayerBody(0, 0, tileSize, tileSize);
-
-
+var snakes = new Array(2);
+snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize), new PlayerBody(1, 0, tileSize, tileSize), new PlayerHead(2, 0, tileSize, tileSize)]
+snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize), new PlayerBody(1, 1, tileSize, tileSize), new PlayerHead(2, 1, tileSize, tileSize)]
+//var player = new PlayerBody(0, 0, tileSize, tileSize);
 
 function startup() {
     console.log(fullBoard[1][1]);
@@ -61,49 +76,75 @@ function startup() {
     for (let j = 0; j < gridSize; j++) {
         for (let i = 0; i < gridSize; i++) {
             app.stage.addChild(fullBoard[j][i].sprite);
-            console.log(j);
-            console.log(i);
-            console.log("blub");
         }
     }
-    app.stage.addChild(player.sprite);
-    
+
+    for (let j = 0; j < snakes.length; j++) {
+        for (let i = 0; i < snakes[0].length; i++) {
+            app.stage.addChild(snakes[j][i].sprite);
+        }
+    }
     
     app.ticker.add(function(delta) {
         if (tick) {
-            move(player);
+            tick = false;
+            move(snakes[0], wasdDirection);
+            move(snakes[1], ijklDirection);
         }
-        console.log(player.x);
     }
     );
 }
 
-async function move(entity) {
-    tick = false;
+async function move(entity, direction) {
+    
+    for (let i = 0; i < entity.length; i++) {
+        if(i != entity.length-1) {
+            entity[i].direction = entity[i+1].direction;
+        } else {
+            if (!isOpposite(entity[entity.length-1].direction, direction)) {
+                entity[i].direction = direction;
+            }
+        }
+        
+        if (entity[i].direction == "right") {
+            entity[i].sprite.xpos += 1;
+            if (entity[i].sprite.xpos >= screenSize) {
+                entity[i].sprite.x = 0;
+            }
+        }
+        if (entity[i].direction == "left") {
+            entity[i].sprite.x -= tileSize;
+            if (entity[i].sprite.x < 0) {
+                entity[i].sprite.x = screenSize - tileSize;
+            }
+        }
+        if (entity[i].direction == "down") {
+            entity[i].sprite.y += tileSize;
+            if (entity[i].sprite.y >= screenSize) {
+                entity[i].sprite.y = 0;
+            }
+        }
+        if (entity[i].direction == "up") {
+            entity[i].sprite.y -= tileSize;
+            if (entity[i].sprite.y < 0) {
+                entity[i].sprite.y = screenSize - tileSize;
+            }
+        }
+    }
     await new Promise(r => setTimeout(r, 1000));
-    if (direction == "right") {
-        entity.sprite.x += tileSize;
-        if (entity.sprite.x >= screenSize) {
-            entity.sprite.x = 0;
-        }
-    }
-    if (direction == "left") {
-        entity.sprite.x -= tileSize;
-        if (entity.sprite.x < 0) {
-            entity.sprite.x = screenSize - tileSize;
-        }
-    }
-    if (direction == "down") {
-        entity.sprite.y += tileSize;
-        if (entity.sprite.y >= screenSize) {
-            entity.sprite.y = 0;
-        }
-    }
-    if (direction == "up") {
-        entity.sprite.y -= tileSize;
-        if (entity.sprite.y < 0) {
-            entity.sprite.y = screenSize - tileSize;
-        }
-    }
+
     tick = true;
+}
+
+function isOpposite(dir1, dir2) {
+    if(
+        dir1 == "up" && dir2 == "down" ||
+        dir1 == "down" && dir2 == "up" ||
+        dir1 == "right" && dir2 == "left" ||
+        dir1 == "left" && dir2 == "right"
+    ) {
+        return true;
+    } else {
+        return false;
+    }
 }

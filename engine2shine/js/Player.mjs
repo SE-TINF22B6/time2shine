@@ -6,8 +6,9 @@ class Player {
         this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
         this.width = width;
         this.height = height;
-        this.x = x;
-        this.y = y;
+        this.xpos = x;
+        this.ypos = y;
+        this.direction = "right";
         this.draw();
         return this;
     }
@@ -32,7 +33,12 @@ class PlayerBody extends Player {
 }
 
 class PlayerHead extends Player {
-
+    constructor(x, y, width, height) {
+        super(x, y, width, height)
+        this.sprite = Sprite.from('graphic/button.png');
+        this.draw();
+        return this;
+    }
 }
 
 export {PlayerBody, PlayerHead};
