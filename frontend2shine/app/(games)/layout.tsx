@@ -1,4 +1,5 @@
 import PageIllustration from '@/components/page-illustration'
+import Footer from "@/components/ui/footer";
 
 export default function GamesLayout({
   children,
@@ -6,12 +7,16 @@ export default function GamesLayout({
   children: React.ReactNode
 }) {  
   return (
-    <main className="grow">
+      <>
+        <main className="grow">
 
-      <PageIllustration />
+        <PageIllustration />
 
-      {children}
+          {children}
 
-    </main>
+        </main>
+
+        <Footer />
+      </>
   )
 }

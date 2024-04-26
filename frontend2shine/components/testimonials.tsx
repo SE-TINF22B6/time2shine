@@ -20,7 +20,7 @@ export default function Testimonials() {
           <div className="max-w-sm mx-auto grid gap-8 lg:grid-cols-3 lg:gap-6 items-start lg:max-w-none">
 
             {/* 1st testimonial */}
-            <div className="flex flex-col h-full p-6 bg-gray-800" data-aos="fade-up">
+            <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800" data-aos="fade-up">
               <div>
                 <div className="relative inline-flex flex-col mb-4">
                   <Image className="rounded-full" src={TestimonialImage01} width={48} height={48} alt="Testimonial 01" />
@@ -29,14 +29,14 @@ export default function Testimonials() {
                   </svg>
                 </div>
               </div>
-              <blockquote className="text-lg text-gray-400 grow">— I've been having a fantastic time playing on time2shine! Blackjack is one of my favorite classic casino games, and the platform really delivers a smooth and enjoyable experience.  Everything is easy to use and navigate, and the gameplay feels really crisp. I can't wait to see what other games get added to the platform in the future. time2shine is definitely becoming my go-to spot for some online gaming fun!</blockquote>
+              <blockquote className="text-center text-lg text-gray-400 grow">— I've been having a fantastic time playing on time2shine! Blackjack is one of my favorite classic casino games, and the platform really delivers a smooth and enjoyable experience.  Everything is easy to use and navigate, and the gameplay feels really crisp. I can't wait to see what other games get added to the platform in the future. time2shine is definitely becoming my go-to spot for some online gaming fun!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
                 <cite className="text-gray-200 not-italic">Gemini</cite>
               </div>
             </div>
 
             {/* 2nd testimonial */}
-            <div className="flex flex-col h-full p-6 bg-gray-800" data-aos="fade-up" data-aos-delay="200">
+            <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800" data-aos="fade-up" data-aos-delay="200">
               <div>
                 <div className="relative inline-flex flex-col mb-4">
                   <Image className="rounded-full" src={TestimonialImage02} width={48} height={48} alt="Testimonial 02" />
@@ -45,14 +45,14 @@ export default function Testimonials() {
                   </svg>
                 </div>
               </div>
-              <blockquote className="text-lg text-gray-400 grow">— Time2Shine's Blackjack game offers an immersive and thrilling experience with its sleek design and seamless interface. I'm excited to see what other exciting games they have in store for us in the future!</blockquote>
+              <blockquote className="text-center text-lg text-gray-400 grow">— Time2Shine's Blackjack game offers an immersive and thrilling experience with its sleek design and seamless interface. I'm excited to see what other exciting games they have in store for us in the future!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
                 <cite className="text-gray-200 not-italic">ChatGPT</cite>
               </div>
             </div>
 
             {/* 3rd testimonial */}
-            <div className="flex flex-col h-full p-6 bg-gray-800" data-aos="fade-up" data-aos-delay="400">
+            <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800" data-aos="fade-up" data-aos-delay="400">
               <div>
                 <div className="relative inline-flex flex-col mb-4">
                   <Image className="rounded-full" src={TestimonialImage03} width={48} height={48} alt="Testimonial 03" />
@@ -61,7 +61,7 @@ export default function Testimonials() {
                   </svg>
                 </div>
               </div>
-              <blockquote className="text-lg text-gray-400 grow">— I absolutely love time2shine and the black jack game they offer! The platform is easy to navigate and the game is so much fun to play. I love how I can challenge my friends and analyze our statistics. I am so excited to see what other games they will be offering in the future. Keep up the great work time2shine!</blockquote>
+              <blockquote className="text-center text-lg text-gray-400 grow">— I absolutely love time2shine and the black jack game they offer! The platform is easy to navigate and the game is so much fun to play. I love how I can challenge my friends and analyze our statistics. I am so excited to see what other games they will be offering in the future. Keep up the great work time2shine!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
                 <cite className="text-gray-200 not-italic">deepai.org</cite>
               </div>
