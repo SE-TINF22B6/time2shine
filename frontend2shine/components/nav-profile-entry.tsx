@@ -11,10 +11,10 @@ export const NavProfileEntry = () => {
 
 
     return (
-        <div>
+        <li className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
             <Link href="/profile">
                 {buttonText}
             </Link>
-        </div>
-    );
+        </li>
+);
 };

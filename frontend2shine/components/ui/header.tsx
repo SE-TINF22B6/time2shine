@@ -28,25 +28,23 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link href="/"
-                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                      className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Home
                 </Link>
               </li>
               <li>
                 <Link href="/games"
-                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                      className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Games
                 </Link>
               </li>
               <li>
                 <Link href="/stats"
-                      className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                      className="font-medium text-xl text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Stats
                 </Link>
               </li>
-              <li className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                     <NavProfileEntry/>
-              </li>
             </ul>
 
             <ul className="flex grow justify-end flex-wrap items-center">
