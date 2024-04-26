@@ -66,8 +66,8 @@ for (let j = 0; j < gridSize; j++) {
 }
 
 var snakes = new Array(2);
-snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize), new PlayerBody(1, 0, tileSize, tileSize), new PlayerHead(2, 0, tileSize, tileSize)]
-snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize), new PlayerBody(1, 1, tileSize, tileSize), new PlayerHead(2, 1, tileSize, tileSize)]
+snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
+snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize, fullBoard[1][0]), new PlayerBody(1, 1, tileSize, tileSize, fullBoard[1][1]), new PlayerHead(2, 1, tileSize, tileSize, fullBoard[1][2])]
 //var player = new PlayerBody(0, 0, tileSize, tileSize);
 
 function startup() {
@@ -108,26 +108,26 @@ async function move(entity, direction) {
         
         if (entity[i].direction == "right") {
             entity[i].sprite.xpos += 1;
-            if (entity[i].sprite.xpos >= screenSize) {
-                entity[i].sprite.x = 0;
+            if (entity[i].sprite.xpos >= gridSize) {
+                entity[i].sprite.xpos = 0;
             }
         }
         if (entity[i].direction == "left") {
-            entity[i].sprite.x -= tileSize;
-            if (entity[i].sprite.x < 0) {
-                entity[i].sprite.x = screenSize - tileSize;
+            entity[i].sprite.xpos -= 1;
+            if (entity[i].sprite.xpos < 0) {
+                entity[i].sprite.xpos = gridSize-1;
             }
         }
         if (entity[i].direction == "down") {
-            entity[i].sprite.y += tileSize;
-            if (entity[i].sprite.y >= screenSize) {
-                entity[i].sprite.y = 0;
+            entity[i].sprite.ypos += 1;
+            if (entity[i].sprite.ypos >= gridSize) {
+                entity[i].sprite.ypos = 0;
             }
         }
         if (entity[i].direction == "up") {
-            entity[i].sprite.y -= tileSize;
-            if (entity[i].sprite.y < 0) {
-                entity[i].sprite.y = screenSize - tileSize;
+            entity[i].sprite.ypos -= 1;
+            if (entity[i].sprite.ypos < 0) {
+                entity[i].sprite.ypos = gridSize-1;
             }
         }
     }

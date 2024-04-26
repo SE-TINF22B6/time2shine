@@ -2,22 +2,23 @@ import {Sprite} from "./pixi.mjs";
 
 class Player {
 
-    constructor(x, y, width, height) {
+    constructor(xpos, ypos, width, height, tile) {
         this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
         this.width = width;
         this.height = height;
-        this.xpos = x;
-        this.ypos = y;
+        this.tile = tile;
+        this.xpos = xpos;
+        this.ypos = ypos;
         this.direction = "right";
         this.draw();
         return this;
     }
 
     draw() {
-        this.sprite.x = this.x;
-        this.sprite.y = this.y;
-        this.sprite.width = this.width;
-        this.sprite.height = this.height;
+        this.sprite.x = tile.x;
+        this.sprite.y = tile.y;
+        this.sprite.width = width;
+        this.sprite.height = height;
 
         //this.obj.drawRoundedRect(this.x, this.y, this.width, this.height, this.radius);
     }
