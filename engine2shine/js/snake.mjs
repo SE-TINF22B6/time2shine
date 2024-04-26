@@ -12,11 +12,29 @@ const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
 
+var direction = "right";
+var tick = true;
 const gridSize = 15;
 const screenSize = app.renderer.height - 20;
 const tileSize = screenSize / gridSize;
 
 document.body.appendChild(app.view);
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'd') {
+        direction = "right";
+    }
+    if (event.key === 'a') {
+        direction = "left";
+    }
+    if (event.key === 's') {
+        direction = "down";
+    }
+    if (event.key === 'w') {
+        direction = "up";
+    }
+});
+
 app.renderer.backgroundColor = 0x35654d;
 app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 
@@ -50,15 +68,42 @@ function startup() {
     }
     app.stage.addChild(player.sprite);
     
-
+    
     app.ticker.add(function(delta) {
-        move(player);
+        if (tick) {
+            move(player);
+        }
         console.log(player.x);
     }
     );
 }
 
 async function move(entity) {
-    await new Promise(r => setTimeout(r, 500));
-    entity.sprite.x += tileSize;
+    tick = false;
+    await new Promise(r => setTimeout(r, 1000));
+    if (direction == "right") {
+        entity.sprite.x += tileSize;
+        if (entity.sprite.x >= screenSize) {
+            entity.sprite.x = 0;
+        }
+    }
+    if (direction == "left") {
+        entity.sprite.x -= tileSize;
+        if (entity.sprite.x < 0) {
+            entity.sprite.x = screenSize - tileSize;
+        }
+    }
+    if (direction == "down") {
+        entity.sprite.y += tileSize;
+        if (entity.sprite.y >= screenSize) {
+            entity.sprite.y = 0;
+        }
+    }
+    if (direction == "up") {
+        entity.sprite.y -= tileSize;
+        if (entity.sprite.y < 0) {
+            entity.sprite.y = screenSize - tileSize;
+        }
+    }
+    tick = true;
 }
