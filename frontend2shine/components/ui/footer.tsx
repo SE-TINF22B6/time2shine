@@ -25,35 +25,38 @@ export default function Footer() {
               <div className="text-gray-400">– time2shine</div>
             </div>
 
-            {/* 2nd, 3rd and 4th blocks */}
-            <div className="md:col-span-8 lg:col-span-7 grid sm:grid-cols-3 gap-8">
+            {/* 2nd and 3rd blocks */}
+            <div className="md:col-span-8 lg:col-span-7 flex justify-end gap-40">
 
               {/* 2nc block */}
-              <div className="text-sm">
-              </div>
-
-              {/* 3rd block */}
               <div className="text-sm">
                 <h6 className="text-gray-200 font-medium mb-1">Our Games</h6>
                 <ul>
                   <li className="mb-1">
-                    <Link href="/games" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Black Jack</Link>
+                    <Link href="/games"
+                          className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Black
+                      Jack</Link>
                   </li>
                   <li className="mb-1">
-                    <Link href="/games" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Röhrig Clicker</Link>
+                    <Link href="/games"
+                          className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Röhrig
+                      Clicker</Link>
                   </li>
                   <li className="mb-1">
-                    <Link href="/games" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Upcoming Game</Link>
+                    <Link href="/games"
+                          className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Upcoming
+                      Game</Link>
                   </li>
                 </ul>
               </div>
 
-              {/* 4th block */}
+              {/* 3rd block */}
               <div className="text-sm">
                 <h6 className="text-gray-200 font-medium mb-1">Resources</h6>
                 <ul>
                   <li className="mb-1">
-                    <Link href="/impressum" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Impressum</Link>
+                    <Link href="/impressum"
+                          className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Impressum</Link>
                   </li>
                 </ul>
               </div>
