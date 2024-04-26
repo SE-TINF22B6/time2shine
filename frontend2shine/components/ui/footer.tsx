@@ -53,7 +53,7 @@ export default function Footer() {
                 <h6 className="text-gray-200 font-medium mb-1">Resources</h6>
                 <ul>
                   <li className="mb-1">
-                    <Link href="/" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Impressum</Link>
+                    <Link href="/impressum" className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Impressum</Link>
                   </li>
                 </ul>
               </div>
