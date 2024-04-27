@@ -84,7 +84,6 @@ for (let i = 0; i < startSize; i++) {
 //var player = new PlayerBody(0, 0, tileSize, tileSize);
 
 function startup() {
-    console.log(fullBoard[1][1]);
 
     for (let j = 0; j < gridSize; j++) {
         for (let i = 0; i < gridSize; i++) {
@@ -101,17 +100,17 @@ function startup() {
     app.ticker.add(function(delta) {  
         if (tick) {
             tick = false;
-            console.log("pre move sneks" + snakes.length);
+            for (let i = 0; i < snakes.length; i++) {
+                move(snakes[i], wasdDirection);
+            }
 
             for (let j = 0; j < snakes.length; j++) {
-                move(snakes[j], wasdDirection);
                 for (let i = 0; i < snakes[j].length; i++) {
-                    console.log("length"+snakes);
                     snakes[j][i].draw();
                 }
-                console.log("sneks");
+                
             }
-            console.log("post move sneks" + snakes.length);
+            
             //move(snakes[1], ijklDirection);
         }
     }
@@ -119,7 +118,6 @@ function startup() {
 }
 
 async function move(entity, direction) {
-    console.log(entity.length);
     for (let i = 0; i < entity.length; i++) {
         if(i != entity.length-1) {
             entity[i].direction = entity[i+1].direction;
@@ -196,15 +194,16 @@ function checkCollision() {
     app.stage.removeChild(tempSnake[5].sprite);
     for (let i = 0; i < 5; i++) {
         if (i != 0) {
-            snakes[1][i] = tempSnake[i];
-            snakes[1][i].direction = uTurn(tempSnake[i].direction);
+            snakes[1][4-i] = tempSnake[i];
+            snakes[1][4-i].direction = uTurn(tempSnake[i].direction);
 
         } else {
-            snakes[1][i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
-            snakes[1][i].direction = uTurn(tempSnake[i].direction);
-            app.stage.addChild(snakes[1][i].sprite);
+            snakes[1][4-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
+            snakes[1][4-i].direction = uTurn(tempSnake[i].direction);
+            app.stage.addChild(snakes[1][4-i].sprite);
             app.stage.removeChild(tempSnake[i].sprite);
         }
+        console.log(snakes[1][i].direction);
     }
 
     for (let i = 6; i < tempSnake.length; i++) {
