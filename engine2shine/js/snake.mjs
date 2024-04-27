@@ -102,8 +102,9 @@ function startup() {
         if (tick) {
             tick = false;
             console.log("pre move sneks" + snakes.length);
-            move(snakes[0], wasdDirection);
+
             for (let j = 0; j < snakes.length; j++) {
+                move(snakes[j], wasdDirection);
                 for (let i = 0; i < snakes[j].length; i++) {
                     console.log("length"+snakes);
                     snakes[j][i].draw();
@@ -192,14 +193,17 @@ function checkCollision() {
     snakes[0] = [];
     snakes[1] = [];
     snakes[2] = []; 
+    app.stage.removeChild(tempSnake[5].sprite);
     for (let i = 0; i < 5; i++) {
         if (i != 0) {
             snakes[1][i] = tempSnake[i];
             snakes[1][i].direction = uTurn(tempSnake[i].direction);
 
         } else {
-            snakes[1][i] = new PlayerHead(tempSnake[i].tile.x, tempSnake[i].tile.y, tileSize, tileSize, tempSnake[i].tile);
+            snakes[1][i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
             snakes[1][i].direction = uTurn(tempSnake[i].direction);
+            app.stage.addChild(snakes[1][i].sprite);
+            app.stage.removeChild(tempSnake[i].sprite);
         }
     }
 
