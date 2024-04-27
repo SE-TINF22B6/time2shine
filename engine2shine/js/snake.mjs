@@ -72,8 +72,6 @@ for (let j = 0; j < gridSize; j++) {
 
 var snakes = new Array();
 snakes[0] = [];
-snakes[1] = [];
-snakes[2] = [];
 for (let i = 0; i < startSize; i++) {
     snakes[0][i] = new PlayerBody(i, 0, tileSize, tileSize, fullBoard[0][i]);
     if (i == startSize-1) {
@@ -107,7 +105,7 @@ function startup() {
             move(snakes[0], wasdDirection);
             for (let j = 0; j < snakes.length; j++) {
                 for (let i = 0; i < snakes[j].length; i++) {
-                    console.log("length");
+                    console.log("length"+snakes);
                     snakes[j][i].draw();
                 }
                 console.log("sneks");
@@ -192,6 +190,8 @@ function uTurn(dir) {
 function checkCollision() {
     var tempSnake = snakes[0];
     snakes[0] = [];
+    snakes[1] = [];
+    snakes[2] = []; 
     for (let i = 0; i < 5; i++) {
         if (i != 0) {
             snakes[1][i] = tempSnake[i];
@@ -204,6 +204,6 @@ function checkCollision() {
     }
 
     for (let i = 6; i < tempSnake.length; i++) {
-        snakes[0][i] = tempSnake[i];
+        snakes[0][i-6] = tempSnake[i];
     }
 }
