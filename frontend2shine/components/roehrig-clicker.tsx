@@ -1,29 +1,53 @@
+"use client";
+
 import {useSession} from "next-auth/react";
 import {useState} from "react";
-import Image from "next/image";
 import RoehrigImage from '@/public/images/roehrig.png'
+import Image from "next/image";
 
 export const RoehrigClickerComponent = () => {
     const [error, setError] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const {data: session, status: loadingStatus} = useSession();
+
     const [score, setScore] = useState(0);
-    const [isClicked, setIsClicked] = useState(false);
 
     const incrementScore = () => {
         setScore(score + 1);
     };
 
-    const handleMouseDown = () => {
-        setIsClicked(true);
-    };
-
-    const handleMouseUp = () => {
-        setIsClicked(false);
-    };
-
     const submitScore = async () => {
-        // existing error handling code...
+        if (!session || !session.user) {
+            setError('You are not logged in!');
+            setIsSuccess(false);
+            return;
+        }
+
+        if (score === 0) {
+            setError('You cannot submit a score of 0!');
+            setIsSuccess(false);
+            return;
+        }
+
+        const params = new URLSearchParams({
+            username: session.user.name || '',
+            email: session.user.email || '',
+            game: 'roehrig-clicker',
+            score: score.toString(),
+        });
+
+        const response = await fetch(`https://api.maiwald.cc/highscores?${params.toString()}`, {
+            method: 'POST',
+        });
+
+        if (!response.ok) {
+            setError('Failed to submit score');
+            setIsSuccess(false);
+        } else {
+            setError('Score submitted successfully!');
+            setIsSuccess(true);
+            setScore(0); // reset score after successful submission
+        }
     };
 
     return (
@@ -34,15 +58,7 @@ export const RoehrigClickerComponent = () => {
                 </p>
             )}
 
-            <div
-                style={{
-                    transform: isClicked ? 'scale(1.2)' : 'scale(1)',
-                    transition: 'transform 0.2s',
-                }}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseUp} // handle the case when the mouse is moved away while clicking
-            >
+            <div>
                 <a href="#" onClick={incrementScore}>
                     <Image className="rounded-full" src={RoehrigImage} width={200} alt="Roehrig Clicker" />
                 </a>
