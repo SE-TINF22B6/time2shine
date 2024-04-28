@@ -1,11 +1,18 @@
-export const metadata = {
-  title: 'BlackJack Wiki - time2shine',
-  description: 'Online Gaming Platform',
-}
+'use client';
+
+import {Helmet} from "react-helmet";
+import React from "react";
+import {SessionProvider} from "next-auth/react";
+import {BlackJackRedirect} from "@/components/blackjack-redirect";
 
 export default function Games() {
   return (
     <section className="relative">
+        <Helmet>
+            <title>Games - time2shine</title>
+            <meta name="description" content="Online Gaming Platform" />
+        </Helmet>
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
 
@@ -16,8 +23,9 @@ export default function Games() {
               and upcoming games.</p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                   href="/blackjack">Play Black Jack</a>
+                <SessionProvider>
+                    <BlackJackRedirect/>
+                </SessionProvider>
               </div>
             </div>
           </div>

@@ -1,13 +1,16 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getSession } from "next-auth/react";
+import {getSession, SessionProvider} from "next-auth/react";
 
 import Image from "next/image";
 import BlackJackImage from "@/public/images/blackjack.jpg";
 import ClickerGameImage from "@/public/images/clicker-game.png";
 import SnakeGame from "@/public/images/snake.jpg";
 import {Helmet} from "react-helmet";
+import {BlackJackRedirect} from "@/components/blackjack-redirect";
+import {RoehrigRedirect} from "@/components/roehrig-redirect";
+import {SnakeRedirect} from "@/components/snake-redirect";
 
 export default function Games() {
   const [playNowUrl, setPlayNowUrl] = useState('');
@@ -51,8 +54,9 @@ export default function Games() {
               <blockquote className="text-lg text-gray-400 grow text-center">Blackjack is a thrill-a-minute duel against the dealer, where you weave a magic hand of cards to conquer 21 and strike gold!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700 mb-2">
                 <div data-aos="fade-up" data-aos-delay="400">
-                  <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                     href={playNowUrl}>Play BlackJack</a>
+                <SessionProvider>
+                  <BlackJackRedirect/>
+                </SessionProvider>
                 </div>
                 <div className="text-center" data-aos="fade-up" data-aos-delay="600">
                   <a className="btn text-gray-400 hover:text-purple-700" href="/games/blackjack">Learn more</a>
@@ -67,8 +71,9 @@ export default function Games() {
               <blockquote className="text-lg text-gray-400 grow text-center">In "Röhrig Clicker," become Professor Röhrig's overworked assistant, frantically grading exams one click at a time!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700 mb-2">
                 <div data-aos="fade-up" data-aos-delay="400">
-                  <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                     href="/games/roehrig">Play Röhrig Clicker</a>
+                  <SessionProvider>
+                    <RoehrigRedirect/>
+                  </SessionProvider>
                 </div>
                 <div className="text-center" data-aos="fade-up" data-aos-delay="600">
                   <a className="btn text-gray-400 hover:text-purple-700" href="#">Learn more</a>
@@ -84,8 +89,9 @@ export default function Games() {
               <blockquote className="text-lg text-gray-400 grow text-center">Stay tuned for this upcoming game!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700 mb-2">
                 <div data-aos="fade-up" data-aos-delay="400">
-                  <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                     href="#">Not playable yet</a>
+                  <SessionProvider>
+                    <SnakeRedirect/>
+                  </SessionProvider>
                 </div>
                 <div className="text-center" data-aos="fade-up" data-aos-delay="600">
                   <a className="btn text-gray-400 hover:text-purple-700" href="#">Learn more</a>
