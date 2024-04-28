@@ -11,6 +11,15 @@ export const RoehrigClickerComponent = () => {
     const {data: session, status: loadingStatus} = useSession();
 
     const [score, setScore] = useState(0);
+    const [isClicked, setIsClicked] = useState(false);
+
+    const handleMouseDown = () => {
+        setIsClicked(true);
+    };
+
+    const handleMouseUp = () => {
+        setIsClicked(false);
+    };
 
     const incrementScore = () => {
         setScore(score + 1);
@@ -58,9 +67,17 @@ export const RoehrigClickerComponent = () => {
                 </p>
             )}
 
-            <div>
+            <div
+                style={{
+                    transform: isClicked ? 'scale(1.2)' : 'scale(1)',
+                    transition: 'transform 0.2s',
+                }}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp} // handle the case when the mouse is moved away while clicking
+            >
                 <a href="#" onClick={incrementScore}>
-                    <Image className="rounded-full" src={RoehrigImage} width={200} alt="Roehrig Clicker" />
+                    <Image className="rounded-full" src={RoehrigImage} width={200} alt="Roehrig Clicker"/>
                 </a>
             </div>
             <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Score: {score}</p>
