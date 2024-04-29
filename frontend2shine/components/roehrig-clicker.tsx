@@ -9,14 +9,12 @@ export const RoehrigClickerComponent = () => {
     const [error, setError] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const {data: session, status: loadingStatus} = useSession();
-
     const [score, setScore] = useState(0);
     const [isClicked, setIsClicked] = useState(false);
-
     const [roehrigs, setRoehrigs] = useState(0);
 
 
-    // Increment score every second for each Roehrig
+    // Clicker Game Logic
     useEffect(() => {
         const id = setInterval(() => {
             setScore(score => score + roehrigs);
@@ -54,6 +52,8 @@ export const RoehrigClickerComponent = () => {
     const incrementScore = () => {
         setScore(score + 1);
     };
+
+    // Code for submitting the score to the backend
 
     const submitScore = async () => {
         if (!session || !session.user) {
@@ -132,13 +132,11 @@ export const RoehrigClickerComponent = () => {
                    href="#" onClick={submitScore}>Submit Score</a>
             </div>
 
-
             {error && (
                 <p className={`btn text-white text-center py-3 mb-6 rounded ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
                     {error}
                 </p>
             )}
-
         </div>
     );
 };
