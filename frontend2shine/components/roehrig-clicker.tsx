@@ -91,6 +91,7 @@ export const RoehrigClickerComponent = () => {
             setError('Score submitted successfully!');
             setIsSuccess(true);
             setScore(0); // reset score after successful submission
+            setRoehrigs(0); // reset Roehrigs after successful submission
         }
     };
 
