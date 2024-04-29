@@ -1,7 +1,7 @@
 "use client";
 
 import {useSession} from "next-auth/react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import RoehrigImage from '@/public/images/roehrig.png'
 import Image from "next/image";
 
@@ -12,6 +12,36 @@ export const RoehrigClickerComponent = () => {
 
     const [score, setScore] = useState(0);
     const [isClicked, setIsClicked] = useState(false);
+
+    const [roehrigs, setRoehrigs] = useState(0);
+
+
+    // Increment score every second for each Roehrig
+    useEffect(() => {
+        const id = setInterval(() => {
+            setScore(score => score + roehrigs);
+        }, 1000); // 1000 ms = 1 second
+
+        // Clear interval on component unmount
+        return () => clearInterval(id);
+    }, [roehrigs]);
+
+    const buyRoehrig = (amount: number) => {
+        // Deduct the cost of new Roehrigs from the score
+        const cost = amount * 10; // Assume each Roehrig costs 10 points
+        if (score >= cost) {
+            setScore(score - cost);
+            setRoehrigs(roehrigs + amount);
+        } else {
+            setError(`Not enough points to buy ${amount} Roehrigs!`);
+            setIsSuccess(false);
+
+            // Clear the error message after 3 seconds
+            setTimeout(() => {
+                setError("");
+            }, 3000);
+        }
+    };
 
     const handleMouseDown = () => {
         setIsClicked(true);
@@ -81,6 +111,21 @@ export const RoehrigClickerComponent = () => {
                 </a>
             </div>
             <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Score: {score}</p>
+            <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Roehrigs: {roehrigs}</p>
+            <div className="flex space-x-4 mb-4">
+                <button
+                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                    onClick={() => buyRoehrig(1)}>Buy 1 Roehrig
+                </button>
+                <button
+                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                    onClick={() => buyRoehrig(10)}>Buy 10 Roehrigs
+                </button>
+                <button
+                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                    onClick={() => buyRoehrig(100)}>Buy 100 Roehrigs
+                </button>
+            </div>
             <div>
                 <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
                    href="#" onClick={submitScore}>Submit Score</a>
