@@ -33,7 +33,7 @@ export const RoehrigClickerComponent = () => {
             setScore(score - cost);
             setRoehrigs(roehrigs + amount);
         } else {
-            setError(`Not enough points to buy ${amount} Roehrigs!`);
+            setError(`Not enough points to buy ${amount} Roehrig(s)!`);
             setIsSuccess(false);
 
             // Clear the error message after 3 seconds
@@ -59,6 +59,11 @@ export const RoehrigClickerComponent = () => {
         if (!session || !session.user) {
             setError('You are not logged in!');
             setIsSuccess(false);
+
+            // Clear the error message after 3 seconds
+            setTimeout(() => {
+                setError("");
+            }, 3000);
             return;
         }
 
@@ -91,11 +96,20 @@ export const RoehrigClickerComponent = () => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            {error && (
-                <p className={`btn text-white text-center py-3 mb-6 rounded ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
-                    {error}
-                </p>
-            )}
+            <div className="flex space-x-4 mb-8 flex-nowrap justify-center">
+                <button
+                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-32 mb-4 sm:w-auto sm:mb-0"
+                    onClick={() => buyRoehrig(1)}>Buy One Roehrig
+                </button>
+                <button
+                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-32 mb-4 sm:w-auto sm:mb-0"
+                    onClick={() => buyRoehrig(10)}>Buy 10 Roehrigs
+                </button>
+                <button
+                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-32 mb-4 sm:w-auto sm:mb-0"
+                    onClick={() => buyRoehrig(100)}>Buy 100 Roehrigs
+                </button>
+            </div>
 
             <div
                 style={{
@@ -110,26 +124,21 @@ export const RoehrigClickerComponent = () => {
                     <Image className="rounded-full" src={RoehrigImage} width={200} alt="Roehrig Clicker"/>
                 </a>
             </div>
-            <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Score: {score}</p>
-            <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Roehrigs: {roehrigs}</p>
-            <div className="flex space-x-4 mb-4">
-                <button
-                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    onClick={() => buyRoehrig(1)}>Buy 1 Roehrig
-                </button>
-                <button
-                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    onClick={() => buyRoehrig(10)}>Buy 10 Roehrigs
-                </button>
-                <button
-                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    onClick={() => buyRoehrig(100)}>Buy 100 Roehrigs
-                </button>
-            </div>
-            <div>
+            <p className="text-xl text-gray-400 mb-4" data-aos="fade-up" data-aos-delay="200">Score: {score}</p>
+            <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Your Roehrigs: {roehrigs}</p>
+
+            <div className="mb-4">
                 <a className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
                    href="#" onClick={submitScore}>Submit Score</a>
             </div>
+
+
+            {error && (
+                <p className={`btn text-white text-center py-3 mb-6 rounded ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
+                    {error}
+                </p>
+            )}
+
         </div>
     );
 };
