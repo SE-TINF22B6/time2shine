@@ -2,6 +2,7 @@ import { Application, Sprite, SCALE_MODES, Text, Container, Rectangle, Graphics,
 import { Button } from './Button.mjs';
 import { Tile } from './Tile.mjs';
 import { PlayerBody, PlayerHead } from './Player.mjs';
+import { Roehrig } from './Roehrig.mjs';
 
 const app = new Application({
     resizeTo: window
@@ -15,6 +16,7 @@ const game = 'snake';
 var wasdDirection = "right";
 var ijklDirection = "right";
 var tick = true;
+var roehrigCountdown = 5;
 const startSize = 9;
 const gridSize = 15;
 const screenSize = app.renderer.height - 20;
@@ -79,6 +81,9 @@ for (let i = 0; i < startSize; i++) {
     }
 }
 
+var roehrigs = new Array();
+roehrigs[0] = new Roehrig(0, 3, tileSize, tileSize, fullBoard[3][0]);
+
 //snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
 //snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize, fullBoard[1][0]), new PlayerBody(1, 1, tileSize, tileSize, fullBoard[1][1]), new PlayerHead(2, 1, tileSize, tileSize, fullBoard[1][2])]
 //var player = new PlayerBody(0, 0, tileSize, tileSize);
@@ -96,10 +101,13 @@ function startup() {
             app.stage.addChild(snakes[j][i].sprite);
         }
     }
+    app.stage.addChild(roehrigs[0].sprite);
     
     app.ticker.add(function(delta) {  
         if (tick) {
             tick = false;
+            checkCollision();
+
             for (let i = 0; i < snakes.length; i++) {
                 move(snakes[i], wasdDirection);
             }
@@ -110,14 +118,31 @@ function startup() {
                 }
                 
             }
-            
+
+            moveRoehrig(roehrigs[0]);
+            roehrigs[0].draw();
+
+            if (roehrigCountdown != 0) {
+                roehrigCountdown--;
+            } else {
+                roehrigCountdown = 10;
+            }
+
+            gameClock();
             //move(snakes[1], ijklDirection);
         }
     }
     );
 }
 
-async function move(entity, direction) {
+function moveRoehrig(entity) {
+    if (entity.direction == "right") {
+        entity.xpos += 1;
+    }
+    entity.tile = fullBoard[entity.ypos][entity.xpos];
+}
+
+function move(entity, direction) {
     for (let i = 0; i < entity.length; i++) {
         if(i != entity.length-1) {
             entity[i].direction = entity[i+1].direction;
@@ -153,9 +178,6 @@ async function move(entity, direction) {
         }
         entity[i].tile = fullBoard[entity[i].ypos][entity[i].xpos];
     }
-    await new Promise(r => setTimeout(r, 1000));
-
-    tick = true;
 }
 
 function isOpposite(dir1, dir2) {
@@ -187,26 +209,42 @@ function uTurn(dir) {
 }
 
 function checkCollision() {
-    var tempSnake = snakes[0];
-    snakes[0] = [];
-    snakes[1] = [];
-    snakes[2] = []; 
-    app.stage.removeChild(tempSnake[5].sprite);
-    for (let i = 0; i < 5; i++) {
-        if (i != 0) {
-            snakes[1][4-i] = tempSnake[i];
-            snakes[1][4-i].direction = uTurn(tempSnake[i].direction);
-
-        } else {
-            snakes[1][4-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
-            snakes[1][4-i].direction = uTurn(tempSnake[i].direction);
-            app.stage.addChild(snakes[1][4-i].sprite);
-            app.stage.removeChild(tempSnake[i].sprite);
+    for (let j = 0; j < snakes.length; j++) {
+        for (let k = 0; k < snakes[j].length; k++) {
+            if (snakes[j][k].xpos == roehrigs[0].xpos && snakes[j][k].ypos == roehrigs[0].ypos) {
+                console.log(k);
+                var tempSnake = snakes[0];
+                snakes[0] = [];
+                snakes[1] = [];
+                snakes[2] = []; 
+                app.stage.removeChild(tempSnake[k].sprite);
+                for (let i = 0; i < k; i++) {
+                    if (i != 0) {
+                        snakes[1][k-1-i] = tempSnake[i];
+                        snakes[1][k-1-i].direction = uTurn(tempSnake[i].direction);
+            
+                    } else {
+                        snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
+                        snakes[1][k-1-i].direction = uTurn(tempSnake[i].direction);
+                        app.stage.addChild(snakes[1][k-1-i].sprite);
+                        app.stage.removeChild(tempSnake[i].sprite);
+                    }
+                    console.log(snakes[1][k-1-i].direction);
+                }
+            
+                for (let i = k+1; i < tempSnake.length; i++) {
+                    console.log(i-k-1);
+                    snakes[0][i-k-1] = tempSnake[i];
+                    console.log(snakes[0].length);
+                }
+                console.log("YEY"+snakes[0]);
+                console.log("YEY"+snakes[1]);
+            }
         }
-        console.log(snakes[1][i].direction);
     }
+}
 
-    for (let i = 6; i < tempSnake.length; i++) {
-        snakes[0][i-6] = tempSnake[i];
-    }
+async function gameClock() {
+    await new Promise(r => setTimeout(r, 500));
+    tick = true;
 }
