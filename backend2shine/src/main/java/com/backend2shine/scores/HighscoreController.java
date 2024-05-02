@@ -42,7 +42,7 @@ public class HighscoreController {
             @RequestParam String username,
             @RequestParam String email,
             @RequestParam String game,
-            @RequestParam int score
+            @RequestParam long score
     ) {
         Score newScore = new Score(username, email, game, score);
         return this.service.saveNewHighscore(newScore);

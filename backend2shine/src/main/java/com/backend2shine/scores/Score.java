@@ -17,9 +17,9 @@ public class Score {
 
     private String game;
 
-    private int score;
+    private long score;
 
-    public Score(String username, String email, String game, int score) {
+    public Score(String username, String email, String game, long score) {
         this.username = username;
         this.email = email;
         this.game = game;
@@ -46,7 +46,7 @@ public class Score {
         return game;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
@@ -67,7 +67,7 @@ public class Score {
         this.game = game;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
     }
 }
