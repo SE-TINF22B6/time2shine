@@ -36,7 +36,7 @@ class PlayerBody extends Player {
 class PlayerHead extends Player {
     constructor(x, y, width, height, tile) {
         super(x, y, width, height, tile)
-        this.sprite = Sprite.from('graphic/button.png');
+        this.sprite = Sprite.from('graphic/roehrig.png');
         this.draw();
         return this;
     }

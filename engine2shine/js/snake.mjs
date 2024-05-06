@@ -74,6 +74,7 @@ for (let j = 0; j < gridSize; j++) {
 
 var snakes = new Array();
 snakes[0] = [];
+snakes[1] = [];
 for (let i = 0; i < startSize; i++) {
     snakes[0][i] = new PlayerBody(i, 0, tileSize, tileSize, fullBoard[0][i]);
     if (i == startSize-1) {
@@ -107,9 +108,18 @@ function startup() {
         if (tick) {
             tick = false;
             checkCollision();
-
+            /*
             for (let i = 0; i < snakes.length; i++) {
                 move(snakes[i], wasdDirection);
+            }
+            */
+            if (snakes[0] != []) {
+                move(snakes[0], wasdDirection);
+                //console.log(snakes[0][0].xpos);
+                //console.log(snakes[0][0].ypos);
+            }
+            if (snakes[1] != []) {
+                move(snakes[1], ijklDirection);
             }
 
             for (let j = 0; j < snakes.length; j++) {
@@ -166,6 +176,7 @@ function move(entity, direction) {
         }
         if (entity[i].direction == "down") {
             entity[i].ypos += 1;
+
             if (entity[i].ypos >= gridSize) {
                 entity[i].ypos = 0;
             }
@@ -209,14 +220,17 @@ function uTurn(dir) {
 }
 
 function checkCollision() {
+    
+    console.log(1);
     for (let j = 0; j < snakes.length; j++) {
+        console.log("blub"+snakes[j].length);
+        console.log(2);
         for (let k = 0; k < snakes[j].length; k++) {
+            console.log(9);
             if (snakes[j][k].xpos == roehrigs[0].xpos && snakes[j][k].ypos == roehrigs[0].ypos) {
-                console.log(k);
                 var tempSnake = snakes[0];
                 snakes[0] = [];
                 snakes[1] = [];
-                snakes[2] = []; 
                 app.stage.removeChild(tempSnake[k].sprite);
                 for (let i = 0; i < k; i++) {
                     if (i != 0) {
@@ -225,26 +239,24 @@ function checkCollision() {
             
                     } else {
                         snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
-                        snakes[1][k-1-i].direction = uTurn(tempSnake[i].direction);
+                        snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                        ijklDirection = uTurn(tempSnake[i].direction);
                         app.stage.addChild(snakes[1][k-1-i].sprite);
                         app.stage.removeChild(tempSnake[i].sprite);
                     }
-                    console.log(snakes[1][k-1-i].direction);
+                    console.log(3);
                 }
             
                 for (let i = k+1; i < tempSnake.length; i++) {
-                    console.log(i-k-1);
                     snakes[0][i-k-1] = tempSnake[i];
-                    console.log(snakes[0].length);
                 }
-                console.log("YEY"+snakes[0]);
-                console.log("YEY"+snakes[1]);
+                console.log(5);
             }
         }
     }
 }
 
 async function gameClock() {
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 1000));
     tick = true;
 }
