@@ -18,7 +18,7 @@ var ijklDirection = "right";
 var tick = true;
 var roehrigCountdown = 5;
 const startSize = 9;
-const gridSize = 15;
+const gridSize = 50;
 const screenSize = app.renderer.height - 20;
 const tileSize = screenSize / gridSize;
 
@@ -132,12 +132,6 @@ function startup() {
             moveRoehrig(roehrigs[0]);
             roehrigs[0].draw();
 
-            if (roehrigCountdown != 0) {
-                roehrigCountdown--;
-            } else {
-                roehrigCountdown = 10;
-            }
-
             gameClock();
             //move(snakes[1], ijklDirection);
         }
@@ -220,13 +214,8 @@ function uTurn(dir) {
 }
 
 function checkCollision() {
-    
-    console.log(1);
     for (let j = 0; j < snakes.length; j++) {
-        console.log("blub"+snakes[j].length);
-        console.log(2);
         for (let k = 0; k < snakes[j].length; k++) {
-            console.log(9);
             if (snakes[j][k].xpos == roehrigs[0].xpos && snakes[j][k].ypos == roehrigs[0].ypos) {
                 var tempSnake = snakes[0];
                 snakes[0] = [];
@@ -244,13 +233,11 @@ function checkCollision() {
                         app.stage.addChild(snakes[1][k-1-i].sprite);
                         app.stage.removeChild(tempSnake[i].sprite);
                     }
-                    console.log(3);
                 }
             
                 for (let i = k+1; i < tempSnake.length; i++) {
                     snakes[0][i-k-1] = tempSnake[i];
                 }
-                console.log(5);
             }
         }
     }
@@ -258,5 +245,19 @@ function checkCollision() {
 
 async function gameClock() {
     await new Promise(r => setTimeout(r, 1000));
+    if(roehrigCountdown > 0) {
+        roehrigCountdown--;
+    } else {
+        roehrigCountdown = getRandomInt(3, 10);
+    }
+    console.log("cd: "+ roehrigCountdown);
+
     tick = true;
 }
+
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  }
+  
