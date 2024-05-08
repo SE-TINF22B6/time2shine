@@ -12,11 +12,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
-const debug = true;
+const debug = false;
 
 var wasdDirection = "right";
 var ijklDirection = "right";
 var tick = true;
+var tack = false;
 var roehrigCountdown = 5;
 const startSize = 9;
 const gridSize = 15;
@@ -27,7 +28,12 @@ document.body.appendChild(app.view);
 
 document.addEventListener('keydown', function(event) {
     if (event.key === ' ') {
-        tick = true;
+        if (tick == false) {
+            tack = true;
+        }
+        if (tack == false) {
+            tick = true;
+        }
     }
 
     if (event.key === 'd') {
@@ -131,6 +137,14 @@ function startup() {
                 }
                 
             }
+            if (!debug) {
+                gameClock();
+            }
+            //move(snakes[1], ijklDirection);
+        }
+        if (tack) {
+            tack = false;
+            checkCollision();
 
             for (let i = 0; i < roehrigs.length; i++) {
                 moveRoehrig(roehrigs[i]);
@@ -167,7 +181,6 @@ function startup() {
             if (!debug) {
                 gameClock();
             }
-            //move(snakes[1], ijklDirection);
         }
     }
     );
@@ -304,8 +317,15 @@ function checkCollision() {
 
 async function gameClock() {
     await new Promise(r => setTimeout(r, 1000));
+    console.log(tick);
+    console.log(tack);
 
-    tick = true;
+    if (tick == false) {
+        tack = true;
+    }
+    if (tack == false) {
+        tick = true;
+    }
 }
 
 function getRandomInt(min, max) {
