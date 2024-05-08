@@ -12,19 +12,24 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
+const debug = true;
 
 var wasdDirection = "right";
 var ijklDirection = "right";
 var tick = true;
 var roehrigCountdown = 5;
 const startSize = 9;
-const gridSize = 50;
+const gridSize = 15;
 const screenSize = app.renderer.height - 20;
 const tileSize = screenSize / gridSize;
 
 document.body.appendChild(app.view);
 
 document.addEventListener('keydown', function(event) {
+    if (event.key === ' ') {
+        tick = true;
+    }
+
     if (event.key === 'd') {
         wasdDirection = "right";
     }
@@ -83,7 +88,6 @@ for (let i = 0; i < startSize; i++) {
 }
 
 var roehrigs = new Array();
-roehrigs[0] = new Roehrig(0, 3, tileSize, tileSize, fullBoard[3][0]);
 
 //snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
 //snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize, fullBoard[1][0]), new PlayerBody(1, 1, tileSize, tileSize, fullBoard[1][1]), new PlayerHead(2, 1, tileSize, tileSize, fullBoard[1][2])]
@@ -102,7 +106,6 @@ function startup() {
             app.stage.addChild(snakes[j][i].sprite);
         }
     }
-    app.stage.addChild(roehrigs[0].sprite);
     
     app.ticker.add(function(delta) {  
         if (tick) {
@@ -129,10 +132,41 @@ function startup() {
                 
             }
 
-            moveRoehrig(roehrigs[0]);
-            roehrigs[0].draw();
+            for (let i = 0; i < roehrigs.length; i++) {
+                moveRoehrig(roehrigs[i]);
+                roehrigs[i].draw();
+            }
 
-            gameClock();
+            if (roehrigCountdown > 0) {
+                roehrigCountdown--;
+            } else {
+                var roehrigDir = getRandomInt(1, 5);
+                var roehrigPlace = getRandomInt(0, gridSize);
+                if (roehrigDir == 1) {
+                    roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, 0, tileSize, tileSize, fullBoard[0][roehrigPlace]);
+                    roehrigs[roehrigs.length-1].direction = "down";
+                }
+                if (roehrigDir == 2) {
+                    roehrigs[roehrigs.length] = new Roehrig(gridSize-1, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][gridSize-1]);
+                    roehrigs[roehrigs.length-1].direction = "left";
+                }
+                if (roehrigDir == 3) {
+                    roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, gridSize-1, tileSize, tileSize, fullBoard[gridSize-1][roehrigPlace]);
+                    roehrigs[roehrigs.length-1].direction = "up";
+                }
+                if (roehrigDir == 4) {
+                    roehrigs[roehrigs.length] = new Roehrig(0, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][0]);
+                    roehrigs[roehrigs.length-1].direction = "right";
+                }
+                app.stage.addChild(roehrigs[roehrigs.length-1].sprite);
+                roehrigCountdown = getRandomInt(3, 10);
+            }
+            console.log("cd: "+ roehrigCountdown);
+            
+
+            if (!debug) {
+                gameClock();
+            }
             //move(snakes[1], ijklDirection);
         }
     }
@@ -143,7 +177,22 @@ function moveRoehrig(entity) {
     if (entity.direction == "right") {
         entity.xpos += 1;
     }
-    entity.tile = fullBoard[entity.ypos][entity.xpos];
+    if (entity.direction == "left") {
+        entity.xpos -= 1;
+    }
+    if (entity.direction == "up") {
+        entity.ypos -= 1;
+    }
+    if (entity.direction == "down") {
+        entity.ypos += 1;
+    }
+
+    if (entity.xpos >= 0 && entity.xpos < gridSize && entity.ypos >= 0 && entity.ypos < gridSize) {
+        entity.tile = fullBoard[entity.ypos][entity.xpos];
+    } else {
+        app.stage.removeChild(roehrigs[roehrigs.indexOf(entity)].sprite);
+        roehrigs.splice(roehrigs.indexOf(entity), 1);
+    }
 }
 
 function move(entity, direction) {
@@ -214,29 +263,31 @@ function uTurn(dir) {
 }
 
 function checkCollision() {
-    for (let j = 0; j < snakes.length; j++) {
-        for (let k = 0; k < snakes[j].length; k++) {
-            if (snakes[j][k].xpos == roehrigs[0].xpos && snakes[j][k].ypos == roehrigs[0].ypos) {
-                var tempSnake = snakes[0];
-                snakes[0] = [];
-                snakes[1] = [];
-                app.stage.removeChild(tempSnake[k].sprite);
-                for (let i = 0; i < k; i++) {
-                    if (i != 0) {
-                        snakes[1][k-1-i] = tempSnake[i];
-                        snakes[1][k-1-i].direction = uTurn(tempSnake[i].direction);
-            
-                    } else {
-                        snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
-                        snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
-                        ijklDirection = uTurn(tempSnake[i].direction);
-                        app.stage.addChild(snakes[1][k-1-i].sprite);
-                        app.stage.removeChild(tempSnake[i].sprite);
+    for (let r = 0; r < roehrigs.length; r++) {
+        for (let j = 0; j < snakes.length; j++) {
+            for (let k = 0; k < snakes[j].length; k++) {
+                if (snakes[j][k].xpos == roehrigs[r].xpos && snakes[j][k].ypos == roehrigs[r].ypos) {
+                    var tempSnake = snakes[0];
+                    snakes[0] = [];
+                    snakes[1] = [];
+                    app.stage.removeChild(tempSnake[k].sprite);
+                    for (let i = 0; i < k; i++) {
+                        if (i != 0) {
+                            snakes[1][k-1-i] = tempSnake[i];
+                            snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                
+                        } else {
+                            snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
+                            snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                            ijklDirection = uTurn(tempSnake[i].direction);
+                            app.stage.addChild(snakes[1][k-1-i].sprite);
+                            app.stage.removeChild(tempSnake[i].sprite);
+                        }
                     }
-                }
-            
-                for (let i = k+1; i < tempSnake.length; i++) {
-                    snakes[0][i-k-1] = tempSnake[i];
+                
+                    for (let i = k+1; i < tempSnake.length; i++) {
+                        snakes[0][i-k-1] = tempSnake[i];
+                    }
                 }
             }
         }
@@ -245,12 +296,6 @@ function checkCollision() {
 
 async function gameClock() {
     await new Promise(r => setTimeout(r, 1000));
-    if(roehrigCountdown > 0) {
-        roehrigCountdown--;
-    } else {
-        roehrigCountdown = getRandomInt(3, 10);
-    }
-    console.log("cd: "+ roehrigCountdown);
 
     tick = true;
 }
