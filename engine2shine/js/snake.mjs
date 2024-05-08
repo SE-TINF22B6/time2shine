@@ -267,26 +267,34 @@ function checkCollision() {
         for (let j = 0; j < snakes.length; j++) {
             for (let k = 0; k < snakes[j].length; k++) {
                 if (snakes[j][k].xpos == roehrigs[r].xpos && snakes[j][k].ypos == roehrigs[r].ypos) {
-                    var tempSnake = snakes[0];
-                    snakes[0] = [];
-                    snakes[1] = [];
-                    app.stage.removeChild(tempSnake[k].sprite);
-                    for (let i = 0; i < k; i++) {
-                        if (i != 0) {
-                            snakes[1][k-1-i] = tempSnake[i];
-                            snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
-                
-                        } else {
-                            snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
-                            snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
-                            ijklDirection = uTurn(tempSnake[i].direction);
-                            app.stage.addChild(snakes[1][k-1-i].sprite);
-                            app.stage.removeChild(tempSnake[i].sprite);
+                    if (k == 0 || k == snakes[j].length-1) {
+                        for (let s = 0; s < snakes[j].length; s++) {
+                            app.stage.removeChild(snakes[j][s].sprite);
                         }
-                    }
-                
-                    for (let i = k+1; i < tempSnake.length; i++) {
-                        snakes[0][i-k-1] = tempSnake[i];
+                        snakes[j] = [];
+
+                    } else {
+                        var tempSnake = snakes[0];
+                        snakes[0] = [];
+                        snakes[1] = [];
+                        app.stage.removeChild(tempSnake[k].sprite);
+                        for (let i = 0; i < k; i++) {
+                            if (i != 0) {
+                                snakes[1][k-1-i] = tempSnake[i];
+                                snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                    
+                            } else {
+                                snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
+                                snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                                ijklDirection = uTurn(tempSnake[i].direction);
+                                app.stage.addChild(snakes[1][k-1-i].sprite);
+                                app.stage.removeChild(tempSnake[i].sprite);
+                            }
+                        }
+                    
+                        for (let i = k+1; i < tempSnake.length; i++) {
+                            snakes[0][i-k-1] = tempSnake[i];
+                        }
                     }
                 }
             }
