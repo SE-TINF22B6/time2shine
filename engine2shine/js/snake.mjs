@@ -89,10 +89,9 @@ snakes[1] = [];
 for (let i = 0; i < startSize; i++) {
     snakes[0][i] = new PlayerBody(i, 0, tileSize, tileSize, fullBoard[0][i]);
     if (i == startSize-1) {
-        snakes[0][i+1] = new PlayerHead(i+1, 0, tileSize, tileSize, fullBoard[0][i+1]);
+        snakes[0][i+1] = new PlayerHead(i+1, 0, tileSize, tileSize, fullBoard[0][i+1], "wasd");
     }
 }
-
 var roehrigs = new Array();
 
 //snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
@@ -122,23 +121,26 @@ function startup() {
                 move(snakes[i], wasdDirection);
             }
             */
-            if (snakes[0] != []) {
-                move(snakes[0], wasdDirection);
-                //console.log(snakes[0][0].xpos);
-                //console.log(snakes[0][0].ypos);
-            }
-            if (snakes[1] != []) {
-                move(snakes[1], ijklDirection);
-            }
 
             for (let j = 0; j < snakes.length; j++) {
+                console.log(snakes[j])
+                if (snakes[j].length > 0) {
+                    console.log(snakes[j][snakes[j].length-1].movement);
+                    switch (snakes[j][snakes[j].length-1].movement) {
+                        case "wasd": move(snakes[j], wasdDirection);
+                            break;
+                        case "ijkl": move(snakes[j], ijklDirection);
+                            break;
+                    }
+                }
+
                 for (let i = 0; i < snakes[j].length; i++) {
                     snakes[j][i].draw();
                 }
                 
             }
             if (!debug) {
-                gameClock();
+                gameClock("startEnemyClock");
             }
             //move(snakes[1], ijklDirection);
         }
@@ -179,7 +181,7 @@ function startup() {
             
 
             if (!debug) {
-                gameClock();
+                gameClock("startPlayerClock");
             }
         }
     }
@@ -209,6 +211,7 @@ function moveRoehrig(entity) {
 }
 
 function move(entity, direction) {
+    
     for (let i = 0; i < entity.length; i++) {
         if(i != entity.length-1) {
             entity[i].direction = entity[i+1].direction;
@@ -297,7 +300,7 @@ function checkCollision() {
                                 snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                     
                             } else {
-                                snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile);
+                                snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "ijkl");
                                 snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                                 ijklDirection = uTurn(tempSnake[i].direction);
                                 app.stage.addChild(snakes[1][k-1-i].sprite);
@@ -315,16 +318,16 @@ function checkCollision() {
     }
 }
 
-async function gameClock() {
-    await new Promise(r => setTimeout(r, 1000));
+async function gameClock(action) {
+    await new Promise(r => setTimeout(r, 500));
     console.log(tick);
     console.log(tack);
 
-    if (tick == false) {
-        tack = true;
-    }
-    if (tack == false) {
+    if (action == "startPlayerClock") {
         tick = true;
+    }
+    if (action == "startEnemyClock") {
+        tack = true;
     }
 }
 
