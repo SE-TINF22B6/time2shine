@@ -2,8 +2,9 @@ import {Sprite} from "./pixi.mjs";
 
 class Tile {
 
-    constructor(x, y, width, height) {
-        this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
+    constructor(x, y, width, height, sprite) {
+        
+        this.sprite = sprite;
         this.width = width;
         this.height = height;
         this.x = x;

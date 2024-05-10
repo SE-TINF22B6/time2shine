@@ -72,6 +72,9 @@ app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .add('button', 'graphic/button.png')
+    .add('grass_light', 'graphic/grass_light.png')
+    .add('snake_body', 'graphic/snake_body.png')
+    .add('snake_head', 'graphic/snake_head.png')
     .load(startup);
 
 var fullBoard = new Array();
@@ -79,7 +82,12 @@ var fullBoard = new Array();
 for (let j = 0; j < gridSize; j++) {
     fullBoard[j] = [];
     for (let i = 0; i < gridSize; i++) {
-        fullBoard[j][i] = new Tile(i * tileSize, j * tileSize, tileSize, tileSize);
+        if (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) {
+            fullBoard[j][i] = new Tile(i * tileSize, j * tileSize, tileSize, tileSize, Sprite.from('graphic/grass_light.png'));
+        } else {
+            fullBoard[j][i] = new Tile(i * tileSize, j * tileSize, tileSize, tileSize, Sprite.from('graphic/grass_dark.png'));
+        }
+        
     }
 }
 
