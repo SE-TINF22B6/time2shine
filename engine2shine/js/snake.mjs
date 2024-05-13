@@ -124,6 +124,7 @@ function startup() {
         if (tick) {
             tick = false;
             checkCollision();
+
             /*
             for (let i = 0; i < snakes.length; i++) {
                 move(snakes[i], wasdDirection);
@@ -131,9 +132,7 @@ function startup() {
             */
 
             for (let j = 0; j < snakes.length; j++) {
-                console.log(snakes[j])
                 if (snakes[j].length > 0) {
-                    console.log(snakes[j][snakes[j].length-1].movement);
                     switch (snakes[j][snakes[j].length-1].movement) {
                         case "wasd": move(snakes[j], wasdDirection);
                             break;
@@ -226,6 +225,7 @@ function move(entity, direction) {
         } else {
             if (!isOpposite(entity[entity.length-1].direction, direction)) {
                 entity[i].direction = direction;
+                turnSnakeHead(entity[i]);
             }
         }
         
@@ -311,6 +311,7 @@ function checkCollision() {
                                 snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "ijkl");
                                 snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                                 ijklDirection = uTurn(tempSnake[i].direction);
+                                turnSnakeHead(snakes[1][k-1-i]);
                                 app.stage.addChild(snakes[1][k-1-i].sprite);
                                 app.stage.removeChild(tempSnake[i].sprite);
                             }
@@ -345,3 +346,18 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
   }
   
+
+  function turnSnakeHead(snake) {
+    if (snake.direction == "right") {
+        snake.sprite.rotation = 0;
+    }
+    if (snake.direction == "down") {
+        snake.sprite.rotation = 1.57;
+    }
+    if (snake.direction == "left") {
+        snake.sprite.rotation = 2*1.57;
+    }
+    if (snake.direction == "up") {
+        snake.sprite.rotation = 3*1.57;
+    }
+  }
