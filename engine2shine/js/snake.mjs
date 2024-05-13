@@ -119,7 +119,9 @@ function startup() {
             app.stage.addChild(snakes[j][i].sprite);
         }
     }
-    
+    roehrigs[0] = new Roehrig(0, 0, tileSize, tileSize, fullBoard[0][0]);
+    roehrigs[0].direction = "down";
+    app.stage.addChild(roehrigs[0].sprite);
     app.ticker.add(function(delta) {  
         if (tick) {
             tick = false;
@@ -287,26 +289,44 @@ function uTurn(dir) {
 }
 
 function checkCollision() {
+    //check for all roehrigs
     for (let r = 0; r < roehrigs.length; r++) {
+        //check for all snakes
         for (let j = 0; j < snakes.length; j++) {
+            //check for all items in a snake
             for (let k = 0; k < snakes[j].length; k++) {
+                //check if item collides with roehrig
                 if (snakes[j][k].xpos == roehrigs[r].xpos && snakes[j][k].ypos == roehrigs[r].ypos) {
-                    if (k == 0 || k == snakes[j].length-1) {
+                    console.log("k:"+k)
+                    //check if item is snake head
+                    if (k > snakes[j].length-4) {
                         for (let s = 0; s < snakes[j].length; s++) {
                             app.stage.removeChild(snakes[j][s].sprite);
+
                         }
                         snakes[j] = [];
-
+                    
+                    //check if item is snake tail
+                    } else if (k < 3) {
+                        console.log("asldalf")
+                        for (let d = k; d >= 0; d--) {
+                            app.stage.removeChild(snakes[j][d].sprite);
+                            snakes[j].splice(snakes[j].indexOf(snakes[j][d]), 1);
+                        }
+                    //split snake
                     } else {
                         var tempSnake = snakes[0];
                         snakes[0] = [];
                         snakes[1] = [];
                         app.stage.removeChild(tempSnake[k].sprite);
+                        //snake 1
                         for (let i = 0; i < k; i++) {
+                            //create snake body
                             if (i != 0) {
                                 snakes[1][k-1-i] = tempSnake[i];
                                 snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                     
+                            //create snake head
                             } else {
                                 snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "ijkl");
                                 snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
@@ -317,6 +337,7 @@ function checkCollision() {
                             }
                         }
                     
+                        //snake 2
                         for (let i = k+1; i < tempSnake.length; i++) {
                             snakes[0][i-k-1] = tempSnake[i];
                         }
