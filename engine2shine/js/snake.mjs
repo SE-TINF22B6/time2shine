@@ -349,7 +349,7 @@ function checkCollision() {
 }
 
 async function gameClock(action) {
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 100));
     console.log(tick);
     console.log(tack);
 
