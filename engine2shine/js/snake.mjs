@@ -13,14 +13,18 @@ const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
 const debug = false;
+var tickTime = 500;
 
 var wasdDirection = "right";
 var ijklDirection = "right";
 var tick = true;
 var tack = false;
 var roehrigCountdown = 5;
-const startSize = 9;
-const gridSize = 15;
+var score = 0;
+var bonus = false;
+var tempBody;
+const startSize = 25;
+const gridSize = 50;
 const screenSize = app.renderer.height - 20;
 const tileSize = screenSize / gridSize;
 
@@ -60,10 +64,6 @@ document.addEventListener('keydown', function(event) {
     }
     if (event.key === 'i') {
         ijklDirection = "up";
-    }
-
-    if (event.key === 'q') {
-        checkCollision();
     }
 });
 
@@ -156,6 +156,31 @@ function startup() {
         if (tack) {
             tack = false;
             checkCollision();
+            /*
+            if (bonus == true) {
+                console.log("BONUS1");
+                bonus == false;
+                for (let i = 0; i < snakes.length; i++) {
+                    if (snakes[i].length != 0) {
+                        console.log(tempBody);
+                        snakes[i][snakes[i].length] = tempBody;
+                        //console.log(snakes[i][snakes[i].length]);
+                    }
+                }
+                
+            }
+            if (score % 100 == 0 && score != 0) {
+                console.log("BONUS2");
+                for (let i = 0; i < snakes.length; i++) {
+                    if (snakes[i].length != 0) {
+                        tempBody = new PlayerBody(snakes[i][snakes[i].length-1].xpos, snakes[i][snakes[i].length-1].ypos, tileSize, tileSize, fullBoard[snakes[i][snakes[i].length-1].ypos][snakes[i][snakes[i].length-1].xpos]);
+                        bonus = true;
+                        
+                        //var tempBody = new PlayerBody(snakes[i][snakes[i].length-1].xpos, snakes[i][snakes[i].length-1].ypos, tileSize, tileSize, snakes[i][snakes[i].length-1].fullBoard);
+                    }
+                }
+            }
+            */
 
             for (let i = 0; i < roehrigs.length; i++) {
                 moveRoehrig(roehrigs[i]);
@@ -298,8 +323,15 @@ function checkCollision() {
                 //check if item collides with roehrig
                 if (snakes[j][k].xpos == roehrigs[r].xpos && snakes[j][k].ypos == roehrigs[r].ypos) {
                     console.log("k:"+k)
+                    var fullSnakeList = true;
+                    for (let o = 0; o < snakes.length; o++) {
+                        if (snakes[o].length == 0) {
+                            console.log("EMPTY" + snakes[o].length);
+                            fullSnakeList = false;
+                        }
+                    }
                     //check if item is snake head
-                    if (k > snakes[j].length-4) {
+                    if (k > snakes[j].length-4 || fullSnakeList == true) {
                         for (let s = 0; s < snakes[j].length; s++) {
                             app.stage.removeChild(snakes[j][s].sprite);
 
@@ -349,16 +381,16 @@ function checkCollision() {
 }
 
 async function gameClock(action) {
-    await new Promise(r => setTimeout(r, 100));
-    console.log(tick);
-    console.log(tack);
+    await new Promise(r => setTimeout(r, tickTime));
 
     if (action == "startPlayerClock") {
         tick = true;
+        score += 10;     
     }
     if (action == "startEnemyClock") {
         tack = true;
     }
+    
 }
 
 function getRandomInt(min, max) {
