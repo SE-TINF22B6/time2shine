@@ -102,6 +102,22 @@ for (let i = 0; i < startSize; i++) {
 }
 var roehrigs = new Array();
 
+var scoreText = new Text(score, {
+    fontFamily: 'Arial',
+    fontSize: 32,
+    fill: 0x040e0f,
+    align: 'right',
+    //anchor: (1,1),
+});
+
+var usernameText = new Text(username, {
+    fontFamily: 'Arial',
+    fontSize: 32,
+    fill: 0x040e0f,
+    align: 'right',
+    //anchor: (1,1),
+});
+
 //snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
 //snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize, fullBoard[1][0]), new PlayerBody(1, 1, tileSize, tileSize, fullBoard[1][1]), new PlayerHead(2, 1, tileSize, tileSize, fullBoard[1][2])]
 //var player = new PlayerBody(0, 0, tileSize, tileSize);
@@ -122,6 +138,8 @@ function startup() {
     roehrigs[0] = new Roehrig(0, 0, tileSize, tileSize, fullBoard[0][0]);
     roehrigs[0].direction = "down";
     app.stage.addChild(roehrigs[0].sprite);
+    app.stage.addChild(scoreText);
+    app.stage.addChild(usernameText);
     app.ticker.add(function(delta) {  
         if (tick) {
             tick = false;
@@ -218,6 +236,14 @@ function startup() {
                 gameClock("startPlayerClock");
             }
         }
+
+        scoreText.x = screenSize + 50;
+        scoreText.y = 25;
+        scoreText.text = "Score: " + score;
+
+        usernameText.x = screenSize + 50;
+        usernameText.y = 75;
+        usernameText.text = "Username: " + username;
     }
     );
 }
@@ -385,7 +411,9 @@ async function gameClock(action) {
 
     if (action == "startPlayerClock") {
         tick = true;
-        score += 10;     
+        if (snakes[0].length != 0 || snakes[1].length != 0) {
+            score += 10; 
+        }
     }
     if (action == "startEnemyClock") {
         tack = true;
