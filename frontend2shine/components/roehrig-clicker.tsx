@@ -99,16 +99,25 @@ export const RoehrigClickerComponent = () => {
         <div className="flex flex-col items-center justify-center">
             <div className="flex space-x-4 mb-8 flex-nowrap justify-center">
                 <button
-                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-32 mb-4 sm:w-auto sm:mb-0"
-                    onClick={() => buyRoehrig(1)}>Buy One Roehrig
+                    className={`btn rounded text-white ${score >= 10 ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-600'} w-32 mb-4 sm:w-auto sm:mb-0`}
+                    onClick={() => buyRoehrig(1)}
+                    disabled={score < 10}
+                >
+                    Buy One Roehrig
                 </button>
                 <button
-                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-32 mb-4 sm:w-auto sm:mb-0"
-                    onClick={() => buyRoehrig(10)}>Buy 10 Roehrigs
+                    className={`btn rounded text-white ${score >= 100 ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-600'} w-32 mb-4 sm:w-auto sm:mb-0`}
+                    onClick={() => buyRoehrig(10)}
+                    disabled={score < 100}
+                >
+                    Buy 10 Roehrigs
                 </button>
                 <button
-                    className="btn rounded text-white bg-purple-600 hover:bg-purple-700 w-32 mb-4 sm:w-auto sm:mb-0"
-                    onClick={() => buyRoehrig(100)}>Buy 100 Roehrigs
+                    className={`btn rounded text-white ${score >= 1000 ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-600'} w-32 mb-4 sm:w-auto sm:mb-0`}
+                    onClick={() => buyRoehrig(100)}
+                    disabled={score < 1000}
+                >
+                    Buy 100 Roehrigs
                 </button>
             </div>
 
