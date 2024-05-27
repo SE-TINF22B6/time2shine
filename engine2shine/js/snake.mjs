@@ -13,7 +13,7 @@ const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
 const debug = false;
-var tickTime = 500;
+var tickTime = 100;
 
 var wasdDirection = "right";
 var ijklDirection = "right";
@@ -94,12 +94,7 @@ for (let j = 0; j < gridSize; j++) {
 var snakes = new Array();
 snakes[0] = [];
 snakes[1] = [];
-for (let i = 0; i < startSize; i++) {
-    snakes[0][i] = new PlayerBody(i, 0, tileSize, tileSize, fullBoard[0][i]);
-    if (i == startSize-1) {
-        snakes[0][i+1] = new PlayerHead(i+1, 0, tileSize, tileSize, fullBoard[0][i+1], "wasd");
-    }
-}
+
 var roehrigs = new Array();
 
 var scoreText = new Text(score, {
@@ -123,6 +118,12 @@ var usernameText = new Text(username, {
 //var player = new PlayerBody(0, 0, tileSize, tileSize);
 
 function startup() {
+    for (let i = 0; i < startSize; i++) {
+        snakes[0][i] = new PlayerBody(i, 0, tileSize, tileSize, fullBoard[0][i]);
+        if (i == startSize-1) {
+            snakes[0][i+1] = new PlayerHead(i+1, 0, tileSize, tileSize, fullBoard[0][i+1], "wasd");
+        }
+    }
 
     for (let j = 0; j < gridSize; j++) {
         for (let i = 0; i < gridSize; i++) {
@@ -135,9 +136,6 @@ function startup() {
             app.stage.addChild(snakes[j][i].sprite);
         }
     }
-    roehrigs[0] = new Roehrig(0, 0, tileSize, tileSize, fullBoard[0][0]);
-    roehrigs[0].direction = "down";
-    app.stage.addChild(roehrigs[0].sprite);
     app.stage.addChild(scoreText);
     app.stage.addChild(usernameText);
     app.ticker.add(function(delta) {  
@@ -154,9 +152,9 @@ function startup() {
             for (let j = 0; j < snakes.length; j++) {
                 if (snakes[j].length > 0) {
                     switch (snakes[j][snakes[j].length-1].movement) {
-                        case "wasd": move(snakes[j], wasdDirection);
+                        case "wasd": moveSnake(snakes[j], wasdDirection);
                             break;
-                        case "ijkl": move(snakes[j], ijklDirection);
+                        case "ijkl": moveSnake(snakes[j], ijklDirection);
                             break;
                     }
                 }
@@ -174,6 +172,19 @@ function startup() {
         if (tack) {
             tack = false;
             checkCollision();
+
+            for (let i = 0; i < roehrigs.length; i++) {
+                moveRoehrig(roehrigs[i]);
+                roehrigs[i].draw();
+            }
+
+            updateRoehrigTimer();
+            
+
+            if (!debug) {
+                gameClock("startPlayerClock");
+            }
+
             /*
             if (bonus == true) {
                 console.log("BONUS1");
@@ -199,51 +210,9 @@ function startup() {
                 }
             }
             */
-
-            for (let i = 0; i < roehrigs.length; i++) {
-                moveRoehrig(roehrigs[i]);
-                roehrigs[i].draw();
-            }
-
-            if (roehrigCountdown > 0) {
-                roehrigCountdown--;
-            } else {
-                var roehrigDir = getRandomInt(1, 5);
-                var roehrigPlace = getRandomInt(0, gridSize);
-                if (roehrigDir == 1) {
-                    roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, 0, tileSize, tileSize, fullBoard[0][roehrigPlace]);
-                    roehrigs[roehrigs.length-1].direction = "down";
-                }
-                if (roehrigDir == 2) {
-                    roehrigs[roehrigs.length] = new Roehrig(gridSize-1, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][gridSize-1]);
-                    roehrigs[roehrigs.length-1].direction = "left";
-                }
-                if (roehrigDir == 3) {
-                    roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, gridSize-1, tileSize, tileSize, fullBoard[gridSize-1][roehrigPlace]);
-                    roehrigs[roehrigs.length-1].direction = "up";
-                }
-                if (roehrigDir == 4) {
-                    roehrigs[roehrigs.length] = new Roehrig(0, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][0]);
-                    roehrigs[roehrigs.length-1].direction = "right";
-                }
-                app.stage.addChild(roehrigs[roehrigs.length-1].sprite);
-                roehrigCountdown = getRandomInt(3, 10);
-            }
-            console.log("cd: "+ roehrigCountdown);
-            
-
-            if (!debug) {
-                gameClock("startPlayerClock");
-            }
         }
 
-        scoreText.x = screenSize + 50;
-        scoreText.y = 25;
-        scoreText.text = "Score: " + score;
-
-        usernameText.x = screenSize + 50;
-        usernameText.y = 75;
-        usernameText.text = "Username: " + username;
+        updateScreenDraw();
     }
     );
 }
@@ -270,7 +239,7 @@ function moveRoehrig(entity) {
     }
 }
 
-function move(entity, direction) {
+function moveSnake(entity, direction) {
     
     for (let i = 0; i < entity.length; i++) {
         if(i != entity.length-1) {
@@ -373,31 +342,61 @@ function checkCollision() {
                         }
                     //split snake
                     } else {
-                        var tempSnake = snakes[0];
-                        snakes[0] = [];
-                        snakes[1] = [];
-                        app.stage.removeChild(tempSnake[k].sprite);
-                        //snake 1
-                        for (let i = 0; i < k; i++) {
-                            //create snake body
-                            if (i != 0) {
-                                snakes[1][k-1-i] = tempSnake[i];
-                                snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
-                    
-                            //create snake head
-                            } else {
-                                snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "ijkl");
-                                snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
-                                ijklDirection = uTurn(tempSnake[i].direction);
-                                turnSnakeHead(snakes[1][k-1-i]);
-                                app.stage.addChild(snakes[1][k-1-i].sprite);
-                                app.stage.removeChild(tempSnake[i].sprite);
+                        if (j == 0) {
+                            var tempSnake = snakes[0];
+                            snakes[0] = [];
+                            snakes[1] = [];
+                            app.stage.removeChild(tempSnake[k].sprite);
+                            //snake 1
+                            for (let i = 0; i < k; i++) {
+                                //create snake body
+                                if (i != 0) {
+                                    snakes[1][k-1-i] = tempSnake[i];
+                                    snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                        
+                                //create snake head
+                                } else {
+                                    snakes[1][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "ijkl");
+                                    snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                                    ijklDirection = uTurn(tempSnake[i].direction);
+                                    turnSnakeHead(snakes[1][k-1-i]);
+                                    app.stage.addChild(snakes[1][k-1-i].sprite);
+                                    app.stage.removeChild(tempSnake[i].sprite);
+                                }
+                            }
+                        
+                            //snake 2
+                            for (let i = k+1; i < tempSnake.length; i++) {
+                                snakes[0][i-k-1] = tempSnake[i];
                             }
                         }
-                    
-                        //snake 2
-                        for (let i = k+1; i < tempSnake.length; i++) {
-                            snakes[0][i-k-1] = tempSnake[i];
+                        if (j == 1) {
+                            var tempSnake = snakes[1];
+                            snakes[0] = [];
+                            snakes[1] = [];
+                            app.stage.removeChild(tempSnake[k].sprite);
+                            //snake 1
+                            for (let i = 0; i < k; i++) {
+                                //create snake bodydl
+                                if (i != 0) {
+                                    snakes[0][k-1-i] = tempSnake[i];
+                                    snakes[0][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                        
+                                //create snake head
+                                } else {
+                                    snakes[0][k-1-i] = new PlayerHead(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "wasd");
+                                    snakes[0][k-1-i].direction = uTurn(tempSnake[i+1].direction);
+                                    wasdDirection = uTurn(tempSnake[i].direction);
+                                    turnSnakeHead(snakes[0][k-1-i]);
+                                    app.stage.addChild(snakes[0][k-1-i].sprite);
+                                    app.stage.removeChild(tempSnake[i].sprite);
+                                }
+                            }
+                        
+                            //snake 2
+                            for (let i = k+1; i < tempSnake.length; i++) {
+                                snakes[1][i-k-1] = tempSnake[i];
+                            }
                         }
                     }
                 }
@@ -413,6 +412,9 @@ async function gameClock(action) {
         tick = true;
         if (snakes[0].length != 0 || snakes[1].length != 0) {
             score += 10; 
+        } else {
+            newGame();
+            console.log("NEW GAME");
         }
     }
     if (action == "startEnemyClock") {
@@ -425,10 +427,10 @@ function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-  }
+}
   
 
-  function turnSnakeHead(snake) {
+function turnSnakeHead(snake) {
     if (snake.direction == "right") {
         snake.sprite.rotation = 0;
     }
@@ -441,4 +443,67 @@ function getRandomInt(min, max) {
     if (snake.direction == "up") {
         snake.sprite.rotation = 3*1.57;
     }
+}
+
+  function updateRoehrigTimer() {
+    if (roehrigCountdown > 0) {
+        roehrigCountdown--;
+    } else {
+        var roehrigDir = getRandomInt(1, 5);
+        var roehrigPlace = getRandomInt(0, gridSize);
+        if (roehrigDir == 1) {
+            roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, 0, tileSize, tileSize, fullBoard[0][roehrigPlace]);
+            roehrigs[roehrigs.length-1].direction = "down";
+        }
+        if (roehrigDir == 2) {
+            roehrigs[roehrigs.length] = new Roehrig(gridSize-1, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][gridSize-1]);
+            roehrigs[roehrigs.length-1].direction = "left";
+        }
+        if (roehrigDir == 3) {
+            roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, gridSize-1, tileSize, tileSize, fullBoard[gridSize-1][roehrigPlace]);
+            roehrigs[roehrigs.length-1].direction = "up";
+        }
+        if (roehrigDir == 4) {
+            roehrigs[roehrigs.length] = new Roehrig(0, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][0]);
+            roehrigs[roehrigs.length-1].direction = "right";
+        }
+        app.stage.addChild(roehrigs[roehrigs.length-1].sprite);
+        roehrigCountdown = getRandomInt(3, 10);
+    }
+    console.log("cd: "+ roehrigCountdown);
+  }
+
+  function updateScreenDraw() {
+    scoreText.x = screenSize + 50;
+    scoreText.y = 25;
+    scoreText.text = "Score: " + score;
+
+    usernameText.x = screenSize + 50;
+    usernameText.y = 75;
+    usernameText.text = "Username: " + username;
+  }
+
+  function newGame() {
+    for (let j = 0; j < snakes.length; j++) {
+        for (let i = 0; i < snakes[j].length; i++) {
+            app.stage.removeChild(snakes[j][i].sprite);
+        }
+    }
+
+    for (let i = 0; i < roehrigs.length; i++) {
+        app.stage.removeChild(roehrigs[i].sprite);
+    }
+
+    snakes[0] = [];
+    snakes[1] = [];
+    roehrigs = [];
+    score = 0;
+    roehrigCountdown = getRandomInt(3, 10);
+    tick = true;
+    tack = false;
+    wasdDirection = "right";
+    ijklDirection = "right";
+
+    startup();
+
   }
