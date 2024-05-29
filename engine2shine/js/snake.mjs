@@ -113,6 +113,15 @@ var usernameText = new Text(username, {
     //anchor: (1,1),
 });
 
+const button = new Button(screenSize + 50, screenSize - 200);
+    button.sprite.interactive = true;
+    button.sprite.cursor = 'pointer';
+    button.sprite.eventMode = 'static';
+    button.sprite.on('pointerdown', function() {
+        newGame();
+    }
+);
+
 //snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
 //snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize, fullBoard[1][0]), new PlayerBody(1, 1, tileSize, tileSize, fullBoard[1][1]), new PlayerHead(2, 1, tileSize, tileSize, fullBoard[1][2])]
 //var player = new PlayerBody(0, 0, tileSize, tileSize);
@@ -138,6 +147,7 @@ function startup() {
     }
     app.stage.addChild(scoreText);
     app.stage.addChild(usernameText);
+    
     app.ticker.add(function(delta) {  
         if (tick) {
             tick = false;
@@ -413,7 +423,9 @@ async function gameClock(action) {
         if (snakes[0].length != 0 || snakes[1].length != 0) {
             score += 10; 
         } else {
-            newGame();
+            app.stage.addChild(button.sprite);
+            tick = false;
+            tack = false;
             console.log("NEW GAME");
         }
     }
@@ -477,15 +489,16 @@ function turnSnakeHead(snake) {
 
   function updateScreenDraw() {
     scoreText.x = screenSize + 50;
-    scoreText.y = 25;
+    scoreText.y = 75;
     scoreText.text = "Score: " + score;
 
     usernameText.x = screenSize + 50;
-    usernameText.y = 75;
+    usernameText.y = 25;
     usernameText.text = "Username: " + username;
   }
 
   function newGame() {
+    app.stage.removeChild(button.sprite);
     for (let j = 0; j < snakes.length; j++) {
         for (let i = 0; i < snakes[j].length; i++) {
             app.stage.removeChild(snakes[j][i].sprite);
