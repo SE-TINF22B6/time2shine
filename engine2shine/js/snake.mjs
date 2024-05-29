@@ -449,25 +449,27 @@ function turnSnakeHead(snake) {
     if (roehrigCountdown > 0) {
         roehrigCountdown--;
     } else {
-        var roehrigDir = getRandomInt(1, 5);
-        var roehrigPlace = getRandomInt(0, gridSize);
-        if (roehrigDir == 1) {
-            roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, 0, tileSize, tileSize, fullBoard[0][roehrigPlace]);
-            roehrigs[roehrigs.length-1].direction = "down";
+        for (let i = 0; i < (score/1000); i++) {
+            var roehrigDir = getRandomInt(1, 5);
+            var roehrigPlace = getRandomInt(0, gridSize);
+            if (roehrigDir == 1) {
+                roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, 0, tileSize, tileSize, fullBoard[0][roehrigPlace]);
+                roehrigs[roehrigs.length-1].direction = "down";
+            }
+            if (roehrigDir == 2) {
+                roehrigs[roehrigs.length] = new Roehrig(gridSize-1, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][gridSize-1]);
+                roehrigs[roehrigs.length-1].direction = "left";
+            }
+            if (roehrigDir == 3) {
+                roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, gridSize-1, tileSize, tileSize, fullBoard[gridSize-1][roehrigPlace]);
+                roehrigs[roehrigs.length-1].direction = "up";
+            }
+            if (roehrigDir == 4) {
+                roehrigs[roehrigs.length] = new Roehrig(0, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][0]);
+                roehrigs[roehrigs.length-1].direction = "right";
+            }
+            app.stage.addChild(roehrigs[roehrigs.length-1].sprite);
         }
-        if (roehrigDir == 2) {
-            roehrigs[roehrigs.length] = new Roehrig(gridSize-1, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][gridSize-1]);
-            roehrigs[roehrigs.length-1].direction = "left";
-        }
-        if (roehrigDir == 3) {
-            roehrigs[roehrigs.length] = new Roehrig(roehrigPlace, gridSize-1, tileSize, tileSize, fullBoard[gridSize-1][roehrigPlace]);
-            roehrigs[roehrigs.length-1].direction = "up";
-        }
-        if (roehrigDir == 4) {
-            roehrigs[roehrigs.length] = new Roehrig(0, roehrigPlace, tileSize, tileSize, fullBoard[roehrigPlace][0]);
-            roehrigs[roehrigs.length-1].direction = "right";
-        }
-        app.stage.addChild(roehrigs[roehrigs.length-1].sprite);
         roehrigCountdown = getRandomInt(3, 10);
     }
     console.log("cd: "+ roehrigCountdown);
