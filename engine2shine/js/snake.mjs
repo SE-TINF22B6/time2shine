@@ -12,6 +12,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
+const url = 'https://api.maiwald.cc/highscores';
 const debug = false;
 var tickTime = 100;
 
@@ -427,6 +428,7 @@ async function gameClock(action) {
             tick = false;
             tack = false;
             console.log("NEW GAME");
+            sendScore();
         }
     }
     if (action == "startEnemyClock") {
@@ -520,5 +522,30 @@ function turnSnakeHead(snake) {
     ijklDirection = "right";
 
     startup();
+
+  }
+
+  function sendScore() {
+    const data = {
+    username: username,
+    email: email,
+    game: game,
+    score: score
+    };
+
+    fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log('Success:', data);
+    })
+    .catch((error) => {
+    console.error('Error:', error);
+    });
 
   }
