@@ -50,6 +50,12 @@ export default function Stats() {
               >
                 Röhrig-Clicker
               </button>
+              <button
+                  className={`mr-4 font-medium text-white bg-purple-600 rounded hover:text-gray-200 px-4 py-3 items-center transition duration-150 ease-in-out ${game === 'roehrig-clicker' ? 'border-2 border-white' : ''}`}
+                  onClick={() => changeGame('snake')}
+              >
+                Snake Extreme
+              </button>
             </div>
 
             <div className="flex flex-col">
@@ -57,7 +63,7 @@ export default function Stats() {
                 <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                   <div className="overflow-hidden">
                     <table className="min-w-full text-left text-sm font-light text-surface dark:text-white">
-                      <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
+                    <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
                       <tr>
                         <th scope="col" className="px-6 py-4">Rank</th>
                         <th scope="col" className="px-6 py-4">Player</th>
