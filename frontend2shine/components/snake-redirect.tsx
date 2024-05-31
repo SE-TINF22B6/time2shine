@@ -25,7 +25,7 @@ export const SnakeRedirect = () => {
     return (
         <div>
             <a className={`btn rounded text-white ${playNowUrl ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-600 cursor-not-allowed opacity-50'} w-full mb-4 sm:w-auto sm:mb-0`}
-               href={undefined}>{buttonText}</a> {/* Use undefined when playNowUrl is null */}
+               href={playNowUrl || undefined}>{buttonText}</a> {/* Use undefined when playNowUrl is null */}
         </div>
     );
 };
