@@ -2,8 +2,8 @@ import {Sprite} from "./pixi.mjs";
 
 class Button {
 
-    constructor(x, y) {
-        this.sprite = Sprite.from('graphic/button.png');
+    constructor(x, y, sprite) {
+        this.sprite = sprite;
         //this.width = 130;
         //this.height = 200;
         //this.radius = 30;

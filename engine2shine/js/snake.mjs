@@ -114,7 +114,7 @@ var usernameText = new Text(username, {
     //anchor: (1,1),
 });
 
-const button = new Button(screenSize + 50, screenSize - 200);
+const button = new Button(screenSize + 50, screenSize - 100, Sprite.from('graphic/new_game_btn.png'));
     button.sprite.interactive = true;
     button.sprite.cursor = 'pointer';
     button.sprite.eventMode = 'static';

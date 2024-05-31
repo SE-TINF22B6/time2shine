@@ -19,6 +19,9 @@ app.renderer.resize(app.renderer.width-20, app.renderer.height-20);
 
 app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .add('button', 'graphic/button.png')
+    .add('new_game_btn', 'graphic/new_game_btn.png')
+    .add('end_turn_btn', 'graphic/end_turn_btn.png')
+    .add('submit_score_btn', 'graphic/submit_score_btn.png')
     .load(startup);
 
 var isBtnLoading = false;
@@ -26,6 +29,8 @@ var isEndTurn = false;
 var cardValue = 0;
 var kiCardValue = 0;
 var score = 0;
+var endTurnButton;
+var newGameButton;
 
 
 
@@ -106,28 +111,38 @@ function startup() {
     30
 );
 
-    const newGameButton = new Button(cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50, (app.renderer.height/2));
+    endTurnButton = new Button(cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50, (app.renderer.height/2), Sprite.from('graphic/end_turn_btn.png'));
+    endTurnButton.sprite.interactive = true;
+    endTurnButton.sprite.cursor = 'pointer';
+    endTurnButton.sprite.eventMode = 'static';
+    endTurnButton.sprite.on('pointerdown', function() {
+        if(!isBtnLoading) {
+            if(!isEndTurn) {
+                endTurn(kiCards, kiHand, true);
+            }
+        }
+    });
+
+    newGameButton = new Button(cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50, (app.renderer.height/2), Sprite.from('graphic/new_game_btn.png'));
     newGameButton.sprite.interactive = true;
     newGameButton.sprite.cursor = 'pointer';
     newGameButton.sprite.eventMode = 'static';
     newGameButton.sprite.on('pointerdown', function() {
         if(!isBtnLoading) {
-            sendScore();
+            if(isEndTurn) {
+                newGame(playerCards, kiCards, cardDeck);
+            }
         }
     });
 
-    const submitScoreButton = new Button(-1000, (app.renderer.height/2));
+    const submitScoreButton = new Button(-1000, (app.renderer.height/2), Sprite.from('graphic/submit_score_btn.png'));
     submitScoreButton.sprite.x = cardDeck[0].sprite.x - submitScoreButton.sprite.width - 50;
     submitScoreButton.sprite.interactive = true;
     submitScoreButton.sprite.cursor = 'pointer';
     submitScoreButton.sprite.eventMode = 'static';
     submitScoreButton.sprite.on('pointerdown', function() {
         if(!isBtnLoading) {
-            if(isEndTurn) {
-                newGame(playerCards, kiCards, cardDeck);
-            } else {
-                endTurn(kiCards, kiHand, true);
-            }
+            sendScore();
         }
     });
 
@@ -163,7 +178,7 @@ function startup() {
     }
 
     //app.stage.addChild(playerCards[0].bunny);
-    app.stage.addChild(newGameButton.sprite);
+    app.stage.addChild(endTurnButton.sprite);
     app.stage.addChild(submitScoreButton.sprite);
     app.stage.addChild(cardValueText);
     app.stage.addChild(kiCardValueText);
@@ -192,6 +207,9 @@ function startup() {
         scoreText.y = app.renderer.height - 100;
         scoreText.text = "Score: " + score;
         cardValueText.text = cardValue;
+
+        newGameButton.sprite.x = cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50;
+        newGameButton.sprite.y = (app.renderer.height/2);
 
         kiCardValueText.x = app.renderer.width - 150;
         kiCardValueText.y = 150;
@@ -307,6 +325,8 @@ async function gameStart(playerCards, hand, isKi) {
 
 async function endTurn(playerCards, hand, isKi) {
     isBtnLoading = true;
+    app.stage.removeChild(endTurnButton.sprite);
+    app.stage.addChild(newGameButton.sprite);
     while(kiCardValue < 19) {
         drawCard(playerCards, hand, isKi);
         await new Promise(r => setTimeout(r, 500));
@@ -341,6 +361,7 @@ async function endTurn(playerCards, hand, isKi) {
 
 function newGame(cards, kiCards, deck) {
     isBtnLoading = true
+    app.stage.removeChild(newGameButton.sprite);
     for (let i = 0; i < cards.length; i++) {
         app.stage.removeChild(cards[i].sprite);
     }
