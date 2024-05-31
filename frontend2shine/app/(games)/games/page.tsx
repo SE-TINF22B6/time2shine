@@ -82,11 +82,11 @@ export default function Games() {
 
             </div>
 
-            {/* Upcoming game */}
+            {/* Snake Extreme */}
             <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up"
                  data-aos-delay="400">
               <Image className="rounded-2xl mb-5" src={SnakeGame} width={300} alt="Snake Game" />
-              <blockquote className="text-lg text-gray-400 grow text-center">Stay tuned for this upcoming game!</blockquote>
+              <blockquote className="text-lg text-gray-400 grow text-center">In Snake Extreme, crank up the speed and outsmart your own lengthening serpent, gobbling pixelated goodies for a high-score frenzy!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700 mb-2">
                 <div data-aos="fade-up" data-aos-delay="400">
                   <SessionProvider>

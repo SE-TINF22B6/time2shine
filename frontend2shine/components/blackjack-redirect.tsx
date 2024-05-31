@@ -12,7 +12,7 @@ export const BlackJackRedirect = () => {
             const user = session?.user;
 
             if (user) {
-                const url = `https://engine.maiwald.cc?username=${encodeURIComponent(user?.name || '')}&email=${encodeURIComponent(user?.email || '')}`;
+                const url = `https://engine.maiwald.cc/blackjack.html?username=${encodeURIComponent(user?.name || '')}&email=${encodeURIComponent(user?.email || '')}`;
                 setPlayNowUrl(url);
             } else {
                 setButtonText('Log in to play BlackJack.');

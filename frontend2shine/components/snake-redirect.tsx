@@ -3,14 +3,20 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 
 export const SnakeRedirect = () => {
     const [playNowUrl, setPlayNowUrl] = useState<string | null>(null); // Declare type as string | null
-    const [buttonText, setButtonText] = useState('Not playable yet.'); // Change the button text to "Play Snake Extreme."
+    const [buttonText, setButtonText] = useState('Play Snake Extreme.'); // Change the button text to "Play Snake Extreme."
     const {data: session, status: loadingStatus} = useSession();
 
     useEffect(() => {
         const fetchData = async () => {
             const session = await getSession();
             const user = session?.user;
-            setButtonText('Not playable yet.');
+
+            if (user) {
+                const url = `https://engine.maiwald.cc/snake.html?username=${encodeURIComponent(user?.name || '')}&email=${encodeURIComponent(user?.email || '')}`;
+                setPlayNowUrl(url);
+            } else {
+                setButtonText('Log in to play Snake Extreme.');
+            }
         };
 
         fetchData();
