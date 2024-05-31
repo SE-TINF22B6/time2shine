@@ -25,7 +25,7 @@ var score = 0;
 var bonus = false;
 var tempBody;
 const startSize = 25;
-const gridSize = 50;
+const gridSize = 30;
 const screenSize = app.renderer.height - 20;
 const tileSize = screenSize / gridSize;
 
@@ -129,9 +129,9 @@ const button = new Button(screenSize + 50, screenSize - 200);
 
 function startup() {
     for (let i = 0; i < startSize; i++) {
-        snakes[0][i] = new PlayerBody(i, 0, tileSize, tileSize, fullBoard[0][i]);
+        snakes[0][i] = new PlayerBody(i, Math.floor(gridSize/2), tileSize, tileSize, fullBoard[0][i], "wasd");
         if (i == startSize-1) {
-            snakes[0][i+1] = new PlayerHead(i+1, 0, tileSize, tileSize, fullBoard[0][i+1], "wasd");
+            snakes[0][i+1] = new PlayerHead(i+1, Math.floor(gridSize/2), tileSize, tileSize, fullBoard[0][i+1], "wasd");
         }
     }
 
@@ -362,7 +362,7 @@ function checkCollision() {
                             for (let i = 0; i < k; i++) {
                                 //create snake body
                                 if (i != 0) {
-                                    snakes[1][k-1-i] = tempSnake[i];
+                                    snakes[1][k-1-i] = new PlayerBody(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "ijkl");
                                     snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                         
                                 //create snake head
@@ -371,9 +371,9 @@ function checkCollision() {
                                     snakes[1][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                                     ijklDirection = uTurn(tempSnake[i].direction);
                                     turnSnakeHead(snakes[1][k-1-i]);
-                                    app.stage.addChild(snakes[1][k-1-i].sprite);
-                                    app.stage.removeChild(tempSnake[i].sprite);
                                 }
+                                app.stage.addChild(snakes[1][k-1-i].sprite);
+                                app.stage.removeChild(tempSnake[i].sprite);
                             }
                         
                             //snake 2
@@ -390,7 +390,7 @@ function checkCollision() {
                             for (let i = 0; i < k; i++) {
                                 //create snake bodydl
                                 if (i != 0) {
-                                    snakes[0][k-1-i] = tempSnake[i];
+                                    snakes[0][k-1-i] = new PlayerBody(tempSnake[i].xpos, tempSnake[i].ypos, tileSize, tileSize, tempSnake[i].tile, "wasd");
                                     snakes[0][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                         
                                 //create snake head
@@ -399,9 +399,10 @@ function checkCollision() {
                                     snakes[0][k-1-i].direction = uTurn(tempSnake[i+1].direction);
                                     wasdDirection = uTurn(tempSnake[i].direction);
                                     turnSnakeHead(snakes[0][k-1-i]);
-                                    app.stage.addChild(snakes[0][k-1-i].sprite);
-                                    app.stage.removeChild(tempSnake[i].sprite);
+                                    
                                 }
+                                app.stage.addChild(snakes[0][k-1-i].sprite);
+                                app.stage.removeChild(tempSnake[i].sprite);
                             }
                         
                             //snake 2
@@ -422,7 +423,11 @@ async function gameClock(action) {
     if (action == "startPlayerClock") {
         tick = true;
         if (snakes[0].length != 0 || snakes[1].length != 0) {
-            score += 10; 
+            if (snakes[0].length != 0 && snakes[1].length != 0) {
+                score += 50; 
+            } else {
+                score +=10;
+            }
         } else {
             app.stage.addChild(button.sprite);
             tick = false;

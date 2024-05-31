@@ -25,9 +25,15 @@ class Player {
 }
 
 class PlayerBody extends Player {
-    constructor(xpos, ypos, width, height, tile) {
+    constructor(xpos, ypos, width, height, tile, movement) {
         super(xpos, ypos, width, height, tile);
-        this.sprite = Sprite.from('graphic/snake_body.png');
+
+        this.movement = movement;
+        if (this.movement == "wasd") {
+            this.sprite = Sprite.from('graphic/snake_body_blue.png');
+        } else {
+            this.sprite = Sprite.from('graphic/snake_body_orange.png');
+        }
         this.draw();
         return this;
     }
@@ -36,9 +42,14 @@ class PlayerBody extends Player {
 class PlayerHead extends Player {
     constructor(xpos, ypos, width, height, tile, movement) {
         super(xpos, ypos, width, height, tile);
-        this.sprite = Sprite.from('graphic/snake_head.png');
-        this.sprite.anchor.set(0.5);
+        
         this.movement = movement;
+        if (this.movement == "wasd") {
+            this.sprite = Sprite.from('graphic/snake_head_blue.png');
+        } else {
+            this.sprite = Sprite.from('graphic/snake_head_orange.png');
+        }
+        this.sprite.anchor.set(0.5);
         this.draw();
         return this;
     }
