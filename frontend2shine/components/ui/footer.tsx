@@ -44,8 +44,8 @@ export default function Footer() {
                   </li>
                   <li className="mb-1">
                     <Link href="/games"
-                          className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Upcoming
-                      Game</Link>
+                          className="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out">Snake
+                      Extreme</Link>
                   </li>
                 </ul>
               </div>
