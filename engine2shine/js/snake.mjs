@@ -12,7 +12,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'snake';
-const url = 'https://api.maiwald.cc/highscores';
+const urlBase = 'https://api.maiwald.cc/highscores';
 const debug = false;
 var tickTime = 100;
 
@@ -561,7 +561,7 @@ function turnSnakeHead(snake) {
         score: score
       });
       
-      const url = `${url}?${params.toString()}`;
+      const url = `${urlBase}?${params.toString()}`;
       
       fetch(url, {
         method: 'POST'
