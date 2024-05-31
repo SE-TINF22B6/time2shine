@@ -141,7 +141,7 @@ function startup() {
     submitScoreButton.sprite.cursor = 'pointer';
     submitScoreButton.sprite.eventMode = 'static';
     submitScoreButton.sprite.on('pointerdown', function() {
-        if(!isBtnLoading) {
+        if(!isBtnLoading && score != 0) {
             sendScore();
         }
     });
