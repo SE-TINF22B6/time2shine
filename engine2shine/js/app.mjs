@@ -397,6 +397,7 @@ function sendScore() {
       .catch((error) => {
         console.error('Error:', error);
       });
+      score = 0;
 
   }
 
