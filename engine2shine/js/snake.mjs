@@ -531,29 +531,7 @@ function turnSnakeHead(snake) {
   }
 
   function sendScore() {
-    /*
-    const data = {
-    username: username,
-    email: email,
-    game: game,
-    score: score
-    };
 
-    fetch(url, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-    console.log('Success:', data);
-    })
-    .catch((error) => {
-    console.error('Error:', error);
-    });
-    */
     const params = new URLSearchParams({
         username: username,
         email: email,

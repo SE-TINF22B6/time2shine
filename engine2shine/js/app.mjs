@@ -11,6 +11,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const email = urlParams.get('email');
 const game = 'blackjack';
+const urlBase = 'https://api.maiwald.cc/highscores';
 
 document.body.appendChild(app.view);
 app.renderer.backgroundColor = 0x35654d;
@@ -24,6 +25,7 @@ var isBtnLoading = false;
 var isEndTurn = false;
 var cardValue = 0;
 var kiCardValue = 0;
+var score = 0;
 
 
 
@@ -37,6 +39,14 @@ function startup() {
     isEndTurn = false
     cardValue = 0;
     kiCardValue = 0;
+
+    var scoreText = new Text(score, {
+        fontFamily: 'Arial',
+        fontSize: 32,
+        fill: 0x040e0f,
+        align: 'right',
+        //anchor: (1,1),
+    });
 
     var cardValueText = new Text(cardValue, {
         fontFamily: 'Arial',
@@ -96,11 +106,22 @@ function startup() {
     30
 );
 
-    const button = new Button(10, (app.renderer.height - 200));
-    button.sprite.interactive = true;
-    button.sprite.cursor = 'pointer';
-    button.sprite.eventMode = 'static';
-    button.sprite.on('pointerdown', function() {
+    const newGameButton = new Button(cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50, (app.renderer.height/2));
+    newGameButton.sprite.interactive = true;
+    newGameButton.sprite.cursor = 'pointer';
+    newGameButton.sprite.eventMode = 'static';
+    newGameButton.sprite.on('pointerdown', function() {
+        if(!isBtnLoading) {
+            sendScore();
+        }
+    });
+
+    const submitScoreButton = new Button(-1000, (app.renderer.height/2));
+    submitScoreButton.sprite.x = cardDeck[0].sprite.x - submitScoreButton.sprite.width - 50;
+    submitScoreButton.sprite.interactive = true;
+    submitScoreButton.sprite.cursor = 'pointer';
+    submitScoreButton.sprite.eventMode = 'static';
+    submitScoreButton.sprite.on('pointerdown', function() {
         if(!isBtnLoading) {
             if(isEndTurn) {
                 newGame(playerCards, kiCards, cardDeck);
@@ -142,12 +163,14 @@ function startup() {
     }
 
     //app.stage.addChild(playerCards[0].bunny);
-    app.stage.addChild(button.sprite);
+    app.stage.addChild(newGameButton.sprite);
+    app.stage.addChild(submitScoreButton.sprite);
     app.stage.addChild(cardValueText);
     app.stage.addChild(kiCardValueText);
     app.stage.addChild(usernameText);
     app.stage.addChild(hand.obj);
     app.stage.addChild(kiHand.obj);
+    app.stage.addChild(scoreText);
 
     // Listen for animate update
     gameStart(playerCards, hand, false);
@@ -164,7 +187,10 @@ function startup() {
         cardValueText.x = app.renderer.width - 150;
         cardValueText.y = app.renderer.height - 150;
         usernameText.x = 450;
-        usernameText.y = app.renderer.height - 290  ;
+        usernameText.y = app.renderer.height - 290;
+        scoreText.x = 20;
+        scoreText.y = app.renderer.height - 100;
+        scoreText.text = "Score: " + score;
         cardValueText.text = cardValue;
 
         kiCardValueText.x = app.renderer.width - 150;
@@ -288,6 +314,7 @@ async function endTurn(playerCards, hand, isKi) {
     isEndTurn = true;
     if((cardValue <=21 && kiCardValue < cardValue) || (cardValue <=21 && kiCardValue > 21)) {
         console.log("You WIN!");
+        score += 3;
         /*
         await fetch(`https://api.maiwald.cc/highscores?${params.toString()}`, {
             method: 'POST',
@@ -303,8 +330,10 @@ async function endTurn(playerCards, hand, isKi) {
     } else {
         if((cardValue == kiCardValue) || (cardValue > 21 && kiCardValue > 21)) {
             console.log("It's a DRAW!");
+            score += 1;
         } else {
             console.log("You LOOSE!");
+            score -= 1;
         }
     }
     isBtnLoading = false;
@@ -325,6 +354,30 @@ function newGame(cards, kiCards, deck) {
     }
     startup();
 }
+
+function sendScore() {
+
+    const params = new URLSearchParams({
+        username: username,
+        email: email,
+        game: game,
+        score: score
+      });
+      
+      const url = `${urlBase}?${params.toString()}`;
+      
+      fetch(url, {
+        method: 'POST'
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  }
 
 /*
 class Account {
