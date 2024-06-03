@@ -31,8 +31,7 @@ var kiCardValue = 0;
 var score = 0;
 var endTurnButton;
 var newGameButton;
-
-
+var deckId;
 
 function startup() {
     /*
@@ -77,14 +76,11 @@ function startup() {
         //anchor: (1,1),
     });
 
-    var cardDeck = new Array();
-    console.log("Deck: " + cardDeck.length);
-    for (let i = 0; i < 10; i++) {
-        cardDeck[i] = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 2);
-        cardDeck[i].sprite.interactive = true;
-        cardDeck[i].sprite.cursor = 'pointer';
-        cardDeck[i].sprite.eventMode = 'static';
-    }
+    var cardDeck = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 2, 0, Sprite.from('https://www.deckofcardsapi.com/static/img/back.png'));
+    cardDeck.sprite.interactive = true;
+    cardDeck.sprite.cursor = 'pointer';
+    cardDeck.sprite.eventMode = 'static';
+    //cardDeck[0] = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 2, playingCardsDeck[i].value, Sprite.from(playingCardsDeck[i].image));
     //var cardDecks = new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3);
     //cardDeck.sprite.interactive = true;
     //cardDeck.sprite.cursor = 'pointer';
@@ -111,7 +107,7 @@ function startup() {
     30
 );
 
-    endTurnButton = new Button(cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50, (app.renderer.height/2), Sprite.from('graphic/end_turn_btn.png'));
+    endTurnButton = new Button(cardDeck.sprite.x + cardDeck.sprite.width + 50, (app.renderer.height/2), Sprite.from('graphic/end_turn_btn.png'));
     endTurnButton.sprite.interactive = true;
     endTurnButton.sprite.cursor = 'pointer';
     endTurnButton.sprite.eventMode = 'static';
@@ -123,7 +119,7 @@ function startup() {
         }
     });
 
-    newGameButton = new Button(cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50, (app.renderer.height/2), Sprite.from('graphic/new_game_btn.png'));
+    newGameButton = new Button(cardDeck.sprite.x + cardDeck.sprite.width + 50, (app.renderer.height/2), Sprite.from('graphic/new_game_btn.png'));
     newGameButton.sprite.interactive = true;
     newGameButton.sprite.cursor = 'pointer';
     newGameButton.sprite.eventMode = 'static';
@@ -136,7 +132,7 @@ function startup() {
     });
 
     const submitScoreButton = new Button(-1000, (app.renderer.height/2), Sprite.from('graphic/submit_score_btn.png'));
-    submitScoreButton.sprite.x = cardDeck[0].sprite.x - submitScoreButton.sprite.width - 50;
+    submitScoreButton.sprite.x = cardDeck.sprite.x - submitScoreButton.sprite.width - 50;
     submitScoreButton.sprite.interactive = true;
     submitScoreButton.sprite.cursor = 'pointer';
     submitScoreButton.sprite.eventMode = 'static';
@@ -154,12 +150,13 @@ function startup() {
 
     // Move the sprite to the center of the screen
     //cardDeck.sprite.on('pointerdown', drawCard(hand, playerCards));
-    cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {
+    cardDeck.sprite.on('pointerdown', function() {
         if(cardValue < 21 && !isEndTurn) {
-            drawCard(playerCards, hand, false);
-        if(kiCardValue < 19) {
-            drawCard(kiCards, kiHand, true);
-        }
+            drawCard(playerCards, hand, false).then(() => {
+                if(kiCardValue < 19) {
+                    drawCard(kiCards, kiHand, true);
+                }
+            })
         }
     }); // mouse-only
     //cardDeck[cardDeck.length-1].sprite.on('pointerdown', function() {cardDeck[cardDeck.length-1].sprite.y -= 50; playerCards.push(cardDeck[cardDeck.length-1]); cardDeck.pop(); console.log("Deck:"+cardDeck.length); console.log("Playercards:"+playerCards.length);}); // mouse-only
@@ -173,11 +170,8 @@ function startup() {
         app.stage.addChild(kiCards[i].sprite);
     }
 
-    for (let i = 0; i < 10; i++) {
-        app.stage.addChild(cardDeck[i].sprite);
-    }
-
     //app.stage.addChild(playerCards[0].bunny);
+    app.stage.addChild(cardDeck.sprite);
     app.stage.addChild(endTurnButton.sprite);
     app.stage.addChild(submitScoreButton.sprite);
     app.stage.addChild(cardValueText);
@@ -187,9 +181,15 @@ function startup() {
     app.stage.addChild(kiHand.obj);
     app.stage.addChild(scoreText);
 
+
+    fillCardDeck().then(() => {
+        gameStart(playerCards, hand, false).then(() => {
+            gameStart(kiCards, kiHand, true);
+        })
+        
+    });
     // Listen for animate update
-    gameStart(playerCards, hand, false);
-    gameStart(kiCards, kiHand, true);
+    
     
     app.ticker.add(function(delta) {
         /*
@@ -208,7 +208,7 @@ function startup() {
         scoreText.text = "Score: " + score;
         cardValueText.text = cardValue;
 
-        newGameButton.sprite.x = cardDeck[0].sprite.x + cardDeck[0].sprite.width + 50;
+        newGameButton.sprite.x = cardDeck.sprite.x + cardDeck.sprite.width + 50;
         newGameButton.sprite.y = (app.renderer.height/2);
 
         kiCardValueText.x = app.renderer.width - 150;
@@ -238,12 +238,27 @@ function drawTable() {
 }
 */
 async function drawCard(playerHand, hand, isKi) {
-    console.log(isKi);
+    
+    let response = await fetch("https://www.deckofcardsapi.com/api/deck/" + deckId + "/draw/?count=6");
+    let json = await response.json();
+    let randomCard = json.cards[0];
+    console.log(json);
+    switch (randomCard.value) {
+        case "ACE":
+            randomCard.value = 11;
+            break;
+        case "KING":
+        case "QUEEN":
+        case "JACK":
+            randomCard.value = 10;
+        default:
+            randomCard.value = Number(randomCard.value);
+    }
     if(isKi) {
         console.log("Punktzahl auf der Hand KI: " + kiCardValue);
         if (playerHand.length < 8 && kiCardValue < 21) {
             //playerHand.push(new Card(hand.x + 30, hand.y));
-            playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3));
+            playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3, Number(randomCard.value), Sprite.from(randomCard.image)));
             //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
             drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
             app.stage.addChild(playerHand[playerHand.length-1].sprite)
@@ -276,7 +291,7 @@ async function drawCard(playerHand, hand, isKi) {
         console.log("Punktzahl auf der Hand: " + cardValue);
         if (playerHand.length < 8 && cardValue < 21) {
             //playerHand.push(new Card(hand.x + 30, hand.y));
-            playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3));
+            playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3, Number(randomCard.value), Sprite.from(randomCard.image)));
             //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
             drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
             app.stage.addChild(playerHand[playerHand.length-1].sprite)
@@ -306,6 +321,7 @@ async function drawCard(playerHand, hand, isKi) {
         */
         console.log("Neuer Punktestand: " + cardValue);
     }
+    await new Promise(r => setTimeout(r, 500));
 }
 
 async function drawCardAnimation(playerCard, hand, length) {
@@ -317,10 +333,12 @@ async function drawCardAnimation(playerCard, hand, length) {
 }
 
 async function gameStart(playerCards, hand, isKi) {
-    drawCard(playerCards, hand, isKi);
-    await new Promise(r => setTimeout(r, 500));
-    drawCard(playerCards, hand, isKi);
-    await new Promise(r => setTimeout(r, 500));
+    drawCard(playerCards, hand, isKi).then(() => {
+        drawCard(playerCards, hand, isKi);
+        
+    })
+    await new Promise(r => setTimeout(r, 1250));
+    
 }
 
 async function endTurn(playerCards, hand, isKi) {
@@ -370,9 +388,7 @@ function newGame(cards, kiCards, deck) {
         app.stage.removeChild(kiCards[i].sprite);
     }
 
-    for (let i = 0; i < 10; i++) {
-        app.stage.removeChild(deck[i].sprite);
-    }
+    app.stage.removeChild(deck.sprite);
     startup();
 }
 
@@ -401,7 +417,35 @@ function sendScore() {
 
   }
 
+  async function fillCardDeck() {
+    try {
+        let response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6");
+        let json = await response.json();
+        deckId = json.deck_id;
+        //let remainingCards = json.remaining;
+        console.log(deckId);
+
+        //await drawCard();
+        //console.log("All cards drawn:", playingCardsDeck);
+
+    } catch (error) {
+        console.error("Error generating deck:", error);
+    }
+}
 /*
+async function drawCard() {
+    try {
+        let response = await fetch("https://www.deckofcardsapi.com/api/deck/" + deckId + "/draw/?count=1");
+        let json = await response.json();
+        var randomCard = json.cards[0];
+        playingCardsDeck.push(randomCard);
+    } catch (error) {
+        console.error("Error drawing card:", error);
+    }
+    
+}
+
+
 class Account {
     constructor(username, email) {
         this.username = username;

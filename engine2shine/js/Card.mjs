@@ -2,14 +2,14 @@ import {Sprite} from "./pixi.mjs";
 
 class Card {
 
-    constructor(x, y) {
-        this.sprite = Sprite.from('graphic/CardBackTemp.jpg');
+    constructor(x, y, value, sprite) {
+        this.sprite = sprite;
         this.width = 130;
         this.height = 200;
         this.radius = 30;
         this.x = x;
         this.y = y;
-        this.value = Math.floor(Math.random() * 10) + 2;
+        this.value = value;
         this.draw();
         return this;
     }
