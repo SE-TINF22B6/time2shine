@@ -239,7 +239,7 @@ function drawTable() {
 */
 async function drawCard(playerHand, hand, isKi) {
     
-    let response = await fetch("https://www.deckofcardsapi.com/api/deck/" + deckId + "/draw/?count=6");
+    let response = await fetch("https://www.deckofcardsapi.com/api/deck/" + deckId + "/draw/?count=1");
     let json = await response.json();
     let randomCard = json.cards[0];
     console.log(json);
@@ -260,8 +260,8 @@ async function drawCard(playerHand, hand, isKi) {
             //playerHand.push(new Card(hand.x + 30, hand.y));
             playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3, Number(randomCard.value), Sprite.from(randomCard.image)));
             //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
-            drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
-            app.stage.addChild(playerHand[playerHand.length-1].sprite)
+            drawCardAnimation(playerHand[playerHand.length-1].defaultSprite, hand, playerHand.length-1)
+            app.stage.addChild(playerHand[playerHand.length-1].defaultSprite)
             kiCardValue += playerHand[playerHand.length-1].value;
             console.log("Gezogene Karte KI: " + playerHand[playerHand.length-1].value);
             if (kiCardValue > 21) {
@@ -293,7 +293,7 @@ async function drawCard(playerHand, hand, isKi) {
             //playerHand.push(new Card(hand.x + 30, hand.y));
             playerHand.push(new Card((app.renderer.width - 130) / 2,(app.renderer.height - 200) / 3, Number(randomCard.value), Sprite.from(randomCard.image)));
             //playerHand[playerHand.length-1].sprite.x += playerHand[playerHand.length-1].sprite.width * (playerHand.length - 1);
-            drawCardAnimation(playerHand[playerHand.length-1], hand, playerHand.length-1)
+            drawCardAnimation(playerHand[playerHand.length-1].sprite, hand, playerHand.length-1)
             app.stage.addChild(playerHand[playerHand.length-1].sprite)
             cardValue += playerHand[playerHand.length-1].value;
             console.log("Gezogene Karte: " + playerHand[playerHand.length-1].value);
@@ -325,10 +325,10 @@ async function drawCard(playerHand, hand, isKi) {
 }
 
 async function drawCardAnimation(playerCard, hand, length) {
-    while (playerCard.sprite.x != hand.x+30+playerCard.sprite.width*length || playerCard.sprite.y != hand.y) {
+    while (playerCard.x != hand.x+30+playerCard.width*length || playerCard.y != hand.y) {
         await new Promise(r => setTimeout(r, 5));
-        playerCard.sprite.x -= (playerCard.sprite.x-(hand.x+30+playerCard.sprite.width*length))/10;
-        playerCard.sprite.y -= (playerCard.sprite.y-hand.y)/10;
+        playerCard.x -= (playerCard.x-(hand.x+30+playerCard.width*length))/10;
+        playerCard.y -= (playerCard.y-hand.y)/10;
     }
 }
 
@@ -349,6 +349,14 @@ async function endTurn(playerCards, hand, isKi) {
         drawCard(playerCards, hand, isKi);
         await new Promise(r => setTimeout(r, 500));
     }
+    await new Promise(r => setTimeout(r, 500));
+    for (let i = 0; i < playerCards.length; i++) {
+        playerCards[i].sprite.x = playerCards[i].defaultSprite.x;
+        playerCards[i].sprite.y = playerCards[i].defaultSprite.y;
+        app.stage.removeChild(playerCards[i].defaultSprite);
+        app.stage.addChild(playerCards[i].sprite);
+    }
+
     isEndTurn = true;
     if((cardValue <=21 && kiCardValue < cardValue) || (cardValue <=21 && kiCardValue > 21)) {
         console.log("You WIN!");
