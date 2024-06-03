@@ -24,7 +24,7 @@ app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .add('submit_score_btn', 'graphic/submit_score_btn.png')
     .load(startup);
 
-var isBtnLoading = false;
+var isBtnLoading = true;
 var isEndTurn = false;
 var cardValue = 0;
 var kiCardValue = 0;
@@ -39,7 +39,7 @@ function startup() {
     texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
 
      */
-    isBtnLoading = false;
+    isBtnLoading = true;
     isEndTurn = false
     cardValue = 0;
     kiCardValue = 0;
@@ -185,6 +185,7 @@ function startup() {
     fillCardDeck().then(() => {
         gameStart(playerCards, hand, false).then(() => {
             gameStart(kiCards, kiHand, true);
+            isBtnLoading = false;
         })
         
     });
