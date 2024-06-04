@@ -76,7 +76,7 @@ export default function Games() {
                   </SessionProvider>
                 </div>
                 <div className="text-center" data-aos="fade-up" data-aos-delay="600">
-                  <a className="btn text-gray-400 hover:text-purple-700" href="#">Learn more</a>
+                  <a className="btn text-gray-400 hover:text-purple-700" href="/games/roehrigclicker">Learn more</a>
                 </div>
               </div>
 

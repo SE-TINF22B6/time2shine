@@ -32,23 +32,23 @@ export default function Games() {
               </div>
 
 
-              <p style={{ color: 'yellow', fontSize: `35px` }}>BJ Tipps:</p>
-              <p style={{color: 'yellow', fontSize: `30px`}}>1. Kartenwerte zuordnen:</p>
+              <p style={{ color: ' rgb(147 51 234)', fontSize: `35px` }}>BJ Tipps:</p>
+              <p style={{color: ' rgb(147 51 234)', fontSize: `30px`}}>1. Kartenwerte zuordnen:</p>
               <p>Niedrige Karten (2, 3, 4, 5, 6) werden mit +1 bewertet.</p>
               <p>Mittlere Karten (7, 8, 9) haben einen Wert von 0.</p>
               <p>Hohe Karten (10, Bube, Dame, König) werden mit -1 bewertet.</p>
-              <p style={{color:'yellow', fontSize: `30px`}}>2.Wie funktioniert das Kartenzählen?:</p>
+              <p style={{color:' rgb(147 51 234)', fontSize: `30px`}}>2.Wie funktioniert das Kartenzählen?:</p>
               <p>Beginne mit einem laufenden Zählwert (Running Count) von 0.</p>
               <p>Addiere oder subtrahiere den entsprechenden Wert für jede ausgeteilte Karte.</p>
               <p>Wenn der laufende Zählwert positiv ist, gibt es mehr hohe Karten im Deck, was für dich vorteilhaft
                   ist.</p>
               <p>Wenn der Wert negativ ist, sind mehr niedrige Karten übrig, was eher dem Dealer hilft.</p>
-              <p style={{color:'yellow', fontSize: `30px`}}>3.Wahre Zählung berechnen:</p>
+              <p style={{color:' rgb(147 51 234)', fontSize: `30px`}}>3.Wahre Zählung berechnen:</p>
               <p>Berücksichtige die Anzahl der verbleibenden Decks im Schuh.</p>
               <p>Teile den laufenden Zählwert durch die Anzahl der verbleibenden Decks, um den wahren Wert zu
                   erhalten.</p>
               <p>Die wahre Zählung ist entscheidend, um den Vorteil zu maximieren.</p>
-              <p style={{color:'yellow', fontSize: `30px`}}>4. Vorteile des Kartenzählens:</p>
+              <p style={{color:' rgb(147 51 234)', fontSize: `30px`}}>4. Vorteile des Kartenzählens:</p>
               <p> Ein positiver Zählwert bedeutet, dass mehr hohe Karten im Deck sind. Du kannst deine Einsätze
                   erhöhen.</p> Ein positiver Zählwert bedeutet, dass mehr hohe Karten im Deck sind. Du kannst deine
               Einsätze erhöhen.
