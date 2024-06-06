@@ -4,6 +4,7 @@ import {BlackJackRedirect} from "@/components/blackjack-redirect";
 import {SessionProvider} from "next-auth/react";
 import {Helmet} from "react-helmet";
 import React from "react";
+import {RoehrigRedirect} from "@/components/roehrig-redirect";
 
 export default function BlackjackPage() {
   return (
@@ -23,7 +24,7 @@ export default function BlackjackPage() {
                   <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
                       <div data-aos="fade-up" data-aos-delay="400">
                           <SessionProvider>
-                              <BlackJackRedirect/>
+                              <RoehrigRedirect/>
                           </SessionProvider>
                       </div>
                   </div>
