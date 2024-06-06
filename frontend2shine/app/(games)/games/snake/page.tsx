@@ -4,6 +4,7 @@ import {BlackJackRedirect} from "@/components/blackjack-redirect";
 import {SessionProvider} from "next-auth/react";
 import {Helmet} from "react-helmet";
 import React from "react";
+import {SnakeRedirect} from "@/components/snake-redirect";
 
 export default function BlackjackPage() {
   return (
@@ -24,7 +25,7 @@ export default function BlackjackPage() {
                   <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
                       <div data-aos="fade-up" data-aos-delay="400">
                           <SessionProvider>
-                              <BlackJackRedirect/>
+                              <SnakeRedirect/>
                           </SessionProvider>
                       </div>
                   </div>
@@ -46,8 +47,8 @@ export default function BlackjackPage() {
                   zu geben!</p>
 
               <p style={{color: 'rgb(147 51 234)', fontSize: `35px`}}>4. Steuerung:</p>
-              <p>Linke Hälfte der Schlange (wasd): Steuere die Schlange nach oben, unten, links und rechts.</p>
-              <p>Rechte Hälfte der Schlange (ihjk): Steuere den rechten Teil deiner Schlange.</p>
+              <p>Linke Hälfte der Schlange (WASD): Steuere die Schlange nach oben, unten, links und rechts.</p>
+              <p>Rechte Hälfte der Schlange (IJKL): Steuere den rechten Teil deiner Schlange.</p>
 
 
 
