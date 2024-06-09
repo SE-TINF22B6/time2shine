@@ -76,6 +76,7 @@ app.loader.add('cardDeck', 'graphic/CardBackTemp.jpg')
     .add('grass_light', 'graphic/grass_light.png')
     .add('snake_body', 'graphic/snake_body.png')
     .add('snake_head', 'graphic/snake_head.png')
+    .add('home_btn', 'graphic/home_btn.png')
     .load(startup);
 
 var fullBoard = new Array();
@@ -122,6 +123,18 @@ const button = new Button(screenSize + 50, screenSize - 100, Sprite.from('graphi
         newGame();
     }
 );
+
+const home_button = new Button(app.renderer.width - 120, 20, Sprite.from('graphic/home_btn.png'));
+    home_button.sprite.width = 100;
+    home_button.sprite.height = 100;
+    home_button.sprite.interactive = true;
+    home_button.sprite.cursor = 'pointer';
+    home_button.sprite.eventMode = 'static';
+    home_button.sprite.on('pointerdown', function() {
+        window.location.href = "https://t2s.maiwald.cc/";
+    }
+);
+app.stage.addChild(home_button.sprite);
 
 //snakes[0] = [new PlayerBody(0, 0, tileSize, tileSize, fullBoard[0][0]), new PlayerBody(1, 0, tileSize, tileSize, fullBoard[0][1]), new PlayerHead(2, 0, tileSize, tileSize, fullBoard[0][2])]
 //snakes[1] = [new PlayerBody(0, 1, tileSize, tileSize, fullBoard[1][0]), new PlayerBody(1, 1, tileSize, tileSize, fullBoard[1][1]), new PlayerHead(2, 1, tileSize, tileSize, fullBoard[1][2])]
@@ -434,6 +447,7 @@ async function gameClock(action) {
             tack = false;
             console.log("NEW GAME");
             sendScore();
+            showInfoBanner("Your score has been submitted successfully!", 'green');
         }
     }
     if (action == "startEnemyClock") {
@@ -553,3 +567,40 @@ function turnSnakeHead(snake) {
       });
 
   }
+
+  function showInfoBanner(message, color, duration = 3000) {
+    // Create the banner element if it doesn't exist
+    let banner = document.getElementById('info-banner');
+    if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'info-banner';
+        banner.style.position = 'fixed';
+        banner.style.top = '25px';
+        banner.style.left = '25px';
+        //banner.style.transform = 'translateX(-50%)';
+        banner.style.color = '#fff';
+        banner.style.padding = '10px 20px';
+        banner.style.borderRadius = '5px';
+        banner.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.1)';
+        banner.style.zIndex = '1000';
+        banner.style.opacity = '0';
+        banner.style.transition = 'opacity 0.5s ease';
+        banner.style.maxWidth = 'calc(100% - 100px)';
+        banner.style.textAlign = 'left';
+        document.body.appendChild(banner);
+    }
+
+    // Set the banner message and show it
+    banner.textContent = message;
+    banner.style.backgroundColor = color;
+    banner.style.display = 'block';
+    banner.style.opacity = '1';
+
+    // Hide the banner after the specified duration
+    setTimeout(() => {
+        banner.style.opacity = '0';
+        setTimeout(() => {
+            banner.style.display = 'none';
+        }, 500); // Match the transition duration
+    }, duration);
+}

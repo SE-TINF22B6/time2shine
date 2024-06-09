@@ -33,6 +33,18 @@ var endTurnButton;
 var newGameButton;
 var deckId;
 
+const home_button = new Button(app.renderer.width - 120, 20, Sprite.from('graphic/home_btn.png'));
+    home_button.sprite.width = 100;
+    home_button.sprite.height = 100;
+    home_button.sprite.interactive = true;
+    home_button.sprite.cursor = 'pointer';
+    home_button.sprite.eventMode = 'static';
+    home_button.sprite.on('pointerdown', function() {
+        window.location.href = "https://t2s.maiwald.cc/";
+    }
+);
+app.stage.addChild(home_button.sprite);
+
 function startup() {
     /*
     const { texture } = app.loader.resources.cardDeck;
@@ -360,6 +372,7 @@ async function endTurn(playerCards, hand, isKi) {
 
     isEndTurn = true;
     if((cardValue <=21 && kiCardValue < cardValue) || (cardValue <=21 && kiCardValue > 21)) {
+        showInfoBanner("You WIN!", "green");
         console.log("You WIN!");
         score += 3;
         /*
@@ -376,9 +389,11 @@ async function endTurn(playerCards, hand, isKi) {
 
     } else {
         if((cardValue == kiCardValue) || (cardValue > 21 && kiCardValue > 21)) {
+            showInfoBanner("It's a DRAW!", "orange");
             console.log("It's a DRAW!");
             score += 1;
         } else {
+            showInfoBanner("You LOOSE!", "red");
             console.log("You LOOSE!");
             score -= 1;
         }
@@ -423,6 +438,7 @@ function sendScore() {
         console.error('Error:', error);
       });
       score = 0;
+      showInfoBanner("Your score has been submitted successfully!", 'green');
 
   }
 
@@ -440,6 +456,43 @@ function sendScore() {
     } catch (error) {
         console.error("Error generating deck:", error);
     }
+}
+
+function showInfoBanner(message, color, duration = 3000) {
+    // Create the banner element if it doesn't exist
+    let banner = document.getElementById('info-banner');
+    if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'info-banner';
+        banner.style.position = 'fixed';
+        banner.style.top = '25px';
+        banner.style.left = '25px';
+        //banner.style.transform = 'translateX(-50%)';
+        banner.style.color = '#fff';
+        banner.style.padding = '10px 20px';
+        banner.style.borderRadius = '5px';
+        banner.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.1)';
+        banner.style.zIndex = '1000';
+        banner.style.opacity = '0';
+        banner.style.transition = 'opacity 0.5s ease';
+        banner.style.maxWidth = 'calc(100% - 100px)';
+        banner.style.textAlign = 'left';
+        document.body.appendChild(banner);
+    }
+
+    // Set the banner message and show it
+    banner.textContent = message;
+    banner.style.backgroundColor = color;
+    banner.style.display = 'block';
+    banner.style.opacity = '1';
+
+    // Hide the banner after the specified duration
+    setTimeout(() => {
+        banner.style.opacity = '0';
+        setTimeout(() => {
+            banner.style.display = 'none';
+        }, 500); // Match the transition duration
+    }, duration);
 }
 /*
 async function drawCard() {
