@@ -86,7 +86,7 @@ export default function Games() {
             <div className="rounded-xl flex flex-col h-full p-6 bg-gray-800 items-center" data-aos="fade-up"
                  data-aos-delay="400">
               <Image className="rounded-2xl mb-5" src={SnakeGame} width={300} alt="Snake Game" />
-              <blockquote className="text-lg text-gray-400 grow text-center">In Snake Extreme, crank up the speed and outsmart your opponents, dodging your pixelated enemies to avoid a surprise!</blockquote>
+              <blockquote className="text-lg text-gray-400 grow text-center">In Snake Extreme, crank up the speed and outsmart your opponents, dodging your pixelated enemies for as long as you can to get points!</blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700 mb-2">
                 <div data-aos="fade-up" data-aos-delay="400">
                   <SessionProvider>
