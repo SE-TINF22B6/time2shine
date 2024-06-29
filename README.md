@@ -20,3 +20,6 @@ This is the GitHub Repository for our Software-Engineering project. We aim to bu
 ---
 
 See our Software Requirement Specification (SRS) [here](https://github.com/SE-TINF22B6/time2shine/blob/main/Documentation/srs.md).
+
+---
+## [Play now!](https://t2s.maiwald.cc/)
