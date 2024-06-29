@@ -5,8 +5,8 @@
 #### 1.1 Overview
 > A game hub where players can play and enjoy multiple different online games of different styles directly in their browsers, whitout having to install any software.
 #### 1.2 Scope
-> This document covers our whole project, in the future however we might split it up into two sections (probably frontend and backend).
-#### 1.3 Definitions, Acronyms and Abbreviations
+> This Software Requirements Specification (SRS) document covers our whole project. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
+#### 1.3 Defin itions, Acronyms and Abbreviations
 - **API:** Application Programming Interface
 - **Java:** The programming language we use in our backend
 - **Pixi.JS:** OpenGL Renderer we use for building the games in our frontend
