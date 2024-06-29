@@ -1,3 +1,6 @@
+
+
+
 Development environment: CI/CD tools focusing on developing clean and tested code.
 Central repository environment: CI/CD pipelines with automated processes to ensure absolute correctness on the main branch.
 Detailed Configuration of Tools and Processes
