@@ -63,6 +63,12 @@ After pushing new code or features to the main branch (or selected branches like
 - Configuration file available here.
 - Checks for updated or new versions of dependencies and sends pull requests for approval.
 
+
+Here is the picture
+
+![image](https://github.com/SE-TINF22B6/time2shine/assets/123726672/74f62fb1-299b-4a20-8009-55dd6fbb6b5a)
+
+
 ---
 
 
