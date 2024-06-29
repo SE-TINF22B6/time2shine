@@ -3,7 +3,7 @@
 > This template is a simplified version based on the documentation templates from IBM Rational Unified Process (RUP).
 ### 1. Introduction
 #### 1.1 Overview
-> A game hub where players can play and enjoy multiple different online games of different styles directly in their browsers, whitout having to install any software.
+A game hub where players can play and enjoy multiple different games of different styles directly in their browsers, whitout having to install any software.
 #### 1.2 Scope
 > This Software Requirements Specification (SRS) document covers our whole project. It encompasses both functional and non-functional requirements necessary for the successful development, deployment, and operation of the platform. The document aims to provide a comprehensive understanding of the system's architecture, features, and limitations.
 #### 1.3 Definitions, Acronyms and Abbreviations
