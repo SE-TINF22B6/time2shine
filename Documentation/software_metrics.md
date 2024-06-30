@@ -1,4 +1,4 @@
-# Project Name
+# Time2shine
 ## Measurements
 ### Introduction
 We measured three metrics for our website which are listed below. The page load time is measured by the website [pingdom](https://www.pingdom.com/) that was also presented during one of our lectures. The measurement for user traffic and server load is taking digital ocean, the platform that our website runs on.
