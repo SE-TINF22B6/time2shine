@@ -3,38 +3,6 @@
 > This template is a simplified version based on the documentation templates from IBM Rational Unified Process (RUP).
 
 ### 1. Introduction
-#### [1.1 Overview](#11-overview)
-#### [1.2 Scope](#12-scope)
-#### [1.3 Definitions, Acronyms and Abbreviations](#13-definitions-acronyms-and-abbreviations)
-#### [1.4 References](#14-references)
-
-### 2. Functional Requirements
-#### [2.1 Overview](#21-overview)
-#### [2.2 Account Management](#22-account-management)
-##### [2.2.1 Highscore Activity Diagram](#221-highscore-activity-diagram)
-##### [2.2.2 LogIn Sequence Diagram](#222-login-sequence-diagram)
-##### [2.2.3 Account Management Activity Diagram](#223-account-management-activity-diagram)
-#### [2.3 User Registration](#23-user-registration)
-#### [2.4 User Login](#24-user-login)
-#### [2.5 Playing Games](#25-playing-games)
-#### [2.6 Start New Game of Snake](#26-start-new-game-of-snake)
-#### [2.7 Start New Game of Cookie Clicker](#27-start-new-game-of-cookie-clicker)
-#### [2.8 Highscore Tracking](#28-highscore-tracking)
-#### [2.9 View Game Statistics](#29-view-game-statistics)
-
-### 3. Nonfunctional Requirements
-#### [3.1 Quality Attribute Scenarios](#31-quality-attribute-scenarios)
-#### [3.2 Maintainability and Modifiability](#32-maintainability-and-modifiability)
-#### [3.3 Performance](#33-performance)
-#### [3.4 Availability](#34-availability)
-#### [3.5 Security](#35-security)
-#### [3.6 Testability](#36-testability)
-
-### 4. Technical Constraints
-
----
-
-### 1. Introduction
 #### 1.1 Overview
 A game hub where players can play and enjoy multiple different games of different styles directly in their browsers, whitout having to install any software.
 #### 1.2 Scope
